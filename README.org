@@ -3,9 +3,8 @@
 
 * Introduction
 
-This repository contains materials for Python lectures given in Licence 3 of
-Fundamental Physics at the University of Paris Sud. It provides slides, courses
-as well as exercices and piece of code to give an introduction of Python
+This repository contains materials for Python lectures given in Master 1 of Fundamental Physics at
+the University of Paris Sud. It provides slides and exercices to give an introduction of Python
 programming.
 
 * Installation
