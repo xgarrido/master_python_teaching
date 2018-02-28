@@ -1,4 +1,4 @@
-#+OPTIONS: toc:nil ^:{} H:2
+#+OPTIONS: toc:nil ^:{} H:2 author:nil
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 
@@ -830,7 +830,7 @@ et en Fortran
 #+ATTR_LATEX: :width 0.7\linewidth
 [[file:figures/broadcast.pdf]]
 
-* COMMENT Librairie =matplotlib=
+* Librairie =matplotlib=
 ** Titre
 :PROPERTIES:
 :BEAMER_ENV: fullframe
@@ -858,17 +858,9 @@ et en Fortran
   d'un point de vue /programmatique/ \to *reproductibilité* des figures et des
   résultats scientifiques
 
-** Installation & importation de =matplotlib=
-
-#+ATTR_BEAMER: :overlay +-
-- Installation /via/ =pip=
-
-  #+BEGIN_SRC shell-session
-    $ pip install matplotlib
-  #+END_SRC
+** Importation de =matplotlib=
 
 - Convention d'importation
-
   #+BEGIN_SRC python
     In [1]: import matplotlib as mpl
     In [2]: import matplotlib.pyplot as plt
@@ -879,7 +871,6 @@ et en Fortran
 #+BEAMER: \setbeamercovered{invisible}
 
 - Affichage depuis un script python
-
   #+BEGIN_SRC python -n
     import matplotlib.pyplot as plt
     import numpy as np
@@ -897,9 +888,9 @@ et en Fortran
   #+BEGIN_SRC latex
     \begin{tikzpicture}[remember picture,overlay]
       \tikzset{codeblock/.style={color=#1!50,rounded corners=0.5ex, opacity=0.2, fill}}
-      \draw[codeblock=blue] (3ex,0.75ex) rectangle (13ex,3ex);
-      \node[blue] (t) [xshift=40ex, yshift=+4ex] {\small Utilisation de \texttt{\bf plt.show()}};
-      \draw[->, blue] (t.west) to [out=180, in=0] (14ex, 1.5ex);
+      \draw[codeblock=blue] (0ex,4.5ex) rectangle (9ex,7ex);
+      \node[blue] (t) [xshift=40ex, yshift=+10ex] {\small Utilisation de \texttt{\bf plt.show()}};
+      \draw[->, blue] (t.west) to [out=180, in=0] (10ex, 5.5ex);
     \end{tikzpicture}
   #+END_SRC
 
@@ -908,8 +899,7 @@ et en Fortran
 #+BEAMER: \setbeamercovered{invisible}
 
 - Affichage depuis la console =ipython=
-
-  #+BEGIN_SRC python -n
+  #+BEGIN_SRC python
     In [1]: %matplotlib
     Using matplotlib backend: TkAgg
 
@@ -927,9 +917,9 @@ et en Fortran
   #+BEGIN_SRC latex
     \begin{tikzpicture}[remember picture,overlay]
       \tikzset{codeblock/.style={color=#1!50,rounded corners=0.5ex, opacity=0.2, fill}}
-      \draw[codeblock=blue] (10ex,18.75ex) rectangle (20ex,21ex);
-      \node[blue] (t) [xshift=50ex, yshift=+18ex] {\small Utilisation de \texttt{\bf \%matplotlib}};
-      \draw[->, blue] (t.west) to [out=180, in=0] (21ex, 20ex);
+      \draw[codeblock=blue] (6.5ex,22.5ex) rectangle (17ex,25ex);
+      \node[blue] (t) [xshift=50ex, yshift=+21ex] {\small Utilisation de \texttt{\bf \%matplotlib}};
+      \draw[->, blue] (t.west) to [out=180, in=0] (18ex, 23.5ex);
     \end{tikzpicture}
   #+END_SRC
 
@@ -953,8 +943,7 @@ et en Fortran
 #+END_SRC
 
 #+BEAMER: \pause
-- Sauvegarder la figure (=eps=, =pdf=, =png=)
-
+- Sauvegarder la figure (=svg=, =pdf=, =png=)
 #+BEGIN_SRC python
   In [7]: plt.savefig("/tmp/mpl1.pdf")
 #+END_SRC
@@ -979,23 +968,15 @@ et en Fortran
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [8]: plt.plot(x, x + 0, linestyle="solid")
-#+END_SRC
-#+BEAMER: \pause\vskip-1pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
+
   In [9]: plt.plot(x, x + 1, linestyle="dashed")
-#+END_SRC
-#+BEAMER: \pause\vskip-1pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
+
   In[10]: plt.plot(x, x + 2, linestyle="dashdot")
-#+END_SRC
-#+BEAMER: \pause\vskip-1pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
+
   In[11]: plt.plot(x, x + 3, linestyle="dotted")
 #+END_SRC
 
+#+BEAMER: \pause
 - Il est également possible d'utiliser les notations raccourcies
 
   | =-=  | \equiv | =solid=   |
@@ -1008,14 +989,9 @@ et en Fortran
 :BEAMER_COL: 0.5
 :END:
 
-#+BEGIN_SRC latex
-  \begin{center}
-    \includegraphics<1>[width=1.1\linewidth]{figures/mpl_line0.pdf}
-    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_line1.pdf}
-    \includegraphics<3>[width=1.1\linewidth]{figures/mpl_line2.pdf}
-    \includegraphics<4>[width=1.1\linewidth]{figures/mpl_line3.pdf}
-  \end{center}
-#+END_SRC
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:figures/mpl_line3.pdf]]
+
 ** /Kozmetix/ sous =matplotlib=
 #+BEAMER: \framesubtitle{Lignes, marqueurs : styles \& couleurs}
 *** Python code
@@ -1038,24 +1014,16 @@ et en Fortran
     In [9]: plt.plot(x, np.sin(x - 1), color="g")
   #+END_SRC
 
-- Échelle de gris =[0; 1]=
-  #+ATTR_LATEX: :options fontsize=\scriptsize
-  #+BEGIN_SRC python
-    In[10]: plt.plot(x, np.sin(x - 2), color="0.75")
-  #+END_SRC
-
 - Code héxadécimal (=RRGGBB=)
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
-    In[11]: plt.plot(x, np.sin(x - 3),
-                     color="#FFDD44")
+    In[10]: plt.plot(x, np.sin(x - 3), color="#FFDD44")
   #+END_SRC
 
-- RGB /tuple/ =[0; 1]=
+- Couleur du cycle =C0-9=
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
-    In[12]: plt.plot(x, np.sin(x - 4),
-                     color=(1.0,0.2,0.3))
+    In[11]: plt.plot(x, np.sin(x - 5), color="C4")
   #+END_SRC
 
 *** Figure
@@ -1069,11 +1037,10 @@ et en Fortran
     \includegraphics<2>[width=1.1\linewidth]{figures/mpl_color1.pdf}
     \includegraphics<3>[width=1.1\linewidth]{figures/mpl_color2.pdf}
     \includegraphics<4>[width=1.1\linewidth]{figures/mpl_color3.pdf}
-    \includegraphics<5>[width=1.1\linewidth]{figures/mpl_color4.pdf}
   \end{center}
 #+END_SRC
 
-** /Kozmetix/ sous =matplotlib=
+** COMMENT /Kozmetix/ sous =matplotlib=
 #+BEAMER: \framesubtitle{Lignes, marqueurs : styles \& couleurs}
 *** Python code
 :PROPERTIES:
@@ -1111,12 +1078,18 @@ et en Fortran
 
 #+BEGIN_SRC latex
   \begin{center}
-    \includegraphics[width=0.6\linewidth]{figures/mpl_marker2.pdf}
+    \includegraphics<1>[width=0.6\linewidth]{figures/mpl_marker0.pdf}
+    \includegraphics<2>[width=0.6\linewidth]{figures/mpl_marker2.pdf}
   \end{center}
 #+END_SRC
 
 #+BEGIN_SRC python
-  In [7]: for marker in ["o", ".", ",", "x", "+", "v", "^", "<", ">", "s", "d"]:
+ In [6]: plt.plot(x, np.sin(x), "o")
+#+END_SRC
+
+#+BEAMER: \pause\vskip-17pt
+#+BEGIN_SRC python
+ In [7]: for marker in ["o", ".", ",", "x", "+", "v", "^", "<", ">", "s", "d"]:
     ...:     plt.plot(np.random.rand(10), np.random.rand(10), marker)
 #+END_SRC
 
@@ -1133,17 +1106,11 @@ et en Fortran
 
   #+BEGIN_SRC python
     In [8]: plt.plot(x, x + 0, "-og")
-  #+END_SRC
-  #+BEAMER: \pause\vskip-3pt
-  #+BEGIN_SRC python
+
     In [9]: plt.plot(x, x + 1, "--xc")
-  #+END_SRC
-  #+BEAMER: \pause\vskip-3pt
-  #+BEGIN_SRC python
+
     In[10]: plt.plot(x, x + 2, "-..k")
-  #+END_SRC
-  #+BEAMER: \pause\vskip-3pt
-  #+BEGIN_SRC python
+
     In[11]: plt.plot(x, x + 3, ":sr")
   #+END_SRC
 
@@ -1155,14 +1122,8 @@ et en Fortran
 :BEAMER_COL: 0.5
 :END:
 
-#+BEGIN_SRC latex
-  \begin{center}
-    \includegraphics<1>[width=1.1\linewidth]{figures/mpl_colorline0.pdf}
-    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_colorline1.pdf}
-    \includegraphics<3>[width=1.1\linewidth]{figures/mpl_colorline2.pdf}
-    \includegraphics<4-5>[width=1.1\linewidth]{figures/mpl_colorline3.pdf}
-  \end{center}
-#+END_SRC
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:figures/mpl_colorline3.pdf]]
 
 ** /Kozmetix/ sous =matplotlib=
 #+BEAMER: \framesubtitle{Définition des limites \& \emph{ticks}}
@@ -1195,17 +1156,17 @@ et en Fortran
   In [7]: plt.ylim(-1.5, 1.5)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+BEGIN_SRC python
   In [8]: plt.axis([11, -1, 1.5, -1.5])
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+BEGIN_SRC python
   In [9]: plt.axis("tight")
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+BEGIN_SRC python
   In[10]: plt.axis("equal")
 #+END_SRC
@@ -1230,7 +1191,7 @@ et en Fortran
   In[12]: plt.yticks([-1, 0, +1])
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[13]: plt.xticks([0, np.pi/2, np.pi, 3*np.pi/2, 2*np.pi, 5*np.pi/2, 3*np.pi],
@@ -1252,7 +1213,7 @@ et en Fortran
   In[12]: plt.yticks([-1, 0, +1])
 #+END_SRC
 
-#+BEAMER: \vskip-1pt
+#+BEAMER: \vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[13]: plt.xticks([0, np.pi/2, np.pi, 3*np.pi/2, 2*np.pi, 5*np.pi/2, 3*np.pi],
@@ -1267,7 +1228,7 @@ sans échapper les caractères précédés de =\=
 #+END_REMARK
 #+END_CBOX
 
-** /Kozmetix/ sous =matplotlib=
+** COMMENT /Kozmetix/ sous =matplotlib=
 #+BEAMER: \framesubtitle{Définition des limites \& \emph{ticks}}
 
 *** Figure
@@ -1356,8 +1317,7 @@ sans échapper les caractères précédés de =\=
 #+BEGIN_SRC latex
   \begin{center}
     \includegraphics<1>[width=1.1\linewidth]{figures/mpl_legend0.pdf}
-    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_legend1.pdf}
-    \includegraphics<3->[width=1.1\linewidth]{figures/mpl_legend2.pdf}
+    \includegraphics<2->[width=1.1\linewidth]{figures/mpl_legend2.pdf}
   \end{center}
 #+END_SRC
 
@@ -1377,20 +1337,12 @@ sans échapper les caractères précédés de =\=
   In [8]: plt.legend()
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [9]: plt.legend(loc="upper left", frameon=False)
+  In[10]: plt.legend(loc="lower center", frameon=False, ncol=2)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In[10]: plt.legend(loc="lower center", frameon=False,
-                     ncol=2)
-#+END_SRC
-
-#+BEAMER: \pause
 - Pour découvrir l'ensemble des options d'affichage *=plt.legend?=* ou
   *=help(plt.legend)=*
 
@@ -1409,7 +1361,7 @@ sans échapper les caractères précédés de =\=
   In[11]: plt.text(0, 3, "Matplotlib rocks !")
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[12]: plt.annotate(r"$\cos\left(\frac{\pi}{2}\right)=0$",
@@ -1443,7 +1395,7 @@ sans échapper les caractères précédés de =\=
   In [2]: plt.scatter(x, np.sin(x), marker="o")
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [3]: plt.plot(x, np.cos(x), "o", color="orange")
@@ -1501,7 +1453,7 @@ sans échapper les caractères précédés de =\=
   In [5]: plt.plot(x, np.sin(x))
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [6]: plt.errorbar(x, y, yerr=dy,
@@ -1511,7 +1463,7 @@ sans échapper les caractères précédés de =\=
                        capsize=0)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [7]: plt.fill_between(x, np.sin(x)-dy, np.sin(x)+dy,
@@ -1544,7 +1496,7 @@ sans échapper les caractères précédés de =\=
   In [2]: plt.hist(data)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [3]: plt.hist(data, bins=30, normed=True)
@@ -1730,7 +1682,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
   In [7]: ax.plot3D(xline, yline, zline, "gray")
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [8]: # Data for three-dimensional scattered points
@@ -1781,14 +1733,14 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
     In [7]: Z = f(X, Y)
   #+END_SRC
 
-  #+BEAMER: \pause\vskip-1pt
+  #+BEAMER: \pause\vskip-17pt
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
     In [8]: ax.plot_wireframe(X, Y, Z, linewidth=0.5
                               color="gray")
   #+END_SRC
 
-  #+BEAMER: \pause\vskip-1pt
+  #+BEAMER: \pause\vskip-17pt
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
     In [9]: ax.plot_surface(X, Y, Z, cmap="viridis")
@@ -1805,7 +1757,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
     \includegraphics<3>[width=1.1\linewidth]{figures/mpl_3dsurface.pdf}
   \end{center}
 #+END_SRC
-** Figure 3D
+** COMMENT Figure 3D
 #+BEAMER: \framesubtitle{\texttt{plot\_wireframe} \& \texttt{plot\_surface}}
 
 *** Python code
@@ -1867,7 +1819,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
 #+BEGIN_SRC python
   In [2]: ax1 = plt.axes()
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-25pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [3]: ax2 = plt.axes([0.65, 0.65, 0.2, 0.2])
@@ -1935,12 +1887,12 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
 #+BEGIN_SRC python
   In [2]: plt.subplot(2, 3, 1)
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-28pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [3]: plt.subplot(2, 3, 3)
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-28pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [4]: plt.subplot(2, 3, 5)
@@ -1972,17 +1924,17 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
 #+BEGIN_SRC python
   In [2]: plt.subplots(2, 3)
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-28pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [3]: plt.subplots_adjust(hspace=0.4, wspace=0.4)
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-28pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [4]: plt.subplots(2, 3, sharex="col", sharey="row")
 #+END_SRC
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-28pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [5]: fig, ax = plt.subplots(2, 3, sharex="col", sharey="row")
@@ -2006,7 +1958,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   \end{center}
 #+END_SRC
 
-** /Subplot/
+** COMMENT /Subplot/
 
 - La commande *=GridSpec=* ne génère pas de figures ou sous figures mais facilite
   la gestion et notamment la fusion d'espaces réservés aux sous-figures
@@ -2055,7 +2007,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   \end{center}
 #+END_SRC
 
-** /Subplot/
+** COMMENT /Subplot/
 *** Python code
 :PROPERTIES:
 :BEAMER_COL: 0.52
@@ -2106,7 +2058,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   \end{center}
 #+END_SRC
 
-* COMMENT Interaction avec =matplotlib=
+* Interaction avec =matplotlib=
 ** Titre
 :PROPERTIES:
 :BEAMER_ENV: fullframe
@@ -2168,7 +2120,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   In [5]: plt.scatter(x, y, c=x*y, alpha=0.5)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [6]: from matplotlib.widgets import Cursor
@@ -2247,20 +2199,20 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   In [7]: l, = plt.plot(t, signal(t))
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [8]: axfreq = plt.axes([0.25, 0.10, 0.65, 0.03])
   In [9]: axamp  = plt.axes([0.25, 0.15, 0.65, 0.03])
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[10]: plt.subplots_adjust(bottom=0.25)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[11]: from matplotlib.widgets import Slider
@@ -2299,7 +2251,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
                         valinit=a0)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[14]: def update(val):
@@ -2321,8 +2273,8 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   \begin{center}
     \vspace{-0.5cm}
     \includegraphics<1>[width=1.1\linewidth]{figures/mpl_widget_slider4.png}
-    \includegraphics<2-3>[width=1.1\linewidth]{figures/mpl_widget_button.png}
-    \includegraphics<4>[width=1.1\linewidth]{figures/mpl_widget_radio.png}
+    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_widget_button.png}
+    \includegraphics<3->[width=1.1\linewidth]{figures/mpl_widget_radio.png}
   \end{center}
 #+END_SRC
 
@@ -2338,7 +2290,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   In[19]: button = Button(axreset, "Reset")
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[20]: def reset(event):
@@ -2347,7 +2299,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   In[21]: button.on_clicked(reset)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
+#+BEAMER: \pause\vskip-17pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[22]: from matplotlib.widgets import RadioButtons
@@ -2356,11 +2308,7 @@ où =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial*
   In[25]: radio = RadioButtons(axcolor,
                                ("red", "blue", "green"),
                                active=1)
-#+END_SRC
 
-#+BEAMER: \pause\vskip-1pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
   In[26]: def update_color(label):
      ...:    l.set_color(label)
      ...:    fig.canvas.draw_idle()
