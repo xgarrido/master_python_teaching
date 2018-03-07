@@ -20,7 +20,8 @@ all: $(files_pdf)
 
 %.pdf: %.org
 	@echo "NOTICE: Exporting $< to pdf..."
-	@TEXINPUTS=".:..:$$TEXINPUTS" $(BATCH) --visit "$<" --funcall python-export-classes > /dev/null 2>&1
+	@TEXINPUTS=".:..:$$TEXINPUTS" $(BATCH) --visit "$<" --funcall python-export-classes
+#> /dev/null 2>&1
 
 clean:
 	@rm -rf	latex.d *.tex *.aux *.pdf *.fdb* *~
