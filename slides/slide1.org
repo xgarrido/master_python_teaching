@@ -17,9 +17,8 @@
 
 ** Pourquoi ce complément ?
 
-Depuis 2015, dans le cadre de *la préparation à l'aggrégation à Montrouge*, [[http://poisson.ens.fr/Ressources/index.php][des
-interfaces graphiques]] en *Python* relativement simples sont proposées afin
-d'illustrer les leçons
+Depuis 2015, dans le cadre de *la préparation à l'agrégation à Montrouge*, [[http://cdrom2016.agregation-physique.org/index.php/programmes-informatiques/programme-python][des interfaces graphiques]]
+en *Python* relativement simples sont proposées afin d'illustrer les leçons
 
 - Mécanique Quantique : Effet tunnel
 - Optique : Diffraction par $N$ fentes
@@ -155,7 +154,7 @@ plus l'exception. Au cours de cet enseignement, nous utiliserons _Python 3.5_
     \tikzstyle{selected}=[draw=blue,rounded corners,fill=blue!30,blue]
     \tikzstyle{optional}=[dashed,fill=gray!50]
 
-    \node {\openedDirectory{Option "Python pour l'aggrégation"}}
+    \node {\openedDirectory{Option "Python pour l'agrégation"}}
     %%   child { node[xshift=-20pt] {\pdfFile{annexe\_compilation}}}
     %% }
     %% child [missing] {}
@@ -569,7 +568,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 
 #+BEAMER: \pause
 
-- Rien n'empêche en revanche, utiliser des noms de variables identiques à
+- Rien n'empêche en revanche, d'utiliser des noms de variables identiques à
   certaines fonctions du Python
 
   #+BEGIN_SRC python
