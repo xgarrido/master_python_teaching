@@ -2,6 +2,15 @@
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 
+* Outline
+:PROPERTIES:
+:BEAMER_ENV: fullframe
+:END:
+
+#+BEGIN_EXPORT beamer
+\tableofcontents
+#+END_EXPORT
+
 * Librairie =numpy=
 ** Titre
 :PROPERTIES:
@@ -201,6 +210,9 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
     In [2]: np.arange(0, 10, step=2)
     Out[2]: array([0, 2, 4, 6, 8])
+
+    In [3]: np.arange(0, 10, step=2.5)
+    Out[3]: array([0. , 2.5, 5. , 7.5])
   #+END_SRC
   #+BEAMER: \vskip5pt
 
@@ -843,7 +855,7 @@ et en Fortran
 
 ** =matplotlib= ?
 
-#+ATTR_BEAMER: :overlay +-
+#+ATTR_BEAMER:
 - La librairie =matplotlib= est *la* bibliothèque graphique de Python
 
 - Étroitement liée à =numpy= et =scipy=
