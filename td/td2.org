@@ -202,7 +202,7 @@ par rapport à l'observateur.
 *** Correction                                                 :correction:
 
 #+BEGIN_SRC ipython :session :results raw drawer :exports none :tangle scripts/photons_gui.py
-  %matplotlib inline
+  %matplotlib
   import numpy as np
   def f(theta, beta):
         return (1-beta**2)/(1-beta*np.cos(theta))**2
