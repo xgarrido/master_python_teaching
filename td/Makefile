@@ -24,4 +24,4 @@ all: $(files_pdf)
 #> /dev/null 2>&1
 
 clean:
-	@rm -rf	latex.d *.tex *.aux *.pdf *.fdb* *~
+	@rm -rf	latex.d *.tex *.aux *.pdf *.fdb* *~ *.log *.out *.fls *.xdv *.toc _minted-*
