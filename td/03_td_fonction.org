@@ -1,0 +1,215 @@
+#+TITLE:  Containers et fonctions
+#+AUTHOR: Xavier Garrido
+#+DATE:   01/02/2017
+#+OPTIONS: toc:nil ^:{}
+#+LATEX_HEADER: \setcounter{chapter}{2}
+
+#+BEGIN_REMARK
+On n'oubliera pas et on commencera donc ce second TD, en chargeant l'environnement virtuel défini
+lors de la première séance à l'aide de la commande =source=.
+#+END_REMARK
+
+* Utilisation des /containers/ de Python
+
+1) Reprendre le Projet Euler n°1 dont l'objet est le calcul de la somme des entiers divisibles par 3
+   ou par 5 dans l'intervalle $[0,N[$ *en utilisant une liste établie "en compréhension"*. On s'aidera
+   de la fonction intégrée =sum= pour calculer la somme.
+
+2) Projet Euler n°6 : Calculer le résultat de la formule suivante
+   #+BEGIN_SRC latex
+     \begin{align*}
+       \left(\sum_{k=1}^nk\right)^2 -\sum_{k=1}^nk^2
+     \end{align*}
+   #+END_SRC
+   où $n$ sera saisi par l'utilisateur.
+
+3) On s'aidera des méthodes =join= et =split= de la classe =str=. Demander à l'utilisateur de saisir une
+   chaîne de caractères puis
+   1) renvoyer une chaîne telle qu'un lecteur l'aurait lue de droite à gauche
+   2) renvoyer une chaîne où le premier mot devient le dernier, le second mot
+      devient l'avant dernier, ...
+   3) renvoyer la chaîne de caractères saisie sans les voyelles
+
+4) Demander à l'utilisateur de saisir son nom, prénom et âge sur une seule ligne et en utilisant le
+   caractère virgule comme séparateur de champ.
+
+   1) Présenter le résultat sous la forme "Votre nom et prénom sont XXX XXX et vous êtes agé(e) de
+      XXX" en n'oubliant pas les majuscules aux noms propres.
+   2) Créer ensuite un dictionnaire indexé sur le nom de la personne et conservant son âge.
+
+5) Demander à plusieurs utilisateurs de saisir nom, prénom et âge en utilisant toujours le caractère
+   =,= comme séparateur de champ et stocker chacune des chaînes dans une liste. On terminera la saisie
+   en entrant le caractère =$=. Construire un dictionnaire toujours indexé sur le nom mais qui
+   conservera le prénom et l'âge de la personne. Présenter finalement chacune des entrées du
+   dictionnaire sous une forme intelligible.
+
+** Correction                                                   :correction:
+
+1)
+    #+BEGIN_SRC python
+      In [1]: sum([x for x in range(N) if x % 3 == 0 or x % 5 == 0])
+    #+END_SRC
+
+2)
+    #+BEGIN_SRC python
+      In [1]: N = int(input("Quelle est la valeur de N ? "))
+
+      In [2]: r = range(1, N+1)
+
+      In [3]: sum(r)**2 - sum([x**2 for x in r])
+    #+END_SRC
+
+3)
+    #+BEGIN_SRC python
+      In [1]: s = input("Saisissez votre phrase\n")
+      Qu'est qu'un chat qui voit dans le futur ?
+
+      In [2]: s[::-1]
+      Out[2]: "? rutuf el snad tiov iuq tahc nu'uq tse'uQ"
+
+      In [3]: " ".join(s.split()[::-1])
+      Out[3]: "? futur le dans voit qui chat qu'un Qu'est"
+
+      In [4]: "".join(c for c in s if c.lower() not in "aeiouy")
+      Out[4]: "Q'st q'n cht q vt dns l ftr ?"
+    #+END_SRC
+
+4)
+   1)
+       #+BEGIN_SRC python
+         In [1]: s = input("Veuillez saisir votre nom, prénom et âge en séparant chaque champ par une virgule")
+         Simpson, Homer, 55
+
+         In [2]: l = s.split(",")
+
+         In [3]: print("Votre nom et prénom sont {}{} et vous êtes agé(e) de{}".format(l[0], l[1], l[2]))
+       #+END_SRC
+
+   2)
+      #+BEGIN_SRC python
+      In [4]: d = {l[0]:l[2]}
+      #+END_SRC
+5)
+    #+BEGIN_SRC python
+      In [1]: infos={}
+         ...: while True:
+         ...:     print("Tapez '$' pour quitter...")
+         ...:     chaine = input()
+         ...:     if chaine == "$":
+         ...:         break
+         ...:     l = chaine.split(",")
+         ...:     infos[l[0]] = (l[1],l[2])
+         ...:
+         ...: for key,values in infos.items():
+         ...:     print("Nom {}, prénom {}, âge {}".format(key, values[0], values[1]))
+    #+END_SRC
+
+* Modularité
+
+- Dans un fichier intitulé =euler_project.py=, reprenez les différentes
+  solutions aux projets Euler résolus jusqu'à présent et isoler ces solutions
+  dans des fonctions dont le nom correspondra au numéro du projet préfixé du
+  terme =euler=. Documenter chacune de ces fonctions puis résoudre les 587
+  problèmes proposés[fn:1da3e3a46156a060]
+
+- Exécuter le fichier =euler_project.py= dans la console =ipython= à l'aide de
+  la commande =%run euler_project.py=. Tester les différentes fonctions puis
+  construiser un dictionnaire qui associera le numéro du projet à la fonction
+  idoine. Demander finalement à l'utilisateur quel numéro de projet résoudre,
+  s'assurer que le projet a une solution et proposer cette solution.
+
+** Correction                                                   :correction:
+
+Fichier [[https://owncloud.lal.in2p3.fr/index.php/s/IzfFFXrKuTeQMeF][=euler_project.py=]]
+
+#+BEGIN_SRC python -n :tangle scripts/euler_project.py
+  """
+  Module for Euler projects
+
+  This file holds several solution of Euler project
+  """
+
+  def euler001(n=None):
+      """Solution for Euler project n°1
+
+      Find the sum of all the multiples of 3 or 5 below n.
+
+      """
+      if n == None:
+          n = int(input("Give the n value : "))
+      return sum([x for x in range(n) if x % 3 == 0 or x % 5 == 0])
+
+  def euler002(n=None):
+      """Solution for Euler project n°2
+
+      By considering the terms in the Fibonacci sequence whose values do not
+      exceed a given value, find the sum of the even-valued terms.
+
+      """
+      if n == None:
+          n = int(input("Give the n value : "))
+      f, g, somme = 1, 1, 0
+      while f < n:
+          if f % 2 == 0:
+              somme += f
+          f, g = g, f+g
+      return somme
+
+  def euler006(n=None):
+      """Solution of Euler project n°6
+
+      Find the difference between the sum of the squares of the first n natural
+      numbers and the square of the sum.
+
+      """
+      if n == None:
+          n = int(input("Give the n value : "))
+      r = range(1, n+1)
+      return sum(r)**2 - sum([x**2 for x in r])
+
+  def euler016(n=None):
+      """Solution for Euler project n°16
+
+      What is the sum of the digits of the number 2**n?
+
+      """
+      if n == None:
+          n = int(input("Give the n value : "))
+      somme = 0
+      for i in str(2**n):
+          somme += int(i)
+      return somme
+
+  def euler025(n=None):
+      """Solution for Euler project n°25
+
+      What is the index of the first term in the Fibonacci sequence to contain n digits?
+
+      """
+      if n == None:
+          n = int(input("Give the n value : "))
+      f, g, i = 1, 1, 0
+      while f < 10**n:
+          f, g, i = g, f+g, i+1
+      return i
+#+END_SRC
+
+#+BEGIN_SRC python
+In [1]: %run euler_project.py
+
+In [2]: projects = {1 : euler001, 2 : euler002, 6 : euler006, 16 : euler016, 25 : euler025}
+
+In [3]: i = 0
+   ...: while True:
+   ...:     i = int(input("Project number ? "))
+   ...:     if i not in projects.keys():
+   ...:         print("Project n°{} not solved yet".format(i))
+   ...:         continue
+   ...:     print(projects[i]())
+   ...:     break
+   ...:
+#+END_SRC
+
+* Footnotes
+
+[fn:1da3e3a46156a060] je plaisante ! ne le faites pas
