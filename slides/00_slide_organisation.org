@@ -1,4 +1,4 @@
-#+TITLE:  Présentation & Organisation de l'option
+#+TITLE:  Présentation & Organisation
 #+AUTHOR: Xavier Garrido
 #+DATE:   14/01/2017
 #+OPTIONS: toc:nil ^:{}
@@ -6,7 +6,7 @@
 #+LATEX_CLASS: python-slide
 #+BEAMER_HEADER: \institute{Laboratoire de l'Accélérateur Linéaire, Orsay}
 
-* Langage Python
+* Langage Python \faPython
 
 #+BEGIN_QUOTE
 Python est un langage de programmation, dont la première version est sortie en
@@ -19,15 +19,7 @@ Python »*.
 #+END_QUOTE
 
 #+COMMENT: Python v1.0.0 https://groups.google.com/forum/?hl=en#!topic/comp.lang.misc/_QUzdEGFwCo
-* Langage Python : pourquoi ?
-
-#+ATTR_LATEX: :width 0.55\linewidth
-[[file:figures/python_xkcd.png]]
-
-#+BEAMER:\scriptsize\hfill$^\dagger$
-[[http://xkcd.com/353/][xkcd comic]]
-
-* Langage Python : pourquoi ?
+* Langage Python \faPython
 
 Pour tout un tas de raisons que vous découvrirez durant cette option parmi
 lesquelles
@@ -73,34 +65,6 @@ lesquelles
 
 * Option « Programmation en Python »
 
-- À qui s'adresse cette option ?
-
-  - à tout étudiant de niveau académique suffisant (min. L3), *sans pré-requis en
-    programmation et/ou algorithmie*
-  - pas aux /geeks/ férus d'informatique ayant déjà 20 ans de pratique du Python
-
-#+BEAMER: \pause
-
-- Qu'est ce que cette option n'est pas ?
-
-  - pas un cours de *programmation numérique/algorithmie* \to cours de C du L3
-    Physique Fondamentale
-  - pas un cours de *méthodes numériques*
-  - *une simple initiation* à la programmation Python
-# \to option « Méthodes numériques » du L3 de Physique Fondamentale
-
-#+BEAMER: \pause
-
-#+BEGIN_REMARK
-_Python 2 ou Python 3 ?_
-
-En 2008, Python 3 a été officiellement lancé. Quelques (vieilles) librairies
-scientifiques ne fonctionnent pas encore sous Python 3 mais c'est de plus en
-plus l'exception. Au cours de cette option, nous utiliserons _Python 3.5_
-#+END_REMARK
-
-* Option « Programmation en Python »
-
 #+ATTR_LATEX: :options [100][-none][][1.25][2]
 #+BEGIN_CBOX
 - *Bases de la programmation en Python*
@@ -126,31 +90,6 @@ plus l'exception. Au cours de cette option, nous utiliserons _Python 3.5_
 - *Représentation graphique avec =matplotlib=*
   - création de figures, /subplots/, axes, légendes
   - histogramme, courbe de niveau, 3D
-#+END_CBOX
-
-* Option « Programmation en Python »
-:PROPERTIES:
-:BEAMER_ENV: fullframe
-:END:
-
-#+ATTR_LATEX: :options [12][-none][][-0.5][0]
-#+BEGIN_CBOX
-[[file:figures/ligo_og.pdf]]
-#+END_CBOX
-
-* Option « Programmation en Python »
-:PROPERTIES:
-:BEAMER_ENV: fullframe
-:END:
-
-#+ATTR_LATEX: :options [12][-none][][-0.5][0]
-#+BEGIN_CBOX
-[[file:figures/ligo_og.pdf]]
-#+END_CBOX
-
-#+ATTR_LATEX: :options [10][-none][][5][6]
-#+BEGIN_CBOX
-[[file:figures/planck_skymap.jpg]]
 #+END_CBOX
 
 * Option « Programmation en Python »
@@ -205,9 +144,9 @@ plus l'exception. Au cours de cette option, nous utiliserons _Python 3.5_
     edge from parent path={([xshift=8pt]\tikzparentnode.south west) |- (\tikzchildnode.west)},%
     line width=0.75pt]
 
-    \newcommand{\closedDirectory}[1]{\faFolderO #1}
-    \newcommand{\openedDirectory}[1]{\faFolderOpenO #1}
-    \newcommand{\pdfFile}[1]{\faFileO #1}
+    \newcommand{\closedDirectory}[1]{\faFolder[regular] #1}
+    \newcommand{\openedDirectory}[1]{\faFolderOpen[regular] #1}
+    \newcommand{\pdfFile}[1]{\faFile[regular] #1}
 
     \tikzstyle{every node}=[anchor=west]
     \tikzstyle{selected}=[draw=blue,rounded corners,fill=blue!30,blue]
