@@ -9,22 +9,15 @@
 * Langage Python \faPython
 
 #+BEGIN_QUOTE
-Python est un langage de programmation, dont la première version est sortie en
-*1991*. Créé par *Guido van Rossum*, il a voyagé du Macintosh de son créateur,
-qui travaillait à cette époque au Centrum voor Wiskunde en Informatica aux
-Pays-Bas, jusqu'à se voir associer une organisation à but non lucratif
-particulièrement dévouée, la *[[https://www.python.org/][Python Software Foundation]]*, créée en 2001. Ce
-langage a été baptisé ainsi en hommage à la troupe de comiques les *« Monty
-Python »*.
+Python est un langage de programmation, dont la première version est sortie en *1991*. Créé par *Guido
+van Rossum*, il a voyagé du Macintosh de son créateur, qui travaillait à cette époque au Centrum voor
+Wiskunde en Informatica aux Pays-Bas, jusqu'à se voir associer une organisation à but non lucratif
+particulièrement dévouée, la *[[https://www.python.org/][Python Software Foundation]]*, créée en 2001. Ce langage a été baptisé
+ainsi en hommage à la troupe de comiques les *« Monty Python »*.
 #+END_QUOTE
 
 #+COMMENT: Python v1.0.0 https://groups.google.com/forum/?hl=en#!topic/comp.lang.misc/_QUzdEGFwCo
 * Langage Python \faPython
-
-Pour tout un tas de raisons que vous découvrirez durant cette option parmi
-lesquelles
-
-#+BEAMER: \pause
 
 - *Un langage simple et clair*
   - code facile à lire et intuitif,
@@ -35,99 +28,74 @@ lesquelles
 #+BEAMER: \pause
 #+ATTR_BEAMER: :overlay +-
 - Détails techniques :
-  - *Type dynamique* : pas besoin de définir le type de variables, les arguments de
-    fonction ou les types de retour.
-  - *Gestion automatique de la mémoire* : pas besoin d'allouer et de désallouer
-    explicitement la mémoire pour les variables et les tableaux de données. Pas
-    de bugs de fuite de mémoire.
-  - *Langage interprété* : Pas besoin de compiler le code. L'interpréteur Python lit et
-    exécute directement le code python.
+  - *Type dynamique* : pas besoin de définir le type de variables, les arguments de fonction ou les
+    types de retour.
+  - *Gestion automatique de la mémoire* : pas besoin d'allouer et de désallouer explicitement la
+    mémoire pour les variables et les tableaux de données. Pas de fuite de mémoire.
+  - *Langage interprété* : Pas besoin de compiler le code. L'interpréteur Python lit et exécute
+    directement le code python.
 
 * Langage Python : /pros & cons/
 
 - Avantages:
-  - Le principal avantage est la facilité de programmation, minimisant le temps
-    nécessaire pour développer, déboguer et maintenir le code.
-  - *Programmation modulaire et orientée objet*, système performant de /packaging/
-    et de réutilisation du code.
+  - Le principal avantage est la facilité de programmation, minimisant le temps nécessaire pour
+    développer, déboguer et maintenir le code.
+  - *Programmation modulaire et orientée objet*, système performant de /packaging/ et de réutilisation
+    du code.
   - *Documentation* étroitement intégrée au code.
-  - Une vaste bibliothèque standard et *une grande collection de modules
-    complémentaires*, scientifiques et autres (serveur web,...).
-  - *multi-plateformes* : Python est facilement accessible et utilisable que ce
-    soit sur Windows, MacOS X ou *Linux*
+  - Une vaste bibliothèque standard et *une grande collection de modules complémentaires*,
+    scientifiques et autres (serveur web,...).
+  - *multi-plateformes* : Python est facilement accessible et utilisable que ce soit sur Windows,
+    MacOS X ou *Linux*
 
 #+BEAMER: \pause
 
 - Désavantages:
-  - langage de programmation interprété et typé dynamiquement \to *exécution du
-    code python plus lente* par rapport aux langages de programmation
-    compilés statiquement, tels que C et Fortran.
+  - langage de programmation interprété et typé dynamiquement \to *exécution du code python plus
+    lente* par rapport aux langages de programmation compilés statiquement, tels que C et Fortran.
 
-* Option « Programmation en Python »
+* Langage Python : /pros & cons/
 
-#+ATTR_LATEX: :options [100][-none][][1.25][2]
-#+BEGIN_CBOX
-- *Bases de la programmation en Python*
+#+BEGIN_REMARK
+_Python 2 ou Python 3 ?_
+
+#+LATEX: \vskip+5pt
+
+En 2008, Python 3 a été officiellement lancé. Quelques (vieilles) librairies scientifiques ne
+fonctionnent pas encore sous Python 3 mais c'est de plus en plus l'exception. Au cours de cette
+option, nous utiliserons _Python 3.6_
+#+END_REMARK
+
+* Programme du cours \faIcon{list-ol}
+
+- *Bases de la programmation en Python* (2 séances)
   - environnement Python (=venv=, =pip=, =ipython=)
   - type de données, /containers/, bloc conditionnel, boucles =for=
   - fonctions, scripts & modules, initiation à la programmation orientée objet
-  - gestion & manipulation données numériques (=numpy=)
-#+END_CBOX
 
-* Option « Programmation en Python »
+#+BEAMER: \pause
 
-#+ATTR_LATEX: :options [100][-none][][1.25][2]
-#+BEGIN_CBOX
-- *Bases de la programmation en Python*
-  - environnement Python (=venv=, =pip=, =ipython=)
-  - type de données, /containers/, bloc conditionnel, boucles =for=
-  - fonctions, scripts & modules, initiation à la programmation orientée objet
-  - gestion & manipulation données numériques (=numpy=)
-#+END_CBOX
+- *=numpy= : programmation orientée tableau* (2 séances)
+  - gestion & manipulation données numériques
+  - fonctions universelles (/ufunc/)
+  - _=pandas= : gestion de structure de données_
 
-#+ATTR_LATEX: :options [100][-none][][1.25][5.5]
-#+BEGIN_CBOX
-- *Représentation graphique avec =matplotlib=*
+#+BEAMER: \pause
+
+- *=matplotlib= : représentation graphique* (1 séance)
   - création de figures, /subplots/, axes, légendes
   - histogramme, courbe de niveau, 3D
-#+END_CBOX
 
-* Option « Programmation en Python »
+#+BEAMER: \pause
 
-#+ATTR_LATEX: :options [100][-none][][1.25][2]
-#+BEGIN_CBOX
-- *Bases de la programmation en Python*
-  - environnement Python (=venv=, =pip=, =ipython=)
-  - type de données, /containers/, bloc conditionnel, boucles =for=
-  - fonctions, scripts & modules, initiation à la programmation orientée objet
-  - gestion & manipulation données numériques (=numpy=)
-#+END_CBOX
+- *=scipy= : bibliothèques scientifiques* (2 séances)
+  - _Algèbre linéaire_
+  - _Transformée de Fourier_
+  - _Optimisation & ajustement de fonction_
+  - _Outils statistiques & Générateurs aléatoires_
+  - _Interpolation, intégration numérique, traitement du signal..._
 
-#+ATTR_LATEX: :options [100][-none][][1.25][5.5]
-#+BEGIN_CBOX
-- *Représentation graphique avec =matplotlib=*
-  - création de figures, /subplots/, axes, légendes
-  - histogramme, courbe de niveau, 3D
-#+END_CBOX
-
-#+ATTR_LATEX: :options [100][-none][][1.25][7.75]
-#+BEGIN_CBOX
-- *Interface graphique*
-  - utilisation des /widgets/ de =matplotlib=
-  - applications directes aux TD Méca. Quan., EM, Phys. Stat.
-#+END_CBOX
-
-#+ATTR_LATEX: :options [100][-none][][1.25][10]
-#+BEGIN_CBOX
-- *=scipy= : bibliothèques scientifiques*
-  - Algèbre linéaire
-  - Transformé de Fourier
-  - Optimisation & ajustement de fonction
-  - Outils statistiques & Générateurs aléatoires
-  - Interpolation, intégration numérique, traitement du signal...
-#+END_CBOX
-
-* Notes/transparents de cours \faArchive
+* Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
 :BEAMER_OPT: fragile
 :END:
@@ -152,16 +120,16 @@ lesquelles
     \tikzstyle{selected}=[draw=blue,rounded corners,fill=blue!30,blue]
     \tikzstyle{optional}=[dashed,fill=gray!50]
 
-    \node {\openedDirectory{Option -- Python}}
-    child { node {\closedDirectory{cours}}}
+    \node {\openedDirectory{Python}}
+    %% child { node {\closedDirectory{cours}}}
     %%   child { node[xshift=-20pt] {\pdfFile{annexe\_compilation}}}
     %% }
     %% child [missing] {}
     %% child { node {\closedDirectory{projets}}}
-    child { node {\closedDirectory{td}}}
-    child { node[] {\openedDirectory{transparents}}
-      child { node[xshift=-28pt] {\pdfFile{slide\_presentation}}}
-      child { node[xshift=-28pt,optional] {\pdfFile{slide\_organisation}}}
+    child { node[xshift=-18pt] {\closedDirectory{td}}}
+    child { node[xshift=-18pt] {\openedDirectory{transparents}}
+      child { node[xshift=-28pt, optional] {\pdfFile{slide\_organisation}}}
+      child { node[xshift=-28pt] {\pdfFile{slide\_python}}}
     };
   \end{tikzpicture}
 #+END_SRC
@@ -175,10 +143,9 @@ lesquelles
 _Ressources disponibles sur dokeos [[http://formation.u-psud.fr][http://formation.u-psud.fr]]_
 #+END_CBOX
 
-* Bibliographie \faBookmark
+* Bibliographie \faIcon{bookmark}
 
 - /Open Classrooms/ : [[https://openclassrooms.com/courses/apprenez-a-programmer-en-python][Apprenez à programmer en Python]]
 - [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
 - [[http://www.scipy-lectures.org/index.html][*Scipy Lectures Notes*]]
 - [[https://github.com/jrjohansson/scientific-python-lectures][*Scientific Python Lectures*]]
-- ...

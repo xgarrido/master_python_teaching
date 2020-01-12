@@ -137,8 +137,13 @@ We also translate *bold* into beamer =structure= and underline into *bold*.
   (defun python-beamer-underline (contents backend info)
     (when (eq backend 'beamer)
       (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\textbf" contents)))
+  (defun python-beamer-strike (contents backend info)
+    (when (eq backend 'beamer)
+      (replace-regexp-in-string "\\`\\\\[A-Za-z0-9]+" "\\\\alert" contents)))
+
   (add-to-list 'org-export-filter-bold-functions 'python-beamer-bold)
   (add-to-list 'org-export-filter-underline-functions 'python-beamer-underline)
+  (add-to-list 'org-export-filter-strike-through-functions 'python-beamer-strike)
 #+END_SRC
 
 We add the option =frame= to footnote to make sure the footnote appears at the
@@ -2021,7 +2026,7 @@ up. Practically, everything can be done within this section.
     \colorlet{numpy}{green}
     \colorlet{scipy}{blue}
 
-    \colorlet{generic0}{green}
+    \colorlet{generic0}{red}
     \colorlet{generic1}{gray}
     \colorlet{generic2}{blue}
     \colorlet{generic3}{gray}
