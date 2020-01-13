@@ -1,0 +1,782 @@
+#+TITLE:  Bases de la programmation en Python
+#+AUTHOR: Xavier Garrido
+#+DATE:   12/01/2020
+#+OPTIONS: toc:nil ^:{} author:nil
+#+STARTUP:     beamer
+#+LATEX_CLASS: python-slide
+
+* Environnements virtuels
+
+- Un environnement virtuel permet d'avoir des installations de Python décorrélées les unes des
+  autres et *isolées du système*
+  - permet de travailler avec différentes versions de Python (version 2.X, 3.X)
+  - permet de travailler avec différentes versions de modules (=matplotlib=,
+    =numpy=,...)
+  - *permet de nous affranchir des droits administrateurs*
+
+* Environnements virtuels
+
+- Déclaration d'un environnement virtuel
+  #+BEGIN_SRC shell-session
+    @\prompt@ python3.7 -m venv ~/python.d/my_python_env
+
+    @\prompt@ ls ~/python.d/my_python_env
+    bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg  share
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Chargement de l'environnement virtuel
+  #+BEGIN_SRC shell-session
+    @\prompt@ source ~/python.d/my_python_env/bin/activate
+
+    @\prompt@ which python
+    ~/python.d/my_python_env/bin/python
+  #+END_SRC
+
+#+BEGIN_REMARK
+La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
+#+END_REMARK
+
+* Gestionnaire de modules =pip=
+
+- =pip= est *un système de gestion de paquets* utilisé pour installer et gérer des librairies écrites en
+  Python
+  - gestion des versions de modules/librairies (=matplotlib=, =numpy=, =django=, ...)
+  - gestion & installation des dépendances
+
+#+BEAMER: \pause
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \begin{tikzpicture}[
+        grow=down,
+        linet/.style={very thick,draw=gray!60,
+          shorten >=0pt, shorten <=0pt, ->},
+        punkt/.style={rectangle, rounded corners, shade, top color=white,
+          bottom color=gray!10, draw=gray!60, very
+          thick, text centered, text width=5em, text height=0.2cm}
+      ]
+      \ttfamily\color{gray}
+      \path (0,0) node(a) [punkt] {matplotlib}
+      (-2.5,+1.5) node(b) [punkt] {numpy}
+      (+0.0,+1.5) node(c) [punkt] {dateutil}
+      (+2.5,+1.5) node(d) [punkt] {...};
+      \draw[linet] (a) -- (b);
+      \draw[linet] (a) -- (c);
+      \draw[linet] (a) -- (d);
+    \end{tikzpicture}
+  \end{center}
+#+END_SRC
+
+#+BEAMER: \pause
+
+- Liste des libraries consultables sur le site [[https://pypi.python.org/pypi][/Python Package Index/]] (212 635 paquets)
+
+* Gestionnaire de modules =pip=
+
+- Installation d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Installation d'une version donnée d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib==1.5.0
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Suppression d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip uninstall matplotlib
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Mise à jour d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib --upgrade
+  #+END_SRC
+
+* Gestionnaire de modules =pip=
+
+- Liste des modules installés
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip freeze
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Liste des modules pouvant être mis à jour
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip list --outdated
+  #+END_SRC
+
+- Documentation de =pip= et de ses commandes [[https://pip.pypa.io][https://pip.pypa.io]]
+
+* Interpréteurs =python=
+
+- Interpréteur standard @@beamer:\onslide<2->{$\to$ utilisation limitée}@@
+  #+BEGIN_SRC python
+    @\prompt@ python
+    Python 3.5.2 (default, Oct 14 2016, 12:54:53)
+    [GCC 6.2.1 20160916 (Red Hat 6.2.1-2)] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 2*2
+    4
+    >>> exit()
+  #+END_SRC
+
+#+BEAMER: \pause\pause
+
+- Interpréteur intéractif =ipython=
+  - *historique des commandes* \to touches \faArrowCircleUp\xspace et \faArrowCircleDown
+  - *auto-complétion* \to touche =<TAB>=
+  - édition en ligne du code
+  - extraction automatique de *la documentation des fonctions* et objets =python=
+  - interaction avec le shell du système d'exploitation
+
+* Interpréteur =ipython=
+
+- Installation /via/ =pip=
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install ipython
+  #+END_SRC
+
+- Utilisation de =ipython=
+  #+BEGIN_SRC python
+    @\prompt@ ipython
+    Python 3.7.3 (default, Mar 27 2019, 22:11:17)
+    Type 'copyright', 'credits' or 'license' for more information
+    IPython 7.11.1 -- An enhanced Interactive Python. Type '?' for help.
+
+    In [1]: 2*2
+    Out[1]: 4
+  #+END_SRC
+
+* Interpréteur =ipython=
+
+- Premier programme =python= : /"Hello world"/
+  #+BEGIN_SRC python
+    In [1]: print("Hello world")
+    Hello world
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Obtenir de l'aide /via/ l'opérateur =?=
+  #+BEGIN_SRC python
+    In [2]: print?
+    Docstring:
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+    Type:      builtin_function_or_method
+  #+END_SRC
+
+* COMMENT Interpréteur =ipython=
+
+- Historique des commandes
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: <UP>
+
+    In [2]: x = 10
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Auto-complétion
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: x.<TAB>
+    x.bit_length   x.denominator  x.imag         x.real
+    x.conjugate    x.from_bytes   x.numerator    x.to_bytes
+  #+END_SRC
+
+* COMMENT Interpréteur =ipython=
+
+Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
+
+- =%whos= : afficher un résumé des variables déclarées
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: %whos
+    Variable   Type    Data/Info
+    ----------------------------
+    x          int     10
+  #+END_SRC
+
+- =%timeit= : évalue le temps moyen d'exécution d'un code
+  #+BEGIN_SRC python
+    In [1]: %timeit x = 10
+    10000000 loops, best of 3: 13.7 ns per loop
+  #+END_SRC
+
+* COMMENT Interpréteur =ipython=
+
+Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
+
+- =%history= : affiche l'historique des commandes tapées depuis la session courante de =ipython=
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: %history
+    x = 10
+    %history
+  #+END_SRC
+
+  La commande =%history -g= vous retournera l'ensemble des commandes saisies depuis la toute première
+  session =ipython=.
+
+* COMMENT Interpréteur =ipython=
+
+=ipython= fournit enfin des alias vers les commandes unix standards
+
+#+BEGIN_SRC python
+  In [1]: alias
+  Total number of aliases: 16
+  Out[1]:
+  [('cat', 'cat'),
+   ('clear', 'clear'),
+   ('cp', 'cp'),
+   ('ldir', 'ls -F -o --color %l | grep /$'),
+   ('less', 'less'),
+   ('lf', 'ls -F -o --color %l | grep ^-'),
+   ('lk', 'ls -F -o --color %l | grep ^l'),
+   ('ll', 'ls -F -o --color'),
+   ('ls', 'ls -F --color'),
+   ('lx', 'ls -F -o --color %l | grep ^-..x'),
+   ('man', 'man'),
+   ('mkdir', 'mkdir'),
+   ('more', 'more'),
+   ('mv', 'mv'),
+   ('rm', 'rm'),
+   ('rmdir', 'rmdir')]
+#+END_SRC
+
+* Variables, structure conditionnelle et autres boucles               :title:
+:PROPERTIES:
+:BEAMER_ENV: fullframe
+:END:
+
+#+BEGIN_EXPORT beamer
+\title{Variables, structure conditionnelle et autres boucles}
+\titlepage
+#+END_EXPORT
+
+* @@beamer:\only<1>{Déclaration de variables}\only<2->{\sout{Déclaration} Initialisation de variables}@@
+
+- En raison du *typage dynamique*, Python permet de déclarer des variables sans en
+  préciser le type (entier, nombre flottant, ...)
+
+#+BEAMER: \pause
+#+BEGIN_SRC python
+  In [1]: i = 2
+
+  In [2]: x = 10.5
+
+  In [3]: s = "Une noisette, j'la casse entre mes fesses tu vois... JCVD"
+#+END_SRC
+
+#+BEAMER:\pause
+#+BEGIN_SRC python
+  In [4]: %whos
+  Variable   Type     Data/Info
+  -----------------------------
+  i          int      2
+  s          str      Une noisette, j'la casse <...>es fesses tu vois... JCVD
+  x          float    10.5
+#+END_SRC
+
+
+#+BEGIN_COMMENT
+/cf./ cours
+http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb#Assignment
+
+Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-python3/?page=page_4#L4-G
+#+END_COMMENT
+
+* Type fondamentaux
+
+#+ATTR_BEAMER: :overlay +-
+- La fonction *=type=* permet d'accéder au type d'une variable
+
+- *Nombre entier*
+  #+BEGIN_SRC python
+    In [1]: i = 2
+    In [2]: type(i)
+    Out[2]: int
+  #+END_SRC
+
+- *Nombre flottant*
+  #+BEGIN_SRC python
+    In [1]: x = 10.5
+    In [2]: type(x)
+    Out[2]: float
+  #+END_SRC
+
+* Type fondamentaux
+
+#+ATTR_BEAMER: :overlay +-
+- *Nombre complexe*
+  #+BEGIN_SRC python
+    In [1]: z = 1.5 + 0.5j
+    In [2]: type(z)
+    Out[2]: complex
+    In [3]: z.real
+    Out[3]: 1.5
+    In [4]: z.imag
+    Out[4]: 0.5
+  #+END_SRC
+
+#+BEGIN_REMARK
+On notera que le nombre complexe $i$ est noté =j= ou =J= en Python
+  #+BEGIN_SRC python
+    In [1]: j = 5
+
+    In [2]: 2 + 5*j
+    Out[2]: 27
+
+    In [3]: 2 + 5j
+    Out[3]: (2+5j)
+  #+END_SRC
+#+END_REMARK
+
+* Type fondamentaux
+
+- *Booléen*
+  #+BEGIN_SRC python
+    In [1]: b = 3 > 4
+    In [2]: type(b)
+    Out[2]: bool
+    In [3]: b
+    Out[3]: False
+  #+END_SRC
+
+* Conversion explicite
+
+- Nombre entier \to nombre flottant
+  #+BEGIN_SRC python
+    In [1]: i = 2
+    In [2]: i
+    Out[2]: 2
+    In [3]: x = float(i)
+    In [4]: x
+    Out[4]: 2.0
+  #+END_SRC
+
+#+BEAMER: \pause
+- Nombre entier \to booléen
+  #+BEGIN_SRC python
+    In [1]: b = bool(i)
+    In [2]: b
+    Out[2]: True
+  #+END_SRC
+
+#+BEGIN_REMARK
+Toute valeur différente de 0 est considérée comme vraie
+#+END_REMARK
+
+#+BEGIN_COMMENT
+/cf./ cours
+http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb#Type-casting
+#+END_COMMENT
+
+* COMMENT Conversion explicite
+
+- Nombre entier \to nombre complexe
+  #+BEGIN_SRC python
+    In [1]: z = complex(i)
+    In [2]: z
+    Out[2]: (2+0j)
+  #+END_SRC
+
+#+BEAMER: \pause
+- Nombre complexe \to nombre flottant
+  #+BEGIN_SRC python
+    In [1]: z = 1.5 + 0.5j
+    In [2]: x = float(z.imag)
+    In [3]: x
+    Out[3]: 0.5
+  #+END_SRC
+
+* Opérations & comparaisons
+
+- Opérations arithmétiques =+=, =-=, =*=, =/=, =//= division entière, =**= puissance, =%= modulo
+  #+BEGIN_SRC python
+    In [1]: 1 + 2, 1 - 2, 1 * 2, 1 / 2
+    Out[1]: (3, -1, 2, 0)
+
+    In [2]: 1.0 + 2.0, 1.0 - 2.0, 1.0 * 2.0, 1.0 / 2.0
+    Out[2]: (3.0, -1.0, 2.0, 0.5)
+
+    In [3]: 2**2
+    Out[3]: 4
+
+    In [4]: 3.0 // 2.0
+    Out[4]: 1.0
+
+    In [5]: 3.0 % 2.0
+    Out[5]: 1.0
+  #+END_SRC
+
+#+BEAMER: \pause
+#+BEGIN_REMARK
+En Python 2.X, la division entière pouvait se faire à l'aide de l'opérateur =/=
+dès lors que des entiers étaient impliqués.
+
+Python 3.X a introduit l'opérateur =//= pour lever toutes ambiguïtés.
+#+END_REMARK
+
+#+BEGIN_COMMENT
+/cf./ cours
+http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb#Operators-and-comparisons
+
+Attention à la division dans Python 3.X
+#+END_COMMENT
+
+* Opérations & comparaisons
+
+- Opérations arithmétiques (suite) :  =+==, =-==, =*==, =/==, =%==, =**==
+  #+BEGIN_SRC python
+    In [1]: x = 1.0
+    In [2]: x = x + 1.5
+    In [3]: x += 1.5
+
+    In [4]: i = 0
+    In [5]: i += 1
+  #+END_SRC
+
+#+BEAMER: \pause
+#+BEGIN_REMARK
+Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
+#+END_REMARK
+
+* Opérations & comparaisons
+
+- Opérations booléennes : =and=, =or= et =not=
+  #+BEGIN_SRC python
+    In [1]: True and False
+    Out[1]: False
+
+    In [2]: not False
+    Out[2]: True
+
+    In [3]: True or False
+    Out[3]: True
+  #+END_SRC
+
+* Opérations & comparaisons
+
+- Opérateur de comparaison : =>=, =<=, =>==, =<==, ====, =!==
+  #+BEGIN_SRC python
+    In [1]: 2 > 1, 2 < 1
+    Out[1]: (True, False)
+
+    In [2]: 2 > 2, 2 < 2
+    Out[2]: (False, False)
+
+    In [3]: 2 == 2
+    Out[3]: True
+
+    In [4]: 2 != 2
+    Out[4]: False
+  #+END_SRC
+
+* Affectation multiples et parallèles
+
+- Python autorise *l'affectation simultanée* d'une même valeur à plusieurs
+  variables
+  #+BEGIN_SRC python
+    In [1]: x = y = 1.0
+
+    In [2]: x, y
+    Out[2]: (1.0, 1.0)
+  #+END_SRC
+
+  #+BEAMER: \pause
+
+- Python permet également *l'affectation en parallèle* de plusieurs variables
+  #+BEGIN_SRC python
+    In [1]: x, y = 1.0, 1.0
+
+    In [2]: x, y
+    Out[2]: (1.0, 1.0)
+  #+END_SRC
+
+* Application : échange de deux valeurs
+
+  #+BEGIN_SRC python
+    In [1]: x, y = 1.0, 2.0
+
+    In [2]: x, y
+    Out[2]: (1.0, 2.0)
+
+    In [3]: x, y = y, x
+
+    In [4]: x, y
+    Out[4]: (2.0, 1.0)
+  #+END_SRC
+
+* Mot-clés réservés
+
+- Parmi les bonnes pratiques de programmation, le nom des variables doit être le
+  plus clair et le plus explicite possible pour le développeur comme pour un
+  lecteur non averti
+
+  #+BEGIN_SRC python
+    In [1]: planck_constant = 6.626e-34 # J.s
+    In [2]: pc = 6.626e-34              # J.s
+    In [3]: energy = pc                 # WTF !?
+  #+END_SRC
+
+* Mot-clés réservés
+
+- Toutefois, un certain nombre de mot-clés sont réservés au langage Python
+
+  #+BEGIN_CENTER
+  =and=, =as=, =assert=, =break=, =class=, =continue=, =def=, =del=, =elif=, =else=, =except=, =exec=,
+  =finally=, =for=, =from=, =global=, =if=, =import=, =in=, =is=, *=lambda=*, =not=, =or=, =pass=,
+  =print=, =raise=, =return=, =try=, =while=, =with=, *=yield=*
+  #+END_CENTER
+
+#+BEAMER: \pause
+
+- Rien n'empêche en revanche, d'utiliser des noms de variables identiques à certaines fonctions du
+  Python
+
+  #+BEGIN_SRC python
+    In [1]: type = 666
+    In [2]: type(666)
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-2-7e2d10a8adcc> in <module>()
+    ----> 1 type(666)
+
+    TypeError: 'int' object is not callable
+  #+END_SRC
+
+* COMMENT Intermède /geek/
+
+#+ATTR_LATEX: :width 0.65\linewidth
+[[file:figures/ballmer_peak.png]]
+
+#+BEAMER:\scriptsize\hfill$^\dagger$
+[[http://xkcd.com/323/][xkcd comic]]
+
+* Structure conditionnelle
+** =if= python
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC python
+  In [1]: bras = False
+     ...: chocolat = False
+     ...:
+     ...: if bras:
+     ...:     print("Des bras !")
+     ...: elif chocolat:
+     ...:     print("Du chocolat !")
+     ...: else:
+     ...:     print("Pas de bras, pas de chocolat")
+#+END_SRC
+
+** Description
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+
+#+ATTR_BEAMER: :overlay +-
+- utilisation des mot-clés *=if/elif/else=*
+- la fin de chaque condition est matérialisée par *le caractère =:=*
+- *l'indentation (4 espaces ou une tabulation) délimite le bloc de condition*
+- dans =ipython=, appuyer sur =Entrée= deux fois pour exécuter le bloc
+
+* COMMENT Structure conditionnelle
+
+** =if= python
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC python
+  In [1]: test1 = False
+     ...: test2 = False
+     ...:
+     ...: if test1:
+     ...:     print("test1 est True")
+     ...:
+     ...: elif test2:
+     ...:     print("test2 est True")
+     ...:
+     ...: else:
+     ...:     print("test1 & test2 sont False")
+#+END_SRC
+
+** =if= C/C++
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+#+BEGIN_SRC C++
+  bool test1 = false;
+  bool test2 = false;
+
+  if (test1)
+    {
+      cout << "test1 est True" << endl;
+    }
+   else if (test2)
+     {
+       cout << "test2 est True" << endl;
+     }
+   else
+     {
+       cout << "test1 & test2 sont False" << endl;
+     }
+#+END_SRC
+
+* Structure conditionnelle
+
+- Python offre la possibilité de former des /expressions/ dont l'évaluation est
+  soumise à une condition
+
+  #+BEGIN_SRC python
+    In [1]: x = 2.0
+
+    In [2]: y = x if x < 0 else x**2
+    In [3]: y
+    Out[3]: 4.0
+
+    In [4]: print("y est positif" if y > 0 else "y est négatif")
+    Out[4]: y est positif
+  #+END_SRC
+
+* Répétition conditionnelle
+
+- Pour répéter un bloc d'instructions tant qu'une condition est réalisée, Python
+  propose la clause *=while=*
+
+- Suite de Syracuse
+  #+BEGIN_SRC python
+    In [3]: n = 27
+    In [4]: while n != 1:
+       ...:     if n % 2:
+       ...:         n = 3*n+1
+       ...:     else:
+       ...:         n //= 2
+       ...:     print(n, end=" ")
+       ...:
+    82 41 124 62 31 94 47 142 71 214 107 322 161 484 242 121 364 182 91 274 137 412 206 103
+    310 155 466 233 700 350 175 526 263 790 395 1186 593 1780 890 445 1336 668 334 167 502
+    251 754 377 1132 566 283 850 425 1276 638 319 958 479 1438 719 2158 1079 3238 1619 4858
+    2429 7288 3644 1822 911 2734 1367 4102 2051 6154 3077 9232 4616 2308 1154 577 1732 866
+    433 1300 650 325 976 488 244 122 61 184 92 46 23 70 35 106 53 160 80 40 20 10 5 16 8 4 2 1
+  #+END_SRC
+
+* Boucles =for=
+
+- Pour répéter un certain nombre de fois un bloc d'instructions, on utilisera la
+  construction suivante
+  #+BEGIN_SRC python
+    for variable in objet:
+        bloc de commandes
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Exemple :
+  #+BEGIN_SRC python
+    In [1]: for c in "abcdef":
+       ...:     print(c)
+       ...:
+       a
+       b
+       c
+       d
+       e
+       f
+  #+END_SRC
+
+* Boucles =for= & instruction =range=
+
+- Autres exemples:
+  #+BEGIN_SRC python
+    In [1]: for i in range(4):
+       ...:     print(i)
+       ...:
+       0
+       1
+       2
+       3
+  #+END_SRC
+
+  #+BEAMER: \pause
+  #+BEGIN_SRC python
+    In [1]: for i in range(-4, 4, 2):
+       ...:     print(i)
+       ...:
+       -4
+       -2
+       0
+       2
+  #+END_SRC
+
+* Instructions =break= & =continue=
+
+- Pour quitter une boucle =for= en cours d'exécution, on utilisera l'instruction
+  *=break=*
+  #+BEGIN_SRC python
+    In [1]: for i in range(-4,4,2):
+       ...:     if i == 0:
+       ...:         break
+       ...:     print(i)
+       ...:
+    -4
+    -2
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- S'il s'agit de passer outre le bloc d'instruction suivant, on utilisera
+  l'instruction *=continue=*
+  #+BEGIN_SRC python
+    In [1]: for i in range(-4,4,2):
+       ...:     if i == 0:
+       ...:         continue
+       ...:     print(i)
+       ...:
+    -4
+    -2
+    2
+  #+END_SRC
+
+* Instructions =break= & =continue=
+
+- S'il s'agit de passer outre le bloc d'instruction suivant, on utilisera
+  l'instruction *=continue=*
+  #+BEGIN_SRC python
+    In [1]: for i in range(-4,4,2):
+       ...:     if i == 0:
+       ...:         continue
+       ...:     print(i)
+       ...:
+    -4
+    -2
+    2
+  #+END_SRC
+
+  #+BEGIN_REMARK
+  L'instruction =continue= est particulièrement utile afin d'éviter une trop grande
+  imbrication d'instructions =if= successives.
+  #+END_REMARK

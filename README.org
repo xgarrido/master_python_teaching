@@ -410,6 +410,10 @@ each =tikzpicture=. =tikz/external= looks if the pdf exist and if not, export it
 #+BEGIN_SRC latex
   \RequirePackage{nicefrac}
 #+END_SRC
+****** =ulem= package
+#+BEGIN_SRC latex
+  \RequirePackage[normalem]{ulem}
+#+END_SRC
 **** Lectures/class style
 :PROPERTIES:
 :HEADER-ARGS: :tangle lecture-style.sty
@@ -514,6 +518,7 @@ up. Practically, everything can be done within this section.
 #+BEGIN_SRC latex
   \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor[HTML]{93A1A1}{\scriptsize\oldstylenums{\arabic{FancyVerbLine}}}}
   \usemintedstyle{solarizedlight}
+  \definecolor{solarizedbg}{RGB}{253,246,227}
 #+END_SRC
 ****** Fancy headings
 #+BEGIN_SRC latex
@@ -1799,7 +1804,7 @@ Then define the custom beamer template
     rounded=true,shadow=\beamer@themerounded@shadow]{
     \vbox{}
     \vfill
-    \begin{textblock}{8}(7,10)
+    \begin{textblock}{10}(5,10)
       \begin{flushright}
         {%
           \usebeamerfont{title}\usebeamercolor[bg]{title}\insertprefixtitle{\vspace{+0.2em}\LARGE\inserttitle}\par%
@@ -2009,10 +2014,6 @@ up. Practically, everything can be done within this section.
     \definecolor{green}{HTML}{66A70B}
     \definecolor{orange}{HTML}{E3B581}
     \definecolor{brown}{HTML}{703C2F}
-    \colorlet{python}{brown}
-    \colorlet{matplotlib}{red}
-    \colorlet{numpy}{green}
-    \colorlet{scipy}{orange}
   }{}
   \ifthenelse{\equal{\cb@theme}{solarized}}{
     \definecolor{red}{HTML}{DC322F}
@@ -2021,11 +2022,8 @@ up. Practically, everything can be done within this section.
     \definecolor{orange}{HTML}{CB4B16}
     \definecolor{gray}{RGB}{107,108,110}
     \definecolor{violet}{HTML}{6C71C4}
-    \colorlet{python}{red}
-    \colorlet{matplotlib}{gray}
-    \colorlet{numpy}{green}
-    \colorlet{scipy}{blue}
 
+    \colorlet{orange}{violet}
     \colorlet{generic0}{red}
     \colorlet{generic1}{gray}
     \colorlet{generic2}{blue}
@@ -2038,7 +2036,6 @@ up. Practically, everything can be done within this section.
     \definecolor{orange}{RGB}{192,128,64}
     \definecolor{gray}{RGB}{107,108,110}
     \definecolor{violet}{RGB}{99,0,60}
-    \definecolor{solarizedbg}{RGB}{253,246,227}
     %% \definecolor{solarizedbg}{HTML}{002b36}
 
     \colorlet{generic0}{green}
@@ -2087,7 +2084,8 @@ up. Practically, everything can be done within this section.
 #+BEGIN_SRC latex
   \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray}{\scriptsize\oldstylenums{\arabic{FancyVerbLine}}}}
   \usemintedstyle{solarizedlight}
-  \newcommand{\prompt}{\color{orange}{\faTerminal}}
+  \definecolor{solarizedbg}{RGB}{253,246,227}
+  \newcommand{\prompt}{\color{orange}{\scriptsize\faIcon{terminal}}}
 #+END_SRC
 
 ****** Postamble

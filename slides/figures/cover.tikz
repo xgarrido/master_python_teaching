@@ -17,6 +17,7 @@
     \definecolor{orange}{HTML}{CB4B16}
     \definecolor{gray}{RGB}{107,108,110}
     \definecolor{violet}{HTML}{6C71C4}
+    \definecolor{solarizedbg}{RGB}{253,246,227}
     \colorlet{python}{red}
     \colorlet{matplotlib}{gray}
     \colorlet{numpy}{green}
