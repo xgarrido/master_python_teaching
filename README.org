@@ -410,10 +410,6 @@ each =tikzpicture=. =tikz/external= looks if the pdf exist and if not, export it
 #+BEGIN_SRC latex
   \RequirePackage{nicefrac}
 #+END_SRC
-****** =ulem= package
-#+BEGIN_SRC latex
-  \RequirePackage[normalem]{ulem}
-#+END_SRC
 **** Lectures/class style
 :PROPERTIES:
 :HEADER-ARGS: :tangle lecture-style.sty
@@ -437,6 +433,7 @@ each =tikzpicture=. =tikz/external= looks if the pdf exist and if not, export it
   \DeclareBoolOption[false]{python_teaching_lectures}
   \DeclareBoolOption[false]{python_teaching_classes}
   \DeclareBoolOption[false]{novc}
+  \DeclareStringOption[solarized]{theme}
   \ProcessKeyvalOptions*
 #+END_SRC
 ****** Parsing options
@@ -490,13 +487,31 @@ up. Practically, everything can be done within this section.
   \ifthenelse{\boolean{has_driver_name}}{
 #+END_SRC
 ****** Colors
+
 #+BEGIN_SRC latex
-  \definecolor{red}{RGB}{220,50,47}
-  \definecolor{green}{RGB}{132,184,24}
-  \definecolor{blue}{RGB}{0,72,112}
-  \definecolor{orange}{RGB}{192,128,64}
-  \definecolor{gray}{RGB}{107,108,110}
-  \definecolor{solarizedbg}{RGB}{253,246,227}
+  \ifthenelse{\equal{\ls@theme}{whopper}}{
+    \definecolor{red}{HTML}{DC0D2B}
+    \definecolor{green}{HTML}{66A70B}
+    \definecolor{orange}{HTML}{E3B581}
+    \definecolor{brown}{HTML}{703C2F}
+  }{}
+  \ifthenelse{\equal{\ls@theme}{solarized}}{
+    \definecolor{red}{HTML}{DC322F}
+    \definecolor{green}{HTML}{859900}
+    \definecolor{blue}{HTML}{268bd2}
+    \definecolor{orange}{HTML}{CB4B16}
+    \definecolor{gray}{RGB}{107,108,110}
+    \definecolor{violet}{HTML}{6C71C4}
+  }{}
+  \ifthenelse{\equal{\ls@theme}{default}}{
+    \definecolor{red}{RGB}{220,50,47}
+    \definecolor{green}{RGB}{132,184,24}
+    \definecolor{blue}{RGB}{0,72,112}
+    \definecolor{orange}{RGB}{192,128,64}
+    \definecolor{gray}{RGB}{107,108,110}
+    \definecolor{violet}{RGB}{99,0,60}
+    %% \definecolor{solarizedbg}{HTML}{002b36}
+  }{}
 #+END_SRC
 ****** Fonts
 #+BEGIN_SRC latex
@@ -682,7 +697,9 @@ layout)
 #+NAME: vc-status
 #+BEGIN_SRC sh :results output :tangle no
   if [ -d .git ]; then
-      log=$(LC_MESSAGES=en git --no-pager log -1 HEAD --date=short --pretty=format:"\texttt{git} commit \href{https://github.com/xgarrido/licence_python_teaching/commit/%H}{\color{gray}\texttt{%h}} -- %ad")
+      url=$(git config --get remote.origin.url | sed -e 's#git@github.com:#https://github.com/#' -e 's#\.git##')
+      log=$(LC_MESSAGES=en git --no-pager log -1 HEAD --date=short --pretty=format:"{\scriptsize\faGithub*} \ttfamily\orighref{$url/commit/%H}{\color{gray}\texttt{%h}} - %ad")
+      # log=$(LC_MESSAGES=en git --no-pager log -1 HEAD --date=short --pretty=format:"\ttfamily\orighref{$url/commit/%H}{\color{gray}\faGit %h}")
       echo "\renewcommand*{\PrelimText}{\textnormal{\small\color{gray}${log}}}"
   fi
 #+END_SRC
@@ -853,6 +870,10 @@ different booleans used in the nex section.
 #+BEGIN_SRC latex
   \RequirePackage[eulergreek,EULERGREEK]{sansmath}
   \sansmath
+#+END_SRC
+******* =ulem= package
+#+BEGIN_SRC latex
+  \RequirePackage[normalem]{ulem}
 #+END_SRC
 ****** Default themes
 #+BEGIN_SRC latex

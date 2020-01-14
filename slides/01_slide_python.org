@@ -121,9 +121,9 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 - Interpréteur standard @@beamer:\onslide<2->{$\to$ utilisation limitée}@@
   #+BEGIN_SRC python
-    @\prompt@ python
-    Python 3.5.2 (default, Oct 14 2016, 12:54:53)
-    [GCC 6.2.1 20160916 (Red Hat 6.2.1-2)] on linux
+    @\prompt@ python3.7
+    Python 3.7.3 (default, Mar 27 2019, 22:11:17)
+    [GCC 7.3.0] :: Anaconda, Inc. on linux
     Type "help", "copyright", "credits" or "license" for more information.
     >>> 2*2
     4

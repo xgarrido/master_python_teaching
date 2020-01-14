@@ -112,7 +112,7 @@ _TD du 10/02 pour le groupe MAG2 se déroulera le 13/02 à 15h45 (salle 401)_
 #+END_REMARK
 
 # #+BEGIN_REMARK
-# _Cours/TD du 29/01 se déroulera le 28/01, même heure, même endroit_
+# _Cours/TD du 29/01 se déroulera le 28/01, même heure, amphi. A6_
 # #+END_REMARK
 
 # #+BEGIN_REMARK

@@ -1,0 +1,338 @@
+#+TITLE:  =venv=, =pip= et =ipython=
+#+AUTHOR: Xavier Garrido
+#+DATE:   14/01/2020
+#+OPTIONS: toc:nil ^:{}
+#+LATEX_HEADER: \setcounter{chapter}{0}
+
+* L'écosystème Python
+
+1) Définir un environnement virtuel utilisant =python 3.7= que l'on placera dans le répertoire
+   =~/m1_python=.
+
+2) Charger ce nouvel environnement et s'assurer que la commande =python= pointe bien vers le
+   répertoire =bin= du répertoire =~/m1_python=.
+
+3) Lister les modules actuellement installés puis suivre les recommendations issues de la précédente
+   commande.
+
+4) Installer la version =1.5.2= de la librarie =matplotlib= puis mettre à jour cette dernière.
+
+5) Installer l'interpréteur =ipython= et l'utiliser pour vérifier que l'installation de =matplotlib= a
+   été correctement réalisée en important la librairie /via/ la commande
+
+   #+BEGIN_SRC python
+     import matplotlib
+   #+END_SRC
+
+6) Afficher la chaîne de caractères ="sleon une édtue de l'Uvinertisé de Cmabrigde"=
+
+7) Définir une première variable =x1= égale à 10 et une seconde =x2= égale à 10.0. Afficher le statut
+   des variables.
+
+8) Afficher la partie réelle puis la partie imaginaire de =x1=. Afficher la taille en bits de =x1=. Lors
+   des différentes opérations, on pourra se servir de l'auto-complétion et de la commande d'aide =?=
+   pour accéder à la documentation de chaque commande.
+
+9) Afficher la documentation de la fonction =input= puis se servir de cette fonction pour demander à
+   l'utilisateur la saisie d'un nombre =y=.
+
+#+BEGIN_REMARK
+Dans toute la suite de ces TD et notamment lors des prochains exercices, on prendra bien garde de
+systématiquement charger l'environnement virtuel défini lors de ce premier exercice.
+#+END_REMARK
+
+** Correction                                                   :correction:
+
+1) Dans l'invite de commande du terminal, répérée ici par le signe =$=, on tape
+   les commandes suivantes
+
+    #+BEGIN_SRC shell-session
+      $ python3.5 -m venv ~/python.d/my_python_env
+    #+END_SRC
+2)
+
+   #+BEGIN_SRC shell-session
+     $ source ~/python.d/my_python_env/bin/activate
+     $ which python
+     ~/python.d/my_python_env/bin/python
+   #+END_SRC
+
+3) Liste de l'ensemble des modules installés
+
+   #+BEGIN_SRC shell-session
+     $ pip freeze
+   #+END_SRC
+
+   puis mise à jour de =pip=
+
+   #+BEGIN_SRC shell-session
+     $ pip install --upgrade pip
+   #+END_SRC
+
+4)
+   #+BEGIN_SRC shell-session
+     $ pip install matplotlib=1.5.2
+     $ pip install --upgrade matplotlib
+   #+END_SRC
+
+5)
+   #+BEGIN_SRC shell-session
+     $ pip install ipython
+     $ ipython
+   #+END_SRC
+   #+BEGIN_SRC python
+     Python 3.6.0 (default, Jan 16 2017, 12:12:55)
+     Type "copyright", "credits" or "license" for more information.
+
+     IPython 5.1.0 -- An enhanced Interactive Python.
+     ?         -> Introduction and overview of IPython's features.
+     %quickref -> Quick reference.
+     help      -> Python's own help system.
+     object?   -> Details about 'object', use 'object??' for extra details.
+
+     In [1]: import matplotlib
+   #+END_SRC
+
+6)
+
+   #+BEGIN_SRC ipython
+     In [2]: print("sleon une édtue de l'Uvinertisé de Cmabrigde")
+   #+END_SRC
+
+7)
+
+   #+BEGIN_SRC ipython
+     In [3]: x1 = 10
+
+     In [4]: x2 = 10.0
+
+     In [5]: %whos
+   #+END_SRC
+
+8)
+
+   #+BEGIN_SRC ipython
+     In [6]: x1.real
+     Out[6]: 10
+
+     In [7]: x1.imag
+     Out[7]: 0
+
+     In [8]: x1.bit_length()
+     Out[8]: 4
+   #+END_SRC
+
+9) On pourra utiliser soit la commande =input?=, propre à l'interprêteur =ipython=,
+   soit l'aide intéractive /i.e./ =help(input)=
+
+   #+BEGIN_SRC ipython
+     In [9]: input?
+     Signature: input(prompt=None, /)
+     Docstring:
+     Read a string from standard input.  The trailing newline is stripped.
+
+     The prompt string, if given, is printed to standard output without a
+     trailing newline before reading input.
+
+     If the user hits EOF (*nix: Ctrl-D, Windows: Ctrl-Z+Return), raise EOFError.
+     On *nix systems, readline is used if available.
+     Type:      builtin_function_or_method
+   #+END_SRC
+
+   Comme l'indique l'aide, la fonction =input= lit une chaîne de caractère et on
+   prendra donc bien garde à convertir la valeur saisie en nombre (flottant)
+
+   #+BEGIN_SRC python
+     In[10]: n = float(input("Saisissez un nombre "))
+   #+END_SRC
+* Calculs simples avec des nombres complexes
+
+1) Initialiser deux nombres complexes =z1= et =z2= et réaliser un certain nombre d'opérations
+   mathématiques telles qu'addition, multiplication... entre ces deux nombres. Tester également
+   l'élévation à une puissance de ces nombres complexes.
+
+2) Calculer le module et l'argument de chacun de ces nombres complexes. On s'aidera pour cela de la
+   librairie mathématique =math= de Python déjà présente dans le système.
+
+3) Déterminer à présent le module et l'argument en utilisant la librairie mathématique =cmath= dédiée
+   au calcul sur les nombres complexes et également présente par défaut dans Python.
+
+** Correction                                                   :correction:
+
+1)
+
+   #+BEGIN_SRC python
+     In [1]: z1, z2 = 1+2j, 3+3j
+
+     In [2]: z1+z2, z1-z2, z1*z2, z1/z2
+     Out[2]: ((4+5j), (-2-1j), (-3+9j), (0.5+0.16666666666666666j))
+
+     In [3]: z1**2
+     Out[3]: (-3+4j)
+   #+END_SRC
+
+2)
+
+   #+BEGIN_SRC python
+     In [4]: import math
+
+     In [5]: module = math.sqrt(z1.real**2+z1.imag**2)
+
+     In [6]: argument = math.atan(z1.imag/z1.real)
+
+     In [7]: module, argument
+     Out[7]: (2.23606797749979, 1.1071487177940904)
+   #+END_SRC
+
+   Un autre moyen de calculer le module consistait à utiliser la fonction =hypot=
+   de =math=.
+
+3)
+
+   #+BEGIN_SRC python
+     In [8]: import cmath
+
+     In [9]: cmath.polar(z1)
+     Out[9]: (2.23606797749979, 1.1071487177940904)
+   #+END_SRC
+
+   L'objet retourné par la fonction =polar= est un /tuple/ i.e. une liste non
+   modifiable. Pour accéder individuellement au module et à l'argument, on
+   pourra écrire
+
+   #+BEGIN_SRC python
+     In [10]: t = cmath.polar(z1)
+
+     In [11]: type(t)
+     Out[11]: tuple
+
+     In [12]: t[0], t[1]
+     Out[12]: (2.23606797749979, 1.1071487177940904)
+   #+END_SRC
+
+* Structure conditionnelle, boucles et autres réjouissances
+
+1) En fonction d'une valeur entière saisie par l'utilisateur (on utilisera à cette fin la fonction
+   =input= de Python et on prendra bien garde à convertir le résultat en entier), afficher l'un des
+   messages suivants :
+
+   - "Ce nombre est pair"
+   - "Ce nombre est impair, mais est multiple de 3"
+   - "Ce nombre n'est ni pair ni multiple de 3"
+
+2) Dénombrer le nombre de voyelles dans une phrase que l'utilisateur saisira.
+
+3) Projet Euler n°1[fn:a297e5a90191e07]: Calculer la somme des entiers divisibles par 3 ou par 5
+   dans l'intervalle $[0,N[$ où $N$ sera fourni par l'utilisateur.
+
+4) Projet Euler n°16: Donner la somme des chiffres de la représentation décimale de $2^N$ où $N$ est
+   un entier naturel fourni par l'utilisateur. Faire de même avec $N!$ (Projet Euler n°20).
+
+5) La suite de Fibonacci est définie de la façon suivante
+   #+BEGIN_SRC latex
+     \begin{align*}
+       \mathcal{F}_1 &= 1 \\
+       \mathcal{F}_2 &= 1 \\
+       ...\\
+       \mathcal{F}_n &= \mathcal{F}_{n-2}+\mathcal{F}_{n-1}
+     \end{align*}
+   #+END_SRC
+
+   1) Calculer le résultat de cette suite pour un ordre $n$ donné par l'utilisateur. On essaiera en
+      particulier de tirer profit de l'affectation parallèle des variables dans Python.
+   2) Projet Euler n°2: Calculer la somme des termes de Fibonacci pairs jusqu'à une valeur $N$
+      donnée par l'utilisateur.
+   3) Projet Euler n°25: Déterminer l'indice $n$ du premier terme $\mathcal{F}_n$ dont la valeur
+      contient plus de 1000 chiffres.
+
+6) La formule de Wallis permet de calculer la valeur de \pi /via/ l'expression
+   #+BEGIN_SRC latex
+     \begin{align*}
+       \pi = 2\prod_{n=1}^\infty\frac{4n^2}{4n^2-1}
+     \end{align*}
+   #+END_SRC
+   Déterminer le nombre d'itérations $n$ nécessaires pour que la valeur de \pi soit correcte jusqu'à
+   la 7^{ème} décimale.
+
+** Correction                                                   :correction:
+
+1)
+      #+BEGIN_SRC python
+        N = int(input("Saisissez un entier ? "))
+        if N % 2 == 0:
+            print("Ce nombre est pair")
+        elif N % 3 == 0:
+            print("Ce nombre est impair, mais est multiple de 3")
+        else:
+            print("Ce nombre n'est ni pair ni multiple de 3")
+      #+END_SRC
+2)
+      #+BEGIN_SRC python
+        voyelles = "aeiouy"
+        phrase = input("Quelle est la phrase ? ")
+        count = 0
+        for c in phrase:
+            if c in voyelles:
+                count += 1
+        print("Nombre de voyelles =", count)
+      #+END_SRC
+3)
+     #+BEGIN_SRC python
+       N = int(input("Quelle est la valeur de N ? "))
+       somme = 0
+       for i in range(0, N):
+            if i % 3 == 0 or i % 5 == 0:
+                 somme += i
+       print("Somme =", somme)
+     #+END_SRC
+4)
+     #+BEGIN_SRC python
+       N = int(input("Quelle est la valeur de N ? "))
+       somme = 0
+       for i in str(2**N):
+           somme += int(i)
+       print("Somme =", somme)
+     #+END_SRC
+5)
+   1)
+       #+BEGIN_SRC python
+         N = int(input("Quelle est la valeur de N ? "))
+         f = g = 1
+         for i in range(0,N-1):
+             f, g = g, f+g
+         print("F({}) = {}".format(N,f))
+       #+END_SRC
+   2)
+       #+BEGIN_SRC python
+         N = int(input("Quelle est la valeur de N ? "))
+         f = g = 1
+         somme = 0
+         while f < N-1:
+             if f % 2 == 0:
+                 somme += f
+             f, g = g, f+g
+         print("Somme =", somme)
+       #+END_SRC
+   3)
+       #+BEGIN_SRC python
+         f = g = 1
+         n = 0
+         while f < 10**1000:
+             f, g, n = g, f+g, n+1
+         print("n = ", n)
+       #+END_SRC
+6)
+   #+BEGIN_SRC python
+     import math
+     i = p = 1
+     while abs(2*p - math.pi) > 1e-7:
+         p *= 4*i**2/(4*i**2-1)
+         i += 1
+     print("pi = {} pour {} itérations".format(2*p, i))
+   #+END_SRC
+
+* Footnotes
+
+[fn:a297e5a90191e07] Le /Project Euler/ est situé à l’adresse suivante: http://projecteuler.net. Ce
+site propose un grand nombre de problèmes (687 en date du 14/01/2022) aux apprentis programmeurs
+comme aux programmeurs chevronnés.
