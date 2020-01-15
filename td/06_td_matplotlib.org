@@ -6,27 +6,28 @@
 
 * Sale temps sur Seattle (suite)
 
-- À partir de l'histogramme représentant la distribution des hauteurs de
-  précipitations à Seattle (/cf./ précédent TD), préciser les axes de la figure
-  ainsi que le titre de l'histogramme
+- Représenter la distribution de la hauteur des précipitations à l'aide de la méthode =hist= de
+  =matplotlib.pyplot=
+
+- À partir de l'histogramme représentant la distribution des hauteurs de précipitations à Seattle
+  (/cf./ précédent TD), préciser les axes de la figure ainsi que le titre de l'histogramme
 
 - Changer l'axe $y$ pour passer en échelle logarithmique
 
-- Annoter la figure pour faire apparaître la valeur moyenne et l'écart-type des
-  précipitations
+- Annoter la figure pour faire apparaître la valeur moyenne et l'écart-type des précipitations
 
-- Représenter sur une seconde figure, la variation temporelle des températures
-  minimale et maximale. On s'aidera du code suivant pour convertir les jours
-  extraits du fichier =csv= en une grandeur exploitable par =numpy=
+- Représenter sur une seconde figure, la variation temporelle des températures minimale et
+  maximale. On s'aidera du code suivant pour convertir les jours extraits du fichier =csv= en une
+  grandeur exploitable par =numpy=
 
   #+BEGIN_SRC python
     import pandas as pd
     day = pd.to_datetime(day, format="%Y%m%d")
   #+END_SRC
 
-- Sur une troisième figure, représenter la distribution des valeurs minimale et
-  maximale des températures. Faire en sorte que les distributions puissent être
-  visible y compris au niveau des zones de recouvrement
+- Sur une troisième figure, représenter la distribution des valeurs minimale et maximale des
+  températures. Faire en sorte que les distributions puissent être visible y compris au niveau des
+  zones de recouvrement
 
 ** Correction                                                   :correction:
 :PROPERTIES:
@@ -43,6 +44,11 @@
   Tmin = data[:,3]/10  # °C
 
   import matplotlib.pyplot as plt
+
+  plt.figure()
+  plt.hist(prcp, 40)
+
+  plt.figure()
   plt.hist(prcp, 365)
 
   plt.title("Distribution des précipitations à Seattle en 2014")
@@ -64,6 +70,8 @@
                arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
 
 #+END_SRC
+[[
+file:figures/seattle2014_prcp.pdf]]
 
 [[file:figures/seattle2014_prcp_annotated.pdf]]
 

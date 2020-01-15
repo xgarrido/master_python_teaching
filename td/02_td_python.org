@@ -25,7 +25,7 @@ lors de la première séance à l'aide de la commande =source=.
 
 3) Stocker dans une liste tous les nombres inférieurs à 100 000 qui sont des palindromes. Déterminer
    leur nombre et leur somme. Construire une nouvelle liste contenant les nombres qui sont à la fois
-   des palindrome en représentation décimale et en représentation binaire (Projet Euler n°36).
+   des palindromes en représentation décimale et en représentation binaire (Projet Euler n°36).
 
 4) On s'aidera, dans cet exercice, des méthodes =join= et =split= de la classe =str=. Demander à
    l'utilisateur de saisir une chaîne de caractères puis

@@ -89,8 +89,8 @@
 
 * Modules =python=
 
-- Pour pouvoir utiliser le module et ses fonctions, *il est nécessaire de
-  l'importer* soit dans un script ou soit dans l'interpréteur
+- Pour pouvoir utiliser le module et ses fonctions, *il est nécessaire de l'importer* soit dans un
+  script soit dans l'interpréteur
   #+ATTR_BEAMER: :overlay +-
   1) Importation de base
      #+BEGIN_SRC python

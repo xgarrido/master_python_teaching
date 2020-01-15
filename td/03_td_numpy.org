@@ -1,8 +1,8 @@
-#+TITLE:  Librairie =numpy=
+#+TITLE:  Librairie =numpy= & =pandas=
 #+AUTHOR: Xavier Garrido
-#+DATE:   21/02/2017
+#+DATE:   15/01/2020
 #+OPTIONS: toc:nil ^:{}
-#+LATEX_HEADER: \setcounter{chapter}{4}
+#+LATEX_HEADER: \setcounter{chapter}{2}
 
 #+COMMENT: https://www.machinelearningplus.com/101-numpy-exercises-python/
 
@@ -146,9 +146,6 @@
 - Dénombrer le nombre total de jours dans l'année pendant lesquels il a plu à Seattle et déterminer
   combien de ces jours étaient pairs
 
-- Représenter la distribution de la hauteur des précipitations à l'aide de la méthode =hist= de
-  =matplotlib.pyplot=
-
 ** Correction                                                   :correction:
 
 #+BEGIN_SRC python -n :tangle scripts/seattle1.py
@@ -203,13 +200,102 @@
   print("Hauteur totale d'eau en 2014 : {} cm".format(np.sum(prcp)))
   print("Nombre de jours avec pluie : {}".format(np.sum(prcp > 0)))
   print("Nombre de jours pairs avec pluie : {}".format(np.sum((prcp > 0) & (day % 2 == 0))))
-
-  import matplotlib.pyplot as plt
-  plt.hist(prcp, 40)
-
-  plt.show()
 #+END_SRC
 
-[[file:figures/seattle2014_prcp.pdf]]
-
 [[https://owncloud.lal.in2p3.fr/index.php/s/agKz0cf6LZjujX5][Télécharger la solution]]
+* Manipulation d'images
+
+Une image n'est rien d'autre qu'une matrice où chaque pixel contient une information
+colorimétrique. La notion de tableau /à la/ =numpy= est donc parfaitement adaptée à la représentation de
+ces objets.
+
+En fonction du système colorimétrique choisi, chaque pixel peut être:
+- un nombre entier compris entre 0 et 255 ou un nombre flottant compris entre 0.0 et 1.0 quantifiant
+  le niveau de gris du pixel,
+- un triplet de valeurs $(R, V, B)$ soit entières (entre 0 et 255) soit flottantes (entre 0.0 et
+  1.0) donnant respectivement le niveau de rouge, vert et bleu du pixel,
+- un triplet de valeurs ($\ell, \alpha, \beta$) correspondant à la luminosité $\ell$, l'opposition
+  bleu-jaune $\alpha$ et l'opposition vert-rouge $\beta$,
+- ...
+
+Les opérations mathématiques sur des tableaux =numpy= permettent ainsi de changer d'espaces
+colorimétriques en minimisant le nombre d'opérations. De même, la sélection par masque permet
+d'appliquer des transformations à des sous-espaces de l'image.
+
+Dans la suite de l'exercice, on s'aidera des fonctions intégrées à la librairie =matplotlib= pour
+lire et pour représenter une image au format =png= ou =jpeg=. On utilisera en particulier les
+fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comme suit
+#+BEGIN_SRC python
+  import matplotlib.pyplot as plt
+  img = plt.imread("mon_image.png")
+  plt.imshow(img)
+#+END_SRC
+
+
+** Changement d'espace colorimétrique
+
+1) Charger l'image [[https://owncloud.lal.in2p3.fr/index.php/s/0hLYpI8AjA1QeUS][=balloon.jpg=]] puis
+   afficher la. Quelle est la taille de l'image ? Dans quel système colorimétrique est-elle
+   représentée ?
+
+2) La calcul de la luminance =Y= d'un pixel (également appelé niveau de gris) se fait, à partir du
+   système colorimétrique $(R, V, B)$, par la transformation
+   #+BEGIN_SRC latex
+     \begin{align*}
+       Y &= 0.2126\times R+0.7152\times V+0.0722\times B
+     \end{align*}
+   #+END_SRC
+   Convertir l'image initiale en niveau de gris et la représenter en utilisant l'échelle de couleur
+   ~cmap="gray"~ (à passer en argument de la fonction =imshow=).
+
+3) Le passage à l'espace $(\ell, \alpha, \beta)$ se fait par le biais de l'espace intermédiaire $(L,
+   M, S)$
+   #+BEGIN_SRC latex
+     \begin{align*}
+      \begin{pmatrix}
+      L\\M\\S
+      \end{pmatrix}
+      &=\begin{pmatrix}
+      0.3811&0.5783&0.0401\\
+      0.1967&0.7244&0.0781\\
+      0.0241&0.1288&0.8444
+      \end{pmatrix}
+      \begin{pmatrix}
+      R\\V\\B
+      \end{pmatrix}\\
+      \begin{pmatrix}
+      \ell\\\alpha\\\beta
+      \end{pmatrix}
+      &=\begin{pmatrix}
+      1/\sqrt{3}&0&0\\
+      0&1/\sqrt{6}&0\\
+      0&0&1/\sqrt{2}
+      \end{pmatrix}
+      \begin{pmatrix}
+      \ln L\\\ln M\\\ln S
+      \end{pmatrix}
+     \end{align*}
+   #+END_SRC
+   Convertir l'image initiale dans l'espace colorimétrique $\ell, \alpha, \beta$.
+*** Correction                                                 :correction:
+1)
+   #+BEGIN_SRC python
+     import matplotlib.pyplot as plt
+     img = plt.imread("data/balloon.jpg")
+     plt.imshow(img)
+     print("Taille de l'image {}x{} pixels".format(*img.shape[:2]))
+   #+END_SRC
+
+2)
+   #+BEGIN_SRC python
+     img1 = np.dot(img, [0.2126, 0.7152, 0.0722])
+     # ou img1 = img @ [0.2126, 0.7152, 0.0722] depuis Python 3.5
+     plt.imshow(img1, cmap="gray")
+   #+END_SRC
+
+3)
+   #+BEGIN_SRC python
+     RVB2LMS = np.array([[0.3811, 0.5783, 0.0401], [0.1967, 0.7244, 0.0781], [0.0241, 0.1228, 0.8444]])
+     LMS = np.dot(img, RVB2LMS)
+
+   #+END_SRC
