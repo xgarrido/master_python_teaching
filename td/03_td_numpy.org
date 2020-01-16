@@ -3,6 +3,8 @@
 #+DATE:   15/01/2020
 #+OPTIONS: toc:nil ^:{}
 #+LATEX_HEADER: \setcounter{chapter}{2}
+#+PROPERTY: header-args:jupyter-python :session 03_td_numpy
+# #+BIND: org-latex-image-default-width "0.5\\linewidth"
 
 #+COMMENT: https://www.machinelearningplus.com/101-numpy-exercises-python/
 
@@ -52,7 +54,6 @@
 :PROPERTIES:
 :HEADER-ARGS: :tangle scripts/matrix.py
 :END:
-
 -
   #+BEGIN_SRC python
     import numpy as np
@@ -107,7 +108,7 @@
 
 ** Correction                                                   :correction:
 
-#+BEGIN_SRC python
+#+BEGIN_SRC jupyter-python :exports code
   In [1]: def inverse(value):
      ...:     output = np.empty(len(values))
      ...:     for i in range(len(values)):
@@ -148,39 +149,39 @@
 
 ** Correction                                                   :correction:
 
-#+BEGIN_SRC python -n :tangle scripts/seattle1.py
+#+BEGIN_SRC jupyter-python -n :tangle scripts/seattle1.py :exports both
   import numpy as np
 
   def print_report(prcp, Tmin, Tmax):
 
       print("Hauteur des précipitations:")
-      print("  valeur moyenne = {} cm".format(np.mean(prcp)))
-      print("  valeur médiane = {} cm".format(np.median(prcp)))
-      print("      écart type = {} cm".format(np.std(prcp)))
-      print("     valeur min. = {} cm".format(np.min(prcp)))
-      print("     valeur max. = {} cm".format(np.max(prcp)))
-      print("  quantile à 25% = {} cm".format(np.percentile(prcp, 25)))
-      print("  quantile à 75% = {} cm".format(np.percentile(prcp, 75)))
+      print("  valeur moyenne = {:.2f} cm".format(np.mean(prcp)))
+      print("  valeur médiane = {:.2f} cm".format(np.median(prcp)))
+      print("      écart type = {:.2f} cm".format(np.std(prcp)))
+      print("     valeur min. = {:.2f} cm".format(np.min(prcp)))
+      print("     valeur max. = {:.2f} cm".format(np.max(prcp)))
+      print("  quantile à 25% = {:.2f} cm".format(np.percentile(prcp, 25)))
+      print("  quantile à 75% = {:.2f} cm".format(np.percentile(prcp, 75)))
       print("\n")
 
       print("Température minimale:")
-      print("  valeur moyenne = {} °C".format(np.mean(Tmin)))
-      print("  valeur médiane = {} °C".format(np.median(Tmin)))
-      print("      écart type = {} °C".format(np.std(Tmin)))
-      print("     valeur min. = {} °C".format(np.min(Tmin)))
-      print("     valeur max. = {} °C".format(np.max(Tmin)))
-      print("  quantile à 25% = {} °C".format(np.percentile(Tmin, 25)))
-      print("  quantile à 75% = {} °C".format(np.percentile(Tmin, 75)))
+      print("  valeur moyenne = {:.2f} °C".format(np.mean(Tmin)))
+      print("  valeur médiane = {:.2f} °C".format(np.median(Tmin)))
+      print("      écart type = {:.2f} °C".format(np.std(Tmin)))
+      print("     valeur min. = {:.2f} °C".format(np.min(Tmin)))
+      print("     valeur max. = {:.2f} °C".format(np.max(Tmin)))
+      print("  quantile à 25% = {:.2f} °C".format(np.percentile(Tmin, 25)))
+      print("  quantile à 75% = {:.2f} °C".format(np.percentile(Tmin, 75)))
       print("\n")
 
       print("Température maximale:")
-      print("  valeur moyenne = {} °C".format(np.mean(Tmax)))
-      print("  valeur médiane = {} °C".format(np.median(Tmax)))
-      print("      écart type = {} °C".format(np.std(Tmax)))
-      print("     valeur min. = {} °C".format(np.min(Tmax)))
-      print("     valeur max. = {} °C".format(np.max(Tmax)))
-      print("  quantile à 25% = {} °C".format(np.percentile(Tmax, 25)))
-      print("  quantile à 75% = {} °C".format(np.percentile(Tmax, 75)))
+      print("  valeur moyenne = {:.2f} °C".format(np.mean(Tmax)))
+      print("  valeur médiane = {:.2f} °C".format(np.median(Tmax)))
+      print("      écart type = {:.2f} °C".format(np.std(Tmax)))
+      print("     valeur min. = {:.2f} °C".format(np.min(Tmax)))
+      print("     valeur max. = {:.2f} °C".format(np.max(Tmax)))
+      print("  quantile à 25% = {:.2f} °C".format(np.percentile(Tmax, 25)))
+      print("  quantile à 75% = {:.2f} °C".format(np.percentile(Tmax, 75)))
       print("\n")
 
   data = np.loadtxt("./data/seattle2014.csv", delimiter=",")
@@ -201,6 +202,75 @@
   print("Nombre de jours avec pluie : {}".format(np.sum(prcp > 0)))
   print("Nombre de jours pairs avec pluie : {}".format(np.sum((prcp > 0) & (day % 2 == 0))))
 #+END_SRC
+
+#+RESULTS:
+#+begin_example
+  ,* Valeurs annuelles
+  Hauteur des précipitations:
+    valeur moyenne = 0.34 cm
+    valeur médiane = 0.00 cm
+        écart type = 0.68 cm
+       valeur min. = 0.00 cm
+       valeur max. = 4.67 cm
+    quantile à 25% = 0.00 cm
+    quantile à 75% = 0.36 cm
+
+
+  Température minimale:
+    valeur moyenne = 8.66 °C
+    valeur médiane = 9.40 °C
+        écart type = 4.97 °C
+       valeur min. = -6.00 °C
+       valeur max. = 17.80 °C
+    quantile à 25% = 5.60 °C
+    quantile à 75% = 12.80 °C
+
+
+  Température maximale:
+    valeur moyenne = 17.00 °C
+    valeur médiane = 16.10 °C
+        écart type = 7.26 °C
+       valeur min. = -1.60 °C
+       valeur max. = 35.60 °C
+    quantile à 25% = 11.10 °C
+    quantile à 75% = 22.20 °C
+
+
+  ,* Valeurs estivales
+  Hauteur des précipitations:
+    valeur moyenne = 0.18 cm
+    valeur médiane = 0.00 cm
+        écart type = 0.48 cm
+       valeur min. = 0.00 cm
+       valeur max. = 3.33 cm
+    quantile à 25% = 0.00 cm
+    quantile à 75% = 0.03 cm
+
+
+  Température minimale:
+    valeur moyenne = 11.92 °C
+    valeur médiane = 12.80 °C
+        écart type = 3.13 °C
+       valeur min. = 4.40 °C
+       valeur max. = 17.80 °C
+    quantile à 25% = 10.00 °C
+    quantile à 75% = 14.40 °C
+
+
+  Température maximale:
+    valeur moyenne = 22.32 °C
+    valeur médiane = 22.20 °C
+        écart type = 5.43 °C
+       valeur min. = 11.10 °C
+       valeur max. = 35.60 °C
+    quantile à 25% = 18.90 °C
+    quantile à 75% = 26.10 °C
+
+
+  Hauteur totale d'eau en 2014 : 123.28 cm
+  Nombre de jours avec pluie : 150
+  Nombre de jours pairs avec pluie : 71
+#+end_example
 
 [[https://owncloud.lal.in2p3.fr/index.php/s/agKz0cf6LZjujX5][Télécharger la solution]]
 * Manipulation d'images
@@ -231,71 +301,307 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
   plt.imshow(img)
 #+END_SRC
 
-
 ** Changement d'espace colorimétrique
 
-1) Charger l'image [[https://owncloud.lal.in2p3.fr/index.php/s/0hLYpI8AjA1QeUS][=balloon.jpg=]] puis
-   afficher la. Quelle est la taille de l'image ? Dans quel système colorimétrique est-elle
-   représentée ?
+1) Créer une image de 500x500 pixels contenant du bruit blanc /i.e./ des valeurs aléatoirement
+   réparties entre 0.0 et 1.0. Afficher l'image en utilisant l'échelle de couleur ~cmap="gray"~ (à
+   passer en argument de la fonction =imshow=).
 
-2) La calcul de la luminance =Y= d'un pixel (également appelé niveau de gris) se fait, à partir du
+2) Charger l'image [[https://owncloud.lal.in2p3.fr/index.php/s/0hLYpI8AjA1QeUS][=balloon.jpg=]] puis afficher la. Quelle est la taille de l'image ? Dans quel
+   espace colorimétrique est-elle représentée ?
+
+3) La calcul de la luminance =Y= d'un pixel (également appelé niveau de gris) se fait, à partir du
    système colorimétrique $(R, V, B)$, par la transformation
    #+BEGIN_SRC latex
      \begin{align*}
        Y &= 0.2126\times R+0.7152\times V+0.0722\times B
      \end{align*}
    #+END_SRC
-   Convertir l'image initiale en niveau de gris et la représenter en utilisant l'échelle de couleur
-   ~cmap="gray"~ (à passer en argument de la fonction =imshow=).
+   Convertir l'image initiale en niveau de gris et l'afficher.
 
-3) Le passage à l'espace $(\ell, \alpha, \beta)$ se fait par le biais de l'espace intermédiaire $(L,
-   M, S)$
-   #+BEGIN_SRC latex
-     \begin{align*}
-      \begin{pmatrix}
-      L\\M\\S
-      \end{pmatrix}
-      &=\begin{pmatrix}
-      0.3811&0.5783&0.0401\\
-      0.1967&0.7244&0.0781\\
-      0.0241&0.1288&0.8444
-      \end{pmatrix}
-      \begin{pmatrix}
-      R\\V\\B
-      \end{pmatrix}\\
-      \begin{pmatrix}
-      \ell\\\alpha\\\beta
-      \end{pmatrix}
-      &=\begin{pmatrix}
-      1/\sqrt{3}&0&0\\
-      0&1/\sqrt{6}&0\\
-      0&0&1/\sqrt{2}
-      \end{pmatrix}
-      \begin{pmatrix}
-      \ln L\\\ln M\\\ln S
-      \end{pmatrix}
-     \end{align*}
-   #+END_SRC
-   Convertir l'image initiale dans l'espace colorimétrique $\ell, \alpha, \beta$.
 *** Correction                                                 :correction:
 1)
-   #+BEGIN_SRC python
+   #+BEGIN_SRC jupyter-python :exports both
+     import numpy as np
      import matplotlib.pyplot as plt
+
+     img = np.random.rand(500, 500)
+     plt.imshow(img, cmap="gray");
+   #+END_SRC
+
+   #+ATTR_LATEX: :width 0.5\linewidth
+   #+RESULTS:
+   [[file:./.ob-jupyter/98b051c3a739768846e3b2b1e2ff120e953c8983.png]]
+
+2)
+   #+BEGIN_SRC jupyter-python :exports code
      img = plt.imread("data/balloon.jpg")
      plt.imshow(img)
      print("Taille de l'image {}x{} pixels".format(*img.shape[:2]))
    #+END_SRC
 
-2)
-   #+BEGIN_SRC python
-     img1 = np.dot(img, [0.2126, 0.7152, 0.0722])
-     # ou img1 = img @ [0.2126, 0.7152, 0.0722] depuis Python 3.5
-     plt.imshow(img1, cmap="gray")
-   #+END_SRC
+   #+RESULTS:
+   :RESULTS:
+   : Taille de l'image 300x225 pixels
+   [[file:./.ob-jupyter/33c58a8f74caacf88ffed378dfe78ebdd819280c.png]]
+   :END:
 
 3)
-   #+BEGIN_SRC python
-     RVB2LMS = np.array([[0.3811, 0.5783, 0.0401], [0.1967, 0.7244, 0.0781], [0.0241, 0.1228, 0.8444]])
-     LMS = np.dot(img, RVB2LMS)
+    #+BEGIN_SRC jupyter-python :exports both
+      img1 = np.dot(img, [0.2126, 0.7152, 0.0722])
+      # ou img1 = img @ [0.2126, 0.7152, 0.0722] depuis Python 3.5
+      fig, axes = plt.subplots(1, 2)
+      axes[0].imshow(img)
+      axes[1].imshow(img1, cmap="gray");
+    #+END_SRC
 
+    #+ATTR_LATEX: :width 0.5\linewidth
+    #+RESULTS:
+    [[file:./.ob-jupyter/5e8090b9aeb3f8cb91e070324e7dc46436bc116a.png]]
+
+** /Slices & masks/
+
+1) Dans l'espace $(R, V, B)$, créer une image 600x600 pixels initialement colorée en noire.
+
+2) Colorer en rouge et vert les rectangles représentés sur la figure de gauche ci-dessous.
+
+3) En repartant d'une image complètement noire, colorer les disques représentés sur la figure de
+   droite ci-dessous. /Indication : pour un centre de dique donné, on construira un tableau/
+   /contenant, pour chaque pixel, la distance au centre de ce disque (on pourra s'aider de l'objet/
+   /=ogrid= de =numpy=). On masquera par la suite les distances supérieures au rayon $R=150$, masques/
+   /dont on se servira pour assigner les couleurs désirées./
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \tikzset{%
+      >=latex, % option for nice arrows
+      inner sep=0pt,%
+      outer sep=2pt,%
+      mark coordinate/.style={inner sep=0pt,outer sep=0pt,minimum size=3pt,
+        fill=black,circle}%
+    }
+    \begin{tikzpicture}
+      \sf\scriptsize
+      \begin{scope}[]
+        %% characteristic points
+        \coordinate[mark coordinate] (O) at (0, 0);
+        \coordinate[mark coordinate] (OO) at (6, -6);
+        \coordinate[mark coordinate, fill=red] (A) at (4, -4);
+        \coordinate[mark coordinate, fill=green] (B) at (2, -2);
+
+        \draw (0, 0) node[above] {$(0, 0)$} rectangle (6, -6) node[below] {$(600, 600)$};
+        \draw[dashed, red] (4, 0) -- (A);
+        \draw[dashed, red] (0, -4) -- (A) node[below] {$A\,(400, 400)$};
+        \draw[dashed, green] (6, -2) -- (B);
+        \draw[dashed, green] (2, -6) -- (B) node[above] {$B\,(200, 200)$};
+      \end{scope}
+
+      \begin{scope}[xshift=7cm]
+        %% characteristic points
+        \coordinate[mark coordinate] (O) at (0, 0);
+        \coordinate[mark coordinate] (OO) at (6, -6);
+        \coordinate[mark coordinate, fill=red] (A) at (2, -2);
+        \coordinate[mark coordinate, fill=green] (B) at (4, -2);
+        \coordinate[mark coordinate, fill=blue] (C) at (3, -4);
+
+        \draw (0, 0) node[above] {$(0, 0)$} rectangle (6, -6) node[below] {$(600, 600)$};
+        \draw[dashed, red]   (A) node[above, fill=white] {$A\,(200, 200)$} circle (1.5);
+        \draw[dashed, green] (B) node[above, fill=white] {$B\,(400, 200)$} circle (1.5);
+        \draw[dashed, blue]  (C) node[below] {$C\,(300, 400)$} circle (1.5);
+        \draw[->, green] (B) -- (5.5, -2) node[green, midway, below] {$R=150$};
+      \end{scope}
+    \end{tikzpicture}
+  \end{center}
+#+END_SRC
+
+*** Correction                                                 :correction:
+
+1)
+   #+BEGIN_SRC jupyter-python :exports code
+     import numpy as np
+     img = np.zeros((600, 600, 3), dtype=np.float)
+     plt.imshow(img);
    #+END_SRC
+
+   #+RESULTS:
+   [[file:./.ob-jupyter/17fe50762a13a0842e7fc068595b85362f605861.png]]
+
+2)
+   #+BEGIN_SRC jupyter-python :exports both
+     img[:400, :400, 0] = 1.0
+     img[200:, 200:, 1] = 1.0
+     plt.imshow(img);
+   #+END_SRC
+
+   #+ATTR_LATEX: :width 0.5\linewidth
+   #+RESULTS:
+   [[file:./.ob-jupyter/d35ec2d89747e62cbe81d4245fa81053a454aa02.png]]
+
+3)
+   #+BEGIN_SRC jupyter-python :exports both
+     import numpy as np
+     img = np.zeros((600, 600, 3), dtype=np.float)
+     iy, ix = np.ogrid[:600, :600]
+
+     def get_mask(center=(300, 300), radius=150):
+         dist2center = np.sqrt((ix - center[0])**2 + (iy - center[1])**2)
+         mask = dist2center < radius
+         return dist2center, mask
+
+     dist2center, mask = get_mask()
+
+     plt.imshow(dist2center)
+     cbar = plt.colorbar()
+     cbar.set_label("distance to disk center")
+   #+END_SRC
+
+   #+ATTR_LATEX: :width 0.5\linewidth
+   #+RESULTS:
+   [[file:./.ob-jupyter/646ce47b844bd1635ab27ab71ea3c662eec54101.png]]
+
+   #+BEGIN_SRC jupyter-python :exports both
+     dist2center, mask = get_mask(center=(200, 200))
+     img[mask, 0] = 1
+     dist2center, mask = get_mask(center=(400, 200))
+     img[mask, 1] = 1
+     dist2center, mask = get_mask(center=(300, 400))
+     img[mask, 2] = 1
+
+     plt.imshow(img);
+   #+END_SRC
+
+   #+ATTR_LATEX: :width 0.5\linewidth
+   #+RESULTS:
+   [[file:./.ob-jupyter/946fdb396275194c82a9bfe9f2f82090561adf88.png]]
+
+
+
+
+** /Prologue:/ Transfert de couleurs
+
+Reprendre le projet C++ "Transfert de couleurs" qui consiste à transférer les propriétés
+colorimétriques d'une image source à une image cible. Pour ce faire, on considère l'image [[https://owncloud.lal.in2p3.fr/index.php/s/FamclmFoHvzw1zX][source.bmp]]
+à laquelle on souhaite appliquer les propriétés statistiques de couleurs de l'image [[https://owncloud.lal.in2p3.fr/index.php/s/leaLVbzeL0SsZfl][cible.bmp]]. Il
+s'agit, dans un premier temps, de transformer l'espace de couleur $(R, V, B)$ des deux images vers
+l'espace colorimétrique $(\ell, \alpha, \beta)$. On applique ainsi les transformations suivantes
+#+BEGIN_SRC latex
+  \begin{align*}
+    \begin{pmatrix}L\\M\\S\end{pmatrix}&=
+      \begin{pmatrix}
+        0.3811&0.5783&0.0402\\
+        0.1967&0.7244&0.0782\\
+        0.0241&0.1288&0.8444
+      \end{pmatrix}
+      \begin{pmatrix}R\\V\\B\end{pmatrix}\\
+        \begin{pmatrix}\ell\\\alpha\\\beta\end{pmatrix}&=
+          \begin{pmatrix}
+            1/\sqrt{3}&0&0\\
+            0&1/\sqrt{6}&0\\
+            0&0&1/\sqrt{2}
+          \end{pmatrix}
+          \begin{pmatrix}
+            1&1&1\\
+            1&1&-2\\
+            1&-1&0
+          \end{pmatrix}
+          \begin{pmatrix}\ln L\\\ln M\\\ln S\end{pmatrix}
+  \end{align*}
+#+END_SRC
+
+Une fois dans l'espace $(\ell, \alpha, \beta)$, il s'agit de transférer les propriétés statistiques,
+moyenne et écart-type, de chaque canal soit
+#+BEGIN_SRC latex
+  \begin{align*}
+    \ell_t&=\frac{\sigma^\ell_c}{\sigma^\ell_s}\left(\ell_s-\langle\ell_s\rangle\right)+\langle\ell_c\rangle\\
+    \alpha_t&=\frac{\sigma^\alpha_c}{\sigma^\alpha_s}\left(\alpha_s-\langle\alpha_s\rangle\right)+\langle\alpha_c\rangle\\
+    \beta_t&=\frac{\sigma^\beta_c}{\sigma^\beta_s}\left(\beta_s-\langle\beta_s\rangle\right)+\langle\beta_c\rangle
+  \end{align*}
+#+END_SRC
+où les indices $t, s, c$ correspondent respectivement à l'image "transférée", source et cible.
+
+Finalement, il convient de revenir à l'espace colorimétrique $(R, V, B)$ pour l'image "transférée"
+/via/ les transformations inverses
+#+BEGIN_SRC latex
+     \begin{align*}
+       \begin{pmatrix}L\\M\\S\end{pmatrix}&=
+         \begin{pmatrix}
+           1&1&1\\
+           1&1&-1\\
+           1&-2&0
+         \end{pmatrix}
+         \begin{pmatrix}
+         1/\sqrt{3}&0&0\\
+         0&1/\sqrt{6}&0\\
+         0&0&1/\sqrt{2}
+         \end{pmatrix}
+         \begin{pmatrix}\ell\\\alpha\\\beta\end{pmatrix}\\
+       \begin{pmatrix}R\\V\\B\end{pmatrix}&=\begin{pmatrix}
+         4.4679&-3.5873&0.1193\\
+         -1.2186&2.3809&-0.1624\\
+         0.0497&-0.2439&1.2045
+         \end{pmatrix}\begin{pmatrix}\exp L\\\exp M\\\exp S\end{pmatrix}\\
+     \end{align*}
+ #+END_SRC
+
+*** Correction                                                 :correction:
+#+BEGIN_SRC jupyter-python :exports both
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  M1 = np.array([
+      [0.3811, 0.5783, 0.0402],
+      [0.1967, 0.7244, 0.0782],
+      [0.0241, 0.1288, 0.8444]
+  ])
+  M2 = np.array([
+      [1/np.sqrt(3), 0, 0],
+      [0, 1/np.sqrt(6), 0],
+      [0, 0, 1/np.sqrt(2)]
+  ])
+  M3 = np.array([
+      [1, 1, 1],
+      [1, 1, -2],
+      [1, -1, 0]
+  ])
+
+
+  M4 = M3.T
+  M5 = M2
+  M6 = np.array([
+      [4.4679, -3.5873, 0.1193],
+      [-1.2186, 2.3809, -0.1624],
+      [0.0497, -0.2439, 1.2045]
+  ])
+
+  img_source = plt.imread("./data/source.bmp")/255
+  img_cible = plt.imread("./data/cible.bmp")/255
+
+  img_source_LMS = np.dot(img_source, M1)
+  img_cible_LMS = np.dot(img_cible, M1)
+  img_source_lab = np.dot(np.log(img_source_LMS), np.dot(M2, M3))
+  img_cible_lab = np.dot(np.log(img_cible_LMS), np.dot(M2, M3))
+
+  mean_source_lab, std_source_lab = np.mean(img_source_lab, axis=(0,1)), np.std(img_source_lab, axis=(0,1))
+  mean_cible_lab, std_cible_lab = np.mean(img_cible_lab, axis=(0,1)), np.std(img_cible_lab, axis=(0,1))
+
+  img_transfer_lab = std_cible_lab/std_source_lab*(img_source_lab - mean_source_lab) + mean_cible_lab
+
+  img_transfer_LMS = np.dot(img_transfer_lab, np.dot(M4, M5))
+  img_transfer = np.dot(np.exp(img_transfer_LMS), M6)
+
+  fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+  for ax in axes:
+    ax.axis("off")
+  axes[0].imshow(img_source)
+  axes[0].set_title("source")
+  axes[1].imshow(img_cible)
+  axes[1].set_title("cible")
+  axes[2].imshow(img_transfer)
+  axes[2].set_title("résultat");
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+[[file:./.ob-jupyter/daac5afb335aacbe4f5f93076a5f3bd92fd54d69.png]]
+:END:

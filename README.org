@@ -21,11 +21,20 @@ do =make= within the different directories.
 :HEADER-ARGS: :tangle README.el
 :END:
 ** General settings
+*** Allow bind keywords
+#+BEGIN_SRC emacs-lisp
+  (setq org-export-allow-bind-keywords t)
+#+END_SRC
 *** Timestamp location
 #+BEGIN_SRC emacs-lisp
   (setq org-publish-timestamp-directory "/tmp/org-timestamps")
 #+END_SRC
 
+*** Add =jupyter-python=
+#+BEGIN_SRC emacs-lisp
+  (require 'ox-latex)
+  (add-to-list 'org-latex-minted-langs '(jupyter-python "python"))
+#+END_SRC
 ** Settings for =org= to =pdf= conversion
 *** Requirements
 #+BEGIN_SRC emacs-lisp
