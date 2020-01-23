@@ -91,15 +91,13 @@
     print(M)
   #+END_SRC
 
-[[https://owncloud.lal.in2p3.fr/public.php?service=files&t=ca57174417a91df160a81971c2c57db1][Télécharger les solutions]]
-
 * Fonctions universelles
 
 - Créer un tableau à une dimension contenant 1 million de valeurs aléatoires comprises entre 1 et
   100
 
-- Créer une fonction =inverse= qui retournera un second tableau résultat de l'opération d'inversion du
-  premier tableau
+- Créer une fonction =inverse= qui, à l'aide d'une boucle =for=, retournera un second tableau résultat
+  de l'opération d'inversion du premier tableau
 
 - À l'aide de la fonction intégrée =%timeit= de l'interpréteur =ipython=, estimer le temps moyen
   nécessaire à l'exécution de la fonction =inverse=
@@ -272,7 +270,6 @@
   Nombre de jours pairs avec pluie : 71
 #+end_example
 
-[[https://owncloud.lal.in2p3.fr/index.php/s/agKz0cf6LZjujX5][Télécharger la solution]]
 * Manipulation d'images
 
 Une image n'est rien d'autre qu'une matrice où chaque pixel contient une information
@@ -474,7 +471,7 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
    #+RESULTS:
    [[file:./.ob-jupyter/946fdb396275194c82a9bfe9f2f82090561adf88.png]]
 
-
+#+COMMENT: https://stackoverflow.com/questions/44865023/circular-masking-an-image-in-python-using-numpy-arrays/44874588
 
 
 ** /Prologue:/ Transfert de couleurs

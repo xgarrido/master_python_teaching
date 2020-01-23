@@ -4,6 +4,20 @@
 #+OPTIONS: toc:nil ^:{}
 #+LATEX_HEADER: \setcounter{chapter}{0}
 
+#+BEGIN_REMARK
+L'installation de paquets /via/ la commande =pip= n'est, semble-t-il, pas possible depuis l'installation
+informatique du bâtiment 625. Afin de réaliser les 5 premières questions du premier exercice, le
+plus "simple" est de se connecter à votre compte /via/ =ssh=
+
+#+BEGIN_PROMPT
+ssh prenom.nom@tp-ssh1.dep-informatique.u-psud.fr
+#+END_PROMPT
+
+Une fois dans la nouvelle session, vous pourrez alors réaliser les commandes d'installation de
+paquets. À partir de la question 6), vous pourrez finalement revenir à votre session locale en vous
+déconnectant et en n'oubliant pas de "sourcer" votre nouvel environnement virtuel.
+#+END_REMARK
+
 * L'écosystème Python
 
 1) Définir un environnement virtuel utilisant =python 3.7= que l'on placera dans le répertoire

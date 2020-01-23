@@ -4,7 +4,7 @@
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
-#+BEAMER_HEADER: \institute{Laboratoire de l'Accélérateur Linéaire, Orsay}
+#+BEAMER_HEADER: \institute{IJC Lab, bâtiment 200, Orsay}
 
 * Langage Python \faPython
 
@@ -99,25 +99,27 @@ enseignement, nous utiliserons _Python 3.7_
 
 - Cours amphi. A3 ou A4 $\lesssim$ 1 heure
 
-- TD salles 401 (MAG1) et 515 (MAG2) ~ 1h30
-
-# - TD salles 401 (MAG3) et 515 (MAG4) ~ 1h30
+- TD salles 401 (MAG1/MAG3) et 515 (MAG2/MAG4) ~ 1h30
 
 - Examen (2 heures) *sur machine* la semaine du 16 Mars 2020
 
 #+BEAMER: \pause
 
-#+BEGIN_REMARK
-_TD du 10/02 pour le groupe MAG2 se déroulera le 13/02 à 15h45 (salle 401)_
-#+END_REMARK
+- Cours/TD du lundi
 
-# #+BEGIN_REMARK
-# _Cours/TD du 29/01 se déroulera le 28/01, même heure, amphi. A6_
-# #+END_REMARK
+  #+BEGIN_REMARK
+  _TD du 10/02 pour le groupe MAG4 se déroulera le 13/02 à 15h45 (salle 401)_
+  #+END_REMARK
 
-# #+BEGIN_REMARK
-# _TD du 12/02 pour le groupe MAG4 se déroulera le 18/02 à 15h45 (salle 307)_
-# #+END_REMARK
+- Cours/TD du mercredi
+
+  #+BEGIN_REMARK
+  _Cours/TD du 29/01 se déroulera le 28/01, même heure, amphi. A6_
+  #+END_REMARK
+
+  #+BEGIN_REMARK
+  _TD du 12/02 pour le groupe MAG2 se déroulera le 18/02 à 15h45 (salle 307)_
+  #+END_REMARK
 
 * Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
