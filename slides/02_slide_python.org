@@ -208,7 +208,7 @@ intégrées au langage Python
     In [1]: citation = "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois."
     In [2]: citation + "Mais seulement " + str(1) + " fois jusqu'à moins l'infini."
 
-    In [3]: citation*2
+    In [3]: citation * 2
     Out[3]: "Chuck Norris a déjà [...].Chuck Norris a déjà [...]"
   #+END_SRC
 

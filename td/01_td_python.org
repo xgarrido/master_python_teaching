@@ -312,7 +312,7 @@ systématiquement charger l'environnement virtuel défini lors de ce premier exe
        #+BEGIN_SRC python
          N = int(input("Quelle est la valeur de N ? "))
          f = g = 1
-         for i in range(0,N-1):
+         for i in range(0, N-1):
              f, g = g, f+g
          print("F({}) = {}".format(N,f))
        #+END_SRC

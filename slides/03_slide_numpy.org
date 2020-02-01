@@ -148,14 +148,13 @@ http://www.scipy-lectures.org/intro/numpy/array_object.html#numpy-arrays
 - Démonstration
   #+BEGIN_SRC python
     In [1]: %timeit [i**2 for i in range(1000)]
-    1000 loops, best of 3: 403 us per loop
+    183 µs ± 3.19 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
   #+END_SRC
 
   #+BEAMER: \pause
   #+BEGIN_SRC python
-    In [3]: a = np.arange(1000)
-    In [4]: %timeit a**2
-    100000 loops, best of 3: 12.7 us per loop
+    In [2]: %timeit a = np.arange(1000); a**2
+    2.21 µs ± 11.4 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
   #+END_SRC
 
 * Création de tableau (suite)
@@ -235,7 +234,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
            [666, 666, 666],
            [666, 666, 666]])
 
-    In [4]: np.eye((3,3))
+    In [4]: np.eye(3)
     Out[4]:
     array([[ 1.,  0.,  0.],
            [ 0.,  1.,  0.],
@@ -312,8 +311,8 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
            [9, 8, 2, 0],
            [0, 5, 5, 4]])
 
-    In [3]: x[0, 0], x[2, 0], x[2, -1]
-    Out[3]: (8, 0, 4)
+    In [3]: x[0][0], x[0, 0], x[2, -1]
+    Out[3]: (8, 8, 4)
   #+END_SRC
 
 * Parcours par indice
@@ -368,11 +367,10 @@ Le type de données numériques stockées est fixé à la création du tableau
 
 * Sélection par indice
 
-- À la différence des listes, les sous espaces vectoriels sélectionnés ne sont
-  pas des copies mais *une vue réduite* de la matrice globale
+- À la différence des listes, les sous espaces vectoriels sélectionnés ne sont pas des copies mais
+  *une vue réduite* de la matrice globale
 
-- Toute modification opérée sur le sous espace vectoriel est reportée dans la
-  matrice globale
+- Toute modification opérée sur le sous espace vectoriel est reportée dans la matrice globale
 
   #+BEAMER: \pause
   #+BEGIN_SRC python
@@ -455,8 +453,8 @@ Le type de données numériques stockées est fixé à la création du tableau
 
 * Opérations mathématiques
 
-- *Grâce à l'homogénéité des tableaux de =numpy=*, il est possible de réaliser des
-  opérations mathématiques
+- *Grâce à l'homogénéité des tableaux de =numpy=*, il est possible de réaliser des opérations
+  mathématiques
 
 - Opérateurs unaires
   #+BEGIN_SRC python
@@ -493,6 +491,49 @@ Le type de données numériques stockées est fixé à la création du tableau
   #+END_SRC
 
 - Autres fonctions : =np.exp(), np.power(), np.log(), np.log10(),...=
+
+* Opérations mathématiques : intermède graphique
+
+** Python code
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [1]: import numpy as np
+  In [2]: import matplotlib.pyplot as plt
+  In [3]: %matplotlib
+
+  In [4]: x = np.arange(-5, 5, 0.5)
+
+  In [5]: y1 = x**2 + x + 1.0
+  In [6]: y1
+  Out[6]:
+  array([21., 16.75, 13., 9.75, 7., 4.75, 3., 1.75, 1.,
+         0.75, 1., 1.75, 3., 4.75, 7., 9.75, 13., 16.75,
+         21., 25.75])
+
+  In [7]: y2 = 10 * np.cos(x)
+  In [7]: plt.plot(x, y1, "o", x, y2, "o")
+#+END_SRC
+
+** Color map
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width 1.2\linewidth
+[[file:figures/fcn.pdf]]
+
+* Fin de la première partie
+:PROPERTIES:
+:BEAMER_OPT: plain
+:BEAMER_ENV: fullframe
+:END:
+
+#+BEAMER: \renewcommand{\appendixname}{Fin de la première partie}
+#+BEAMER: \partpage
 
 * Opérations statistiques
 
