@@ -364,6 +364,38 @@ Le type de données numériques stockées est fixé à la création du tableau
       In [2]: x[:, 0], x[:, 1]
       Out[2]: (array([3, 9, 0]), array([3, 8, 5]))
     #+END_SRC
+* Sélection par indice
+
+- Il est également possible de fournir une liste d'indices
+
+  #+BEGIN_SRC python
+    In [1]: x = np.random.randint(0, 10, (3, 3))
+    In [2]: x
+    Out[2]:
+    array([[9, 5, 6],
+           [2, 1, 1],
+           [2, 0, 5]])
+
+    In [3]: x[(1, 2), (0,2)]
+    Out[4]: array([2, 5])
+  #+END_SRC
+
+#+BEAMER: \pause
+- Exemple : manipulation des valeurs de la diagonale d'une matrice
+  #+BEGIN_SRC python
+    In [3]: i = list(range(3))
+    In [4]: x[i, i] = 666
+    In [5]: x
+    Out[5]:
+    array([[666,   5,   6],
+           [  2, 666,   1],
+           [  2,   0, 666]])
+  #+END_SRC
+
+  #+RESULTS:
+
+- La fonction =np.diag_indices= retourne les couples de valeurs d'indices correspondant à la diagonale
+  d'une matrice carrée
 
 * Sélection par indice
 
@@ -628,6 +660,9 @@ Le type de données numériques stockées est fixé à la création du tableau
     array([[ 3.,  3.,  3.],
            [ 3.,  3.,  3.],
            [ 3.,  3.,  3.]])
+
+    # Since Python 3.5
+    In [5]: M @ M
   #+END_SRC
 
 * Opérations algébriques
@@ -807,6 +842,89 @@ Le type de données numériques stockées est fixé à la création du tableau
 #+ATTR_LATEX: :width 1.1\linewidth
 [[file:figures/mask.pdf]]
 
+* Opérations diverses : concaténation
+
+- Concaténation de vecteurs
+  #+BEGIN_SRC python
+    In [1]: x = np.array([1, 2, 3])
+    In [2]: y = np.array([4, 5, 6])
+    In [3]: z = np.array([7, 8, 9])
+    In [4]: np.concatenate([x, y, z])
+    Out[4]: array([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  #+END_SRC
+
+#+BEAMER: \pause
+- Concaténation de matrices
+  #+BEGIN_SRC python
+    In [5]: x = np.array([[1, 2],
+                          [3, 4]])
+    In [6]: np.concatenate([x, x], axis=0)
+    Out[6]:
+    array([[1, 2],
+           [3, 4],
+           [1, 2],
+           [3, 4]])
+
+    In [7]: np.concatenate([x, x], axis=1)
+    Out[7]:
+    array([[1, 2, 1, 2],
+           [3, 4, 3, 4]])
+  #+END_SRC
+
+
+#+COMMENT: https://jakevdp.github.io/PythonDataScienceHandbook/03.06-concat-and-append.html#Recall:-Concatenation-of-NumPy-Arrays
+
+* Opérations diverses : concaténation
+
+- Concaténation de vecteurs \to matrice
+  #+BEGIN_SRC python
+    In [1]: x = np.array([1, 2, 3])
+    In [2]: y = np.array([4, 5, 6])
+
+    In [3]: np.concatenate([x, y], axis=0)
+    Out[3]: array([1, 2, 3, 4, 5, 6])
+
+    In [4]: np.concatenate([x, y], axis=1)
+    ---------------------------------------------------------------------------
+    AxisError                                 Traceback (most recent call last)
+    <ipython-input-85-53c8e6a81f9c> in <module>
+    ----> 1 np.concatenate([x, y], axis=1)
+
+    <__array_function__ internals> in concatenate(*args, **kwargs)
+
+    AxisError: axis 1 is out of bounds for array of dimension 1
+ #+END_SRC
+
+* Opérations diverses : concaténation
+
+- Concaténation de vecteurs \to matrice
+  #+BEGIN_SRC python
+    In [4]: x[np.newaxis], y[np.newaxis]
+    Out[4]: (array([[1, 2, 3]]), array([[4, 5, 6]]))
+
+    In [6]: np.concatenate([x[np.newaxis], y[np.newaxis]], axis=0)
+    Out[6]:
+    array([[1, 2, 3],
+           [4, 5, 6]])
+  #+END_SRC
+
+  #+BEAMER: \pause
+  #+BEGIN_SRC python
+    In [7]: np.concatenate([x[:, np.newaxis], y[:, np.newaxis]], axis=0)
+    Out[7]:
+    array([[1],
+           [2],
+           [3],
+           [4],
+           [5],
+           [6]])
+    In [8]: np.concatenate([x[:, np.newaxis], y[:, np.newaxis]], axis=1)
+    Out[8]:
+    array([[1, 4],
+           [2, 5],
+           [3, 6]])
+#+END_SRC
+
 * Entrées/sorties de =numpy=
 
 - =numpy= permet de charger un fichier texte dans un objet de type =ndarray=
@@ -836,14 +954,26 @@ Le type de données numériques stockées est fixé à la création du tableau
 - le module [[http://pandas.pydata.org/][=pandas=]] est toutefois bien mieux adapté à la lecture de fichier
   contenant des données numériques
 
-* Footnotes
+* Manipulation de données avec =pandas=                               :title:
+:PROPERTIES:
+:BEAMER_ENV: fullframe
+:END:
 
-[fn:e0eb780c73d6562] les principales fonctions de =numpy= sont implémentées en C
-et en Fortran
+#+BEGIN_EXPORT beamer
+\title{Manipulation de données avec \texttt{pandas}}
+\titlepage
+#+END_EXPORT
 
-[fn:ea2b86f523276c9] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.01-Understanding-Data-Types.ipynb#Understanding-Data-Types-in-Python][discussion]]
+* Librairie =pandas=
 
-[fn:1c1516c060af0c15] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.05-Computation-on-arrays-broadcasting.ipynb#Computation-on-Arrays:-Broadcasting][discussion]]
+- =pandas= fournit des structures de données puissantes et simples à utiliser, ainsi que les moyens
+  d'opérer rapidement des opérations sur ces structures.
+
+* Librairie =pandas=
+
+- =pandas= est à =numpy= ce que les dictionnaires sont aux listes en Python
+
+- Pour rappel, l'accès aux éléments d'une liste ou d'un tableau =numpy= se fait par indice
 
 * Annexes
 :PROPERTIES:
@@ -857,3 +987,11 @@ et en Fortran
 
 #+ATTR_LATEX: :width 0.7\linewidth
 [[file:figures/broadcast.pdf]]
+* Footnotes
+
+[fn:e0eb780c73d6562] les principales fonctions de =numpy= sont implémentées en C
+et en Fortran
+
+[fn:ea2b86f523276c9] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.01-Understanding-Data-Types.ipynb#Understanding-Data-Types-in-Python][discussion]]
+
+[fn:1c1516c060af0c15] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.05-Computation-on-arrays-broadcasting.ipynb#Computation-on-Arrays:-Broadcasting][discussion]]
