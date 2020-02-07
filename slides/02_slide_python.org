@@ -472,6 +472,8 @@ intégrées au langage Python
     Clé/Valeur : Francis/5915
   #+END_SRC
 
+- *Tout objet /immutable/ peut servir de clé*
+
 * COMMENT Intermède /geek/
 
 #+ATTR_LATEX: :width 0.65\linewidth
