@@ -5,7 +5,7 @@
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 
-* =numpy= ?
+* =numpy= \faIcon{question-circle}
 
 - Le module =numpy= est l'outil de base utilisé dans tous calculs scientifiques et donc numériques en
   Python
@@ -91,7 +91,7 @@
       Out[8]: ((4,), (2, 2))
     #+END_SRC
 
-* Pourquoi =numpy= ?
+* Pourquoi =numpy= \faIcon{question-circle}
 
 - Les objets de type =numpy.ndarray= \equiv à une liste Python (ou liste de
   listes)
@@ -99,7 +99,7 @@
 - *Pourquoi ne pas simplement utiliser les listes Python pour les calculs au
   lieu de créer un nouveau type de tableau ?*
 
-* Pourquoi =numpy= ?
+* Pourquoi =numpy= \faIcon{question-circle}
 
 Il existe plusieurs (très bonnes) raisons à cela:
 
@@ -143,7 +143,7 @@ http://www.scipy-lectures.org/intro/numpy/array_object.html#numpy-arrays
 
 #+END_COMMENT
 
-* Pourquoi =numpy= ?
+* Pourquoi =numpy= \faIcon{question-circle}
 
 - Démonstration
   #+BEGIN_SRC python
@@ -953,27 +953,6 @@ Le type de données numériques stockées est fixé à la création du tableau
 
 - le module [[http://pandas.pydata.org/][=pandas=]] est toutefois bien mieux adapté à la lecture de fichier
   contenant des données numériques
-
-* Manipulation de données avec =pandas=                               :title:
-:PROPERTIES:
-:BEAMER_ENV: fullframe
-:END:
-
-#+BEGIN_EXPORT beamer
-\title{Manipulation de données avec \texttt{pandas}}
-\titlepage
-#+END_EXPORT
-
-* Librairie =pandas=
-
-- =pandas= fournit des structures de données puissantes et simples à utiliser, ainsi que les moyens
-  d'opérer rapidement des opérations sur ces structures.
-
-* Librairie =pandas=
-
-- =pandas= est à =numpy= ce que les dictionnaires sont aux listes en Python
-
-- Pour rappel, l'accès aux éléments d'une liste ou d'un tableau =numpy= se fait par indice
 
 * Annexes
 :PROPERTIES:

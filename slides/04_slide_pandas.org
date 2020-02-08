@@ -1,0 +1,218 @@
+#+TITLE:  Manipulation de données avec =pandas=
+#+AUTHOR: Xavier Garrido
+#+DATE:   08/02/2020
+#+OPTIONS: toc:nil ^:{} author:nil
+#+STARTUP:     beamer
+#+LATEX_CLASS: python-slide
+
+* =pandas= \faIcon{question-circle}
+
+- =pandas= fournit des structures de données puissantes et simples à utiliser, ainsi que les moyens
+  d'opérer rapidement des opérations sur ces structures
+
+#+ATTR_BEAMER: :overlay +-
+- Installation /via/ =pip=
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install pandas
+  #+END_SRC
+
+- Convention d'importation
+  #+BEGIN_SRC python
+    In [1]: import pandas as pd
+  #+END_SRC
+* =pandas= \faIcon{question-circle}
+
+- =pandas= est à =numpy= ce que les dictionnaires sont aux listes en Python
+
+- Pour rappel, l'accès aux éléments d'une liste ou d'un tableau =numpy= se fait par indice
+
+  #+BEGIN_SRC python
+    In [1]: l = [0, 1, 2, 3]
+    In [2]: l[0]
+    Out[2]: 0
+  #+END_SRC
+
+#+BEAMER: \pause
+- tandis que pour un dictionnaire, l'accès se fait par clé
+
+  #+BEGIN_SRC python
+    In [1]: d = {"a": 0, "b": 1, "c": 2, "d": 3}
+    In [2]: d["a"]
+    Out[2]: 0
+  #+END_SRC
+
+- =pandas= généralise l'utilisation de valeurs autres qu'entières pour l'accès aux données numériques
+
+* =pandas.Series=
+
+- L'objet =Series= généralise la déclaration de *tableau =numpy= à 1 dimension* en associant un indice ou
+  */index/* à chaque ligne du tableau
+
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [1]: data = pd.Series([0, 1, 2, 3], index=["a", "b", "c", "d"])
+    In [2]: data
+    Out[2]:
+    a    0
+    b    1
+    c    2
+    d    3
+    dtype: int64
+
+    In [3]: data.index
+    Out[3]: Index(['a', 'b', 'c', 'd'], dtype='object')
+
+    In [4]: data.values
+    Out[4]: array([0, 1, 2, 3])
+
+    In [5]: data["a"]
+    Out[5]: 0
+  #+END_SRC
+
+* =pandas.Series= : création & parcours
+
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [1]: population_dict = {"California": 38332521,
+                               "Texas": 26448193,
+                               "New York": 19651127,
+                               "Florida": 19552860,
+                               "Illinois": 12882135}
+    In [2]: population = pd.Series(population_dict)
+    In [3]: population
+    Out[3]:
+    California    38332521
+    Texas         26448193
+    New York      19651127
+    Florida       19552860
+    Illinois      12882135
+    dtype: int64
+
+    In [4]: population["Texas"], population.Texas
+    Out[4]: (26448193, 26448193)
+
+    In [5]: population["Texas":"Florida"]
+    Out[5]:
+    Texas       26448193
+    New York    19651127
+    Florida     19552860
+    dtype: int64
+  #+END_SRC
+
+* =pandas.DataFrame=
+
+- L'objet =DataFrame= généralise la déclaration de *tableau =numpy= à 2 dimensions* en associant à la fois un
+  indice ou */index/* pour chaque ligne du tableau de même qu'un nom pour chaque *colonne*
+
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [6]: area_dict = {"California": 423967, "Texas": 695662, "New York": 141297,
+                         "Florida": 170312, "Illinois": 149995}
+    In [7]: area = pd.Series(area_dict)
+
+    In [8]: states = pd.DataFrame({"population": population,
+                                   "area": area})
+    In [9]: states
+    Out[9]:
+                population    area
+    California    38332521  423967
+    Texas         26448193  695662
+    New York      19651127  141297
+    Florida       19552860  170312
+    Illinois      12882135  149995
+
+    In [10]: states.index
+    Out[10]: Index(['California', 'Texas', 'New York', 'Florida', 'Illinois'], dtype='object')
+
+    In [11]: states.columns
+    Out[11]: Index(['population', 'area'], dtype='object')
+  #+END_SRC
+
+* =pandas.DataFrame= : création & parcours
+
+- =DataFrame= \to matrice =numpy=
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [12]: states.values
+    Out[12]:
+    array([[38332521,   423967],
+           [26448193,   695662],
+           [19651127,   141297],
+           [19552860,   170312],
+           [12882135,   149995]])
+  #+END_SRC
+
+#+BEAMER: \pause
+- Parcours par "indice"
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [13]: states["population"]
+    Out[13]:
+    California    38332521
+    Texas         26448193
+    New York      19651127
+    Florida       19552860
+    Illinois      12882135
+    Name: population, dtype: int64
+
+    In [14]: states["population"]["Texas"]
+    Out[14]: 26448193
+  #+END_SRC
+
+#+BEGIN_REMARK
+Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis par ligne !
+#+END_REMARK
+
+* =pandas.DataFrame= : création & parcours
+
+- Parcours /à la/ =numpy= : =iloc=, =loc=
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [15]: states.iloc[:1, :1]
+    Out[15]:
+                population
+    California    38332521
+
+    In [16]: states.loc["Texas"]
+    Out[16]:
+    population    26448193
+    area            695662
+    Name: Texas, dtype: int64
+  #+END_SRC
+
+* =pandas.DataFrame= : création & parcours
+
+- Ajout de données
+  #+ATTR_LATEX: :options fontsize=\scriptsize
+  #+BEGIN_SRC python
+    In [17]: states["density"] = states["population"]/states["area"]
+    In [18]: states
+    Out[18]:
+                population    area     density
+    California    38332521  423967   90.413926
+    Texas         26448193  695662   38.018740
+    New York      19651127  141297  139.076746
+    Florida       19552860  170312  114.806121
+    Illinois      12882135  149995   85.883763
+
+    In [19]: states.T
+    Out[19]:
+                  California         Texas  ...       Florida      Illinois
+    population  3.833252e+07  2.644819e+07  ...  1.955286e+07  1.288214e+07
+    area        4.239670e+05  6.956620e+05  ...  1.703120e+05  1.499950e+05
+    density     9.041393e+01  3.801874e+01  ...  1.148061e+02  8.588376e+01
+
+    [3 rows x 5 columns]
+  #+END_SRC
+
+* =pandas= par l'exemple
+
+- Il existe pléthore de ressources sur internet
+
+  - documentation officielle de [[https://pandas.pydata.org/pandas-docs/stable/pandas.pdf][=pandas=]] (3021 pages !)
+  - /Python Data Science Handbook/ et son chapitre sur [[https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html][=pandas=]]
+  - multitudes de tutoriels en ligne :
+    - [[https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html]] dont [[https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html][10 minutes to
+      pandas]],
+    - [[https://openclassrooms.com/fr/courses/4452741-decouvrez-les-librairies-python-pour-la-data-science/5558996-passez-de-numpy-a-pandas][Openclassrooms]]
+    - ...
