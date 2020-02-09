@@ -4,6 +4,7 @@
 #+OPTIONS: toc:nil ^:{} author:nil
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
+#+PROPERTY: header-args:jupyter-python :session tutorial_pandas
 
 * =pandas= \faIcon{question-circle}
 
@@ -208,11 +209,352 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
 * =pandas= par l'exemple
 
 - Il existe pléthore de ressources sur internet
-
   - documentation officielle de [[https://pandas.pydata.org/pandas-docs/stable/pandas.pdf][=pandas=]] (3021 pages !)
   - /Python Data Science Handbook/ et son chapitre sur [[https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html][=pandas=]]
   - multitudes de tutoriels en ligne :
-    - [[https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html]] dont [[https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html][10 minutes to
-      pandas]],
-    - [[https://openclassrooms.com/fr/courses/4452741-decouvrez-les-librairies-python-pour-la-data-science/5558996-passez-de-numpy-a-pandas][Openclassrooms]]
+    - [[https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html][tutoriels officiels =pandas=]] dont [[https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html][10 minutes to =pandas=]],
+    - [[https://openclassrooms.com/fr/courses/4452741-decouvrez-les-librairies-python-pour-la-data-science/5558996-passez-de-numpy-a-pandas][Open Class Rooms]]
     - ...
+
+- Tutoriel intéractif \to =jupyter= /notebook/
+  -
+  -
+  - depuis votre terminal /via/ la commande
+
+    #+BEGIN_SRC shell-session
+    @\prompt@ jupyter notebook /chemin/vers/le/notebook
+    #+END_SRC
+
+#+BEGIN_SRC latex
+  \begin{textblock}{}(2.75,8.7)
+    \href{https://data.gouv.fr}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
+   \end{textblock}
+
+  \begin{textblock}{}(2.75,9.35)
+    \href{https://data.gouv.fr}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
+   \end{textblock}
+#+END_SRC
+
+
+
+* pandas par l'exemple                                             :export:
+** Analyse des prénoms parisiens depuis 2004
+*** Lecture & importation de fichier de données
+Commençons par l'importation du module =pandas=
+#+BEGIN_SRC jupyter-python :results none
+  import pandas as pd
+#+END_SRC
+
+Nous allons nous intéresser dans ce /notebook/ à l'historique des prénoms déclarés à l'état-civil de
+2004 à 2019 sur la ville de Paris. Ces données sont téléchargeables depuis le site
+[[https://data.gouv.fr][https://data.gouv.fr]] et, pour le fichier qui nous intéresse, à cette [[https://www.data.gouv.fr/fr/datasets/r/30800be0-8b72-4e89-9ecf-58ea7dedfe86][adresse]]. Une fois le fichier
+téléchargé, nous pouvons jeter un coup d'oeil aux premières lignes
+#+BEGIN_SRC jupyter-python
+  !head data/liste_des_prenoms.csv
+#+END_SRC
+
+#+RESULTS:
+: Nombre;Sexe;Annee;Prenoms;Nombre total cumule par annee
+: 7;M;2013;Aydan;7
+: 6;F;2013;Béatrice;6
+: 6;M;2013;Boubacar;6
+: 5;M;2013;Camilo;5
+: 14;M;2013;Charly;14
+: 6;F;2013;Chayma;6
+: 67;M;2013;David;67
+: 6;F;2013;Delia;6
+: 6;F;2013;Eleanor;6
+
+Le fichier brut présente ainsi 5 colonnes dont l'intitulé se trouve à la première ligne. Nous allons
+charger ce fichier dans un objet de type =pandas.DataFrame= afin de pouvoir le manipuler
+#+BEGIN_SRC jupyter-python :results none
+  data = pd.read_csv("./data/liste_des_prenoms.csv", sep=";")
+#+END_SRC
+
+Les commandes =head()/tail()= permettent d'avoir un aperçu des premières/dernières lignes du =DataFrame=
+#+BEGIN_SRC jupyter-python :results none
+  data.head()
+#+END_SRC
+
+Les indices et les colonnes sont
+#+BEGIN_SRC jupyter-python :results none
+  data.index, data.columns
+#+END_SRC
+tandis que la "forme" et le type de données sont accessibles /via/
+#+BEGIN_SRC jupyter-python :results none
+  data.shape, data.dtypes
+#+END_SRC
+*** Premier analyse & manipulation des données
+Dans un premier temps, nous allons renommer la colonne "Nombre total cumule par annee" en "Cumul"
+afin de pouvoir accéder à cette colonne plus facilement
+#+BEGIN_SRC jupyter-python :results none
+  data.rename(columns={"Nombre total cumule par annee": "Cumul"}, inplace=True)
+#+END_SRC
+
+À la lecture des premières lignes, on peut également se poser la question de la différence entre les
+données de la colonne "Nombre" et "Cumul". Nous allons dénombrer les lignes pour lesquels ces deux
+valeurs sont différentes
+#+BEGIN_SRC jupyter-python
+  import numpy as np
+  mask = (data.Cumul - data.Nombre != 0)
+  print(np.sum(mask), "sur un total de", data.shape[0], "lignes")
+#+END_SRC
+
+#+RESULTS:
+: 232 sur un total de 20453 lignes
+
+puis afficher ces lignes pour tenter de comprendre l'origine de la différence
+#+BEGIN_SRC jupyter-python :results none
+  data[mask]
+#+END_SRC
+Il semble que les différences sont dues aux prénoms mixtes. Affichons les lignes associées au prénom
+"Camille"
+#+BEGIN_SRC jupyter-python :results none
+  data[data.Prenoms == "Camille"]
+#+END_SRC
+
+On constate bien que la valeur cumulée correspond à la somme par année des occurences de "Camille"
+garçons comme filles. Par la suite, nous allons traiter chaque population de façon distincte, nous
+pouvons donc supprimer cette colonne
+#+BEGIN_SRC jupyter-python
+  data.pop("Cumul")
+#+END_SRC
+
+Une fois cette première sélection réalisée, nous pouvons avoir un rapide aperçu des propriétés
+statistiques du fichier et de chaque colonne à l'aide de la fonction =describe()=
+#+BEGIN_SRC jupyter-python :results none
+  data.describe()
+#+END_SRC
+
+La valeur moyenne du nombre d'occurences d'un prénom est ainsi voisine de ~25 tandis que la valeur
+médiane est à 11. La distribution du nombre d'occurences est ainsi totalement asymétrique comme nous
+pouvons le voir en représentant la distribution de ces valeurs
+#+BEGIN_SRC jupyter-python
+  data.Nombre.plot.hist(log=True, bins=30);
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/e58e30c5c00d1586c6ce48a8b59ab8a336602364.png]]
+
+*** Aggrégation & tri de valeurs
+
+Les données fournis par le fichier sont désordonnées aussi bien du point de vue des années que des
+prénoms. Nous pouvons trier ces données en les ordonnant temporellement à l'aide de la fonction
+=sort_values()=
+#+BEGIN_SRC jupyter-python :results none
+  data.sort_values(by="Annee")
+#+END_SRC
+
+L'argument =by= peut tout à la fois prendre le nom du colonne ou une liste de noms de colonnes afin de
+réaliser un tri successif selon chaque colonne. Ainsi pour trier par année puis, de façon
+décroissante, par nombre, nous pouvons écrire
+#+BEGIN_SRC jupyter-python :results none
+  data.sort_values(by=["Annee", "Nombre"], ascending=False)
+#+END_SRC
+
+On peut également grouper les valeurs selon une colonne. La fonction =groupby()= permet, par exemple,
+de regrouper les valeurs par année et d'extraire par la suite le nombre total de naissance par année
+#+BEGIN_SRC jupyter-python
+  data.groupby("Annee").sum().plot(style="--o");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/cddb5ae60954d3c34c4a86a4e522419557556d92.png]]
+On peut également regrouper les naissances en fonction de l'année et du sexe des enfants
+#+BEGIN_SRC jupyter-python
+  data.groupby(["Annee", "Sexe"]).sum()
+#+END_SRC
+
+En groupant les données selon deux catégories (Année, Sexe), on obtient un nouvel objet =DataFrame=
+dont les indices sont des couples (Année, Sexe)
+#+BEGIN_SRC jupyter-python
+  data1 = data.groupby(["Annee", "Sexe"]).sum()
+  data1.index
+#+END_SRC
+
+La fonction =unstack()= permet alors de transformer cet objet afin de disposer du nombre de naissances
+par sexe en fonction de l'année
+#+BEGIN_SRC jupyter-python
+  data1.unstack()
+#+END_SRC
+
+#+BEGIN_SRC jupyter-python
+  data1.unstack().plot(style="--o")
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: <matplotlib.axes._subplots.AxesSubplot at 0x7fa7b33eea90>
+[[file:./.ob-jupyter/3e83a7ad2fec583d0c5f998c48388fccf40d6435.png]]
+:END:
+
+Finalement, pour trouver les noms les plus utilisés en fonction des années et du sexe de l'enfant,
+on peut utiliser la fonction =max()= qui retourne, après avoir groupé les données, les valeurs
+maximales *par colonne*
+#+BEGIN_SRC jupyter-python
+  data.groupby(["Annee", "Sexe"]).max()
+#+END_SRC
+
+Les prénoms affichés correspondent aux valeurs "maximales" soit, pour des chaines de caractères, au
+tri alphabétique : Zinédine n'est pas le prénom le plus utilisé en 2004. En revanche, le nombre
+maximal de fois où un prénom a été donné correspond bien aux valeurs portées par la colonne
+"Nombre". Il s'agit donc pour ces valeurs de trouver les prénoms associés. On peut alors chercher
+les indices correspondant à ces valeurs maximales /via/ la fonction =idxmax()=
+#+BEGIN_SRC jupyter-python
+  data.groupby(["Annee", "Sexe"]).idxmax()
+#+END_SRC
+puis d'afficher ces lignes
+#+BEGIN_SRC jupyter-python
+  data.iloc[data.groupby(["Annee", "Sexe"]).idxmax()["Nombre"]]
+#+END_SRC
+
+*** Pivoter les données
+
+Il est possible de transposer les données de telle sorte à inverser indices et colonnes. On peut
+également utiliser la fonction =pivot_table()= pour déterminer la façon dont va pivoter le
+=DataFrame=. Cette fonction prend 3 arguments :
+
+- =values= indique les valeurs selon lesquelles réaliser le pivot de la table de données,
+- =columns= permet de spécifier les valeurs qui deviendront les colonnes dans la nouvelle table,
+- =index= permet de spécifier ce qui deviendra l'index de la table pivotée.
+
+On peut, par exemple, représenter le nombre de prénoms attribués (=values=) en fonction de l'année
+(=columns=) pour chaque prénoms (=index=)
+#+BEGIN_SRC jupyter-python
+  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee")
+#+END_SRC
+
+On note qu'en l'absence de valeurs, =pandas= associe la valeur /Not a Number/, valeur que l'on peut
+ignorer =dropna()= ou que l'on peut modifier de la façon suivante
+#+BEGIN_SRC jupyter-python
+  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee").fillna(0)
+#+END_SRC
+
+Nous avons ainsi accès à la tendance annuelle d'un prénom en le sélectionnant
+#+BEGIN_SRC jupyter-python
+  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee").fillna(0).loc[["Patrick", "Pascal"]].astype(int)
+#+END_SRC
+
+Le résultat graphique est encore plus parlant
+#+BEGIN_SRC jupyter-python
+  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee").fillna(0).loc[["Patrick", "Pascal"]].T.plot.bar()
+#+END_SRC
+** Analyse, tri et manipulation de données temporelles
+=pandas= permet de manipuler des données temporelles en facilitant notamment la lecture des dates,
+heures, ... Nous allons dans cette seconde partie étudier la distribution temporelle correspondant à
+la traversée du pont Fremont à Seattle en vélo. Ce notebook est une application directe du chapitre
+[[https://jakevdp.github.io/PythonDataScienceHandbook/03.11-working-with-time-series.html#Example:-Visualizing-Seattle-Bicycle-Counts]["/Working with time series/"]].
+
+Les données relevées par la ville de Seattle sont consultables à cette [[https://data.seattle.gov/Transportation/Fremont-Bridge-Bicycle-Counter/65db-xm6k][adresse]]. Nous pouvons
+directement les charger dans =DataFrame= à l'aide la fonction =read_csv()= à laquelle nous indiquons
+utiliser les dates de relevés comme indices
+#+BEGIN_SRC jupyter-python :results none
+  data = pd.read_csv("https://data.seattle.gov/api/views/65db-xm6k/rows.csv?accessType=DOWNLOAD", parse_dates=True, index_col="Date")
+  data.head()
+#+END_SRC
+
+Les données donne la fréquence horaire de traversée d'Est en Ouest du pont Fremont. Afin de
+faciliter la manipulation des données nous allons renommer chaque colonne
+#+BEGIN_SRC jupyter-python
+  data.columns = ["Total", "East", "West"]
+#+END_SRC
+
+# Vérifier s'il y a des =nan=
+# #+BEGIN_SRC jupyter-python
+#   data.isna().values.any()
+# #+END_SRC
+
+# #+RESULTS:
+# : True
+
+*** Visualisation des données
+
+Afin d'avoir un rapide aperçu statistique, on peut toujours utiliser la fonction =describe()=
+#+BEGIN_SRC jupyter-python :results none
+  data.dropna().describe()
+#+END_SRC
+ou visualiser le nombre de traversée en fonction de l'heure
+#+BEGIN_SRC jupyter-python
+  data.plot();
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/d51af58d8663d1465a2123411cecfe520f6901ce.png]]
+
+Le taux horaire de données est tel qu'il convient de rééchantillonner les valeurs par semaine
+#+BEGIN_SRC jupyter-python
+  weekly = data.resample("W").sum()
+  weekly.plot().set_ylabel("Nombre de traversées par semaine");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/7cbc0bc734cfc445da26d1005762d74059b8f6be.png]]
+
+Les données laissent clairement apparaître des variations été/hiver de même qu'une augmentation du
+trafic depuis l'ouest vers l'est depuis 2017.
+
+Nous pouvons également lisser ces courbes à l'aide d'une moyenne glissante sur la base d'un
+échantillonnage journalier. On utilise à cette fin une moyenne glissante sur 30 jours à l'aide de la
+fonction =rolling()=
+#+BEGIN_SRC jupyter-python
+  daily = data.resample("D").sum()
+  daily.rolling(30, center=True).mean().plot().set_ylabel("Nombre moyen de traversée par jour");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/700c3da1b91df092e34fb8242cc4ba732fd2308a.png]]
+
+On peut finalement faire ce même exercice en utilisant une fonction gaussienne afin de minimiser
+encore les variations (/Kernel Density Estimation/)
+#+BEGIN_SRC jupyter-python
+  daily.rolling(50, center=True, win_type="gaussian").mean(std=10).plot().set_ylabel("Nombre moyen de traversée par jour");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/a685575ac8cda2f8ccb18680d84ce8ccb742c7b3.png]]
+*** Variation du trafic par heure
+À l'image des prénoms, il est possible de grouper les données par heure afin d'estimer les
+variations moyennes au cours d'une journée
+#+BEGIN_SRC jupyter-python :results none
+  by_time = data.groupby(data.index.time)
+  by_time.describe()
+#+END_SRC
+
+et de représenter graphiquement ces données
+#+BEGIN_SRC jupyter-python
+  hourly_ticks = 4 * 60 * 60 * np.arange(6)
+  by_time.mean().plot(xticks=hourly_ticks);
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/fb96b31fc0fe68dd2a1cedb0ff41a8a41f51f9dc.png]]
+
+La distribution est bimodale est fonction des heures de travail (8h le matin, 17h l'après midi) et
+les traversées s'inversent bien (la direction est/ouest correspond au trafic agglomération vers
+centre-ville)
+
+Nous pouvons également nous intéresser à la fréquence de traversée en fonction du jour et vérifier
+que l'utilisation du vélo se fait majoritairement pour se rendre au travail
+#+BEGIN_SRC jupyter-python
+  by_weekday = data.groupby(data.index.dayofweek).mean()
+  by_weekday.index = ["Lundi", "Mardi", "Merc.", "Jeudi", "Vend.", "Samedi", "Dim."]
+  by_weekday.plot();
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/c3334b59a0a12bb835f1e65fc70beff2ec328da0.png]]
+
+Finalement, nous pouvons grouper les deux informations heure et jour et comparer les distributions
+en fonction du jour de la semaine
+#+BEGIN_SRC jupyter-python
+  weekend = np.where(data.index.weekday < 5, "Semaine", "Week-end")
+  by_time = data.groupby([weekend, data.index.time]).mean()
+
+  import matplotlib.pyplot as plt
+  fig, ax = plt.subplots(1, 2, figsize=(10,5))
+  by_time.loc["Semaine"].plot(ax=ax[0], title="Semaine", xticks=hourly_ticks)
+  by_time.loc["Week-end"].plot(ax=ax[1], title="Week-end", xticks=hourly_ticks);
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/ef72c93fb302bab2ea47b07f170033e20ec4bab9.png]]

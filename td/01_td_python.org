@@ -61,14 +61,14 @@ systématiquement charger l'environnement virtuel défini lors de ce premier exe
    les commandes suivantes
 
     #+BEGIN_SRC shell-session
-      $ python3.5 -m venv ~/python.d/my_python_env
+      $ python3.7 -m venv ~/m1_python
     #+END_SRC
 2)
 
    #+BEGIN_SRC shell-session
-     $ source ~/python.d/my_python_env/bin/activate
+     $ source ~/m1_python/bin/activate
      $ which python
-     ~/python.d/my_python_env/bin/python
+     ~/m1_python/bin/python
    #+END_SRC
 
 3) Liste de l'ensemble des modules installés
