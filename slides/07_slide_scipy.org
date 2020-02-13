@@ -19,6 +19,8 @@
   - Algorithmes d'interpolation, d'intégration et d'optimisation
   - Traitement du signal et des images (transformée de Fourier, convolution,...)
 
+#+COMMMENT: https://www.nature.com/articles/s41592-019-0686-2
+
 * Installation & importation de =scipy=
 
 #+ATTR_BEAMER: :overlay +-

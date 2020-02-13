@@ -227,17 +227,17 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
 
 #+BEGIN_SRC latex
   \begin{textblock}{}(2.75,8.7)
-    \href{https://data.gouv.fr}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
+    \href{https://colab.research.google.com/github/xgarrido/master_python_teaching/blob/master/slides/04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
    \end{textblock}
 
   \begin{textblock}{}(2.75,9.35)
-    \href{https://data.gouv.fr}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
+    \href{https://mybinder.org/v2/gh/xgarrido/master_python_teaching/master?filepath=slides\%2F04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
    \end{textblock}
 #+END_SRC
 
 
 
-* pandas par l'exemple                                             :export:
+* pandas par l'exemple                                             :noexport:
 ** Analyse des prénoms parisiens depuis 2004
 *** Lecture & importation de fichier de données
 Commençons par l'importation du module =pandas=
@@ -437,7 +437,7 @@ Nous avons ainsi accès à la tendance annuelle d'un prénom en le sélectionnan
 
 Le résultat graphique est encore plus parlant
 #+BEGIN_SRC jupyter-python
-  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee").fillna(0).loc[["Patrick", "Pascal"]].T.plot.bar()
+  data.pivot_table(values="Nombre", index="Prenoms", columns="Annee").fillna(0).loc[["Patrick", "Pascal"]].T.plot.bar();
 #+END_SRC
 ** Analyse, tri et manipulation de données temporelles
 =pandas= permet de manipuler des données temporelles en facilitant notamment la lecture des dates,

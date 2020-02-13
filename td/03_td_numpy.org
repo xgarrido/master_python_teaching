@@ -304,7 +304,7 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
    réparties entre 0.0 et 1.0. Afficher l'image en utilisant l'échelle de couleur ~cmap="gray"~ (à
    passer en argument de la fonction =imshow=).
 
-2) Charger l'image [[https://owncloud.lal.in2p3.fr/index.php/s/0hLYpI8AjA1QeUS][=balloon.jpg=]] puis afficher la. Quelle est la taille de l'image ? Dans quel
+2) Charger l'image [[https://owncloud.lal.in2p3.fr/index.php/s/TyEPm59H6e0wr2k][=balloon.png=]] puis afficher la. Quelle est la taille de l'image ? Dans quel
    espace colorimétrique est-elle représentée ?
 
 3) La calcul de la luminance =Y= d'un pixel (également appelé niveau de gris) se fait, à partir du
@@ -328,11 +328,11 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
 
    #+ATTR_LATEX: :width 0.5\linewidth
    #+RESULTS:
-   [[file:./.ob-jupyter/98b051c3a739768846e3b2b1e2ff120e953c8983.png]]
+   [[file:./.ob-jupyter/66754fb8b533bad401a48bf429515061832a53ef.png]]
 
 2)
    #+BEGIN_SRC jupyter-python :exports code
-     img = plt.imread("data/balloon.jpg")
+     img = plt.imread("data/balloon.png")
      plt.imshow(img)
      print("Taille de l'image {}x{} pixels".format(*img.shape[:2]))
    #+END_SRC
@@ -340,7 +340,7 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
    #+RESULTS:
    :RESULTS:
    : Taille de l'image 300x225 pixels
-   [[file:./.ob-jupyter/33c58a8f74caacf88ffed378dfe78ebdd819280c.png]]
+   [[file:./.ob-jupyter/aeef88afc589d40d52c9ee3f0880a876b0ce6f35.png]]
    :END:
 
 3)
@@ -354,7 +354,7 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
 
     #+ATTR_LATEX: :width 0.5\linewidth
     #+RESULTS:
-    [[file:./.ob-jupyter/5e8090b9aeb3f8cb91e070324e7dc46436bc116a.png]]
+    [[file:./.ob-jupyter/1171a9bd6bc28e2eef0155d61be23812ba2a1b1f.png]]
 
 ** /Slices & masks/
 
@@ -473,12 +473,11 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
 
 #+COMMENT: https://stackoverflow.com/questions/44865023/circular-masking-an-image-in-python-using-numpy-arrays/44874588
 
-
 ** /Prologue:/ Transfert de couleurs
 
 Reprendre le projet C++ "Transfert de couleurs" qui consiste à transférer les propriétés
-colorimétriques d'une image source à une image cible. Pour ce faire, on considère l'image [[https://owncloud.lal.in2p3.fr/index.php/s/FamclmFoHvzw1zX][source.bmp]]
-à laquelle on souhaite appliquer les propriétés statistiques de couleurs de l'image [[https://owncloud.lal.in2p3.fr/index.php/s/leaLVbzeL0SsZfl][cible.bmp]]. Il
+colorimétriques d'une image source à une image cible. Pour ce faire, on considère l'image [[https://owncloud.lal.in2p3.fr/index.php/s/Cp0xWg01B5VVDRu][source.png]]
+à laquelle on souhaite appliquer les propriétés statistiques de couleurs de l'image [[https://owncloud.lal.in2p3.fr/index.php/s/9fOSMIvYpDbnoU2][cible.png]]. Il
 s'agit, dans un premier temps, de transformer l'espace de couleur $(R, V, B)$ des deux images vers
 l'espace colorimétrique $(\ell, \alpha, \beta)$. On applique ainsi les transformations suivantes
 #+BEGIN_SRC latex
@@ -570,8 +569,8 @@ Finalement, il convient de revenir à l'espace colorimétrique $(R, V, B)$ pour 
       [0.0497, -0.2439, 1.2045]
   ])
 
-  img_source = plt.imread("./data/source.bmp")/255
-  img_cible = plt.imread("./data/cible.bmp")/255
+  img_source = plt.imread("./data/source.png")
+  img_cible = plt.imread("./data/cible.png")
 
   img_source_LMS = np.dot(img_source, M1)
   img_cible_LMS = np.dot(img_cible, M1)
@@ -607,10 +606,15 @@ Finalement, il convient de revenir à l'espace colorimétrique $(R, V, B)$ pour 
 Le fichier [[https://owncloud.lal.in2p3.fr/index.php/s/VhgDvSljdzftZ2c][=planets.csv=]] contient des informations relatives aux planètes extrasolaires depuis la
 première découverte en 1989. Le document fait notamment référence aux techniques de découverte de
 ces objets (première colonne) et recense les informations glanées par leurs découvreurs : période
-orbitale en jours (colonne 3), masse de la planète (colonne 4), distance à l'objet en années
-lumières (colonne 5) et année de découverte (colonne 6). Dans cet exercice, on utilisera le module
-=pandas= plus à même de traiter des fichiers de données mélant données numériques et
-alphanumériques.
+orbitale en jours, masse de la planète, distance à l'objet en années lumières et année de
+découverte. Dans cet exercice, on utilisera le module =pandas= plus à même de traiter des fichiers de
+données mélant données numériques et alphanumériques.
+
+1) Après avoir lu le fichier, afficher un premier résumé des propriétés statistiques du fichier. On
+   prendra garde à ne pas conserver les lignes pour lesquelles les informations manquent (données
+   associées à la valeur =NaN=).
+
+2) Faire de même en ayant au préalable regrouper les données par méthode de détection.
 
 - Représenter le nombre de planètes découvertes en fonction du temps. Modifier l'abscisse de la
   figure de telle sorte à indiquer chaque année et s'assurer que chaque donnée est bien centrée par
@@ -732,3 +736,73 @@ alphanumériques.
 [[file:figures/planet_period.pdf]]
 
 [[https://owncloud.lal.in2p3.fr/index.php/s/fFGtGWHVKr1T9Qu][Télécharger la solution]]
+*** new pandas
+1)
+   #+BEGIN_SRC jupyter-python
+     import pandas as pd
+     data = pd.read_csv("data/planets.csv")
+     print(data.dropna().describe())
+   #+END_SRC
+
+   #+RESULTS:
+   :        orbital_period        mass    distance         year
+   : count      498.000000  498.000000  498.000000   498.000000
+   : mean       835.778671    2.509320   52.068213  2007.377510
+   : std       1469.128259    3.636274   46.596041     4.167284
+   : min          1.328300    0.003600    1.350000  1989.000000
+   : 25%         38.272250    0.212500   24.497500  2005.000000
+   : 50%        357.000000    1.245000   39.940000  2009.000000
+   : 75%        999.600000    2.867500   59.332500  2011.000000
+   : max      17337.500000   25.000000  354.000000  2014.000000
+
+#+BEGIN_SRC jupyter-python
+  by_method = data.groupby("method")
+  print(by_method.mean())
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+                                 orbital_period      mass     distance  \
+  method
+  Astrometry                         631.180000       NaN    17.875000
+  Eclipse Timing Variations         4751.644444  5.125000   315.360000
+  Imaging                         118247.737500       NaN    67.715937
+  Microlensing                      3153.571429       NaN  4144.000000
+  Orbital Brightness Modulation        0.709307       NaN  1180.000000
+  Pulsar Timing                     7343.021201       NaN  1200.000000
+  Pulsation Timing Variations       1170.000000       NaN          NaN
+  Radial Velocity                    823.354680  2.630699    51.600208
+  Transit                             21.102073  1.470000   599.298080
+  Transit Timing Variations           79.783500       NaN  1104.333333
+
+                                        year
+  method
+  Astrometry                     2011.500000
+  Eclipse Timing Variations      2010.000000
+  Imaging                        2009.131579
+  Microlensing                   2009.782609
+  Orbital Brightness Modulation  2011.666667
+  Pulsar Timing                  1998.400000
+  Pulsation Timing Variations    2007.000000
+  Radial Velocity                2007.518987
+  Transit                        2011.236776
+  Transit Timing Variations      2012.500000
+#+end_example
+
+#+BEGIN_SRC jupyter-python
+  by_year = data.groupby("year")
+  by_year.sum()["number"].plot.bar();
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/dd3742c93b7c07cf95776fe37836a7cf1c83b47f.png]]
+
+#+BEGIN_SRC jupyter-python
+  by_year_method = data.groupby(["year", "method"])
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: <matplotlib.axes._subplots.AxesSubplot at 0x7f620ac42ac0>
+[[file:./.ob-jupyter/050ee3523b492fb565afb9fe74a77665e3f4ee44.png]]
+:END:
