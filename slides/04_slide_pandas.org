@@ -235,6 +235,16 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
    \end{textblock}
 #+END_SRC
 
+#+RESULTS:
+#+begin_export latex
+\begin{textblock}{}(2.75,8.7)
+  \href{https://colab.research.google.com/github/xgarrido/master_python_teaching/blob/master/slides/04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
+ \end{textblock}
+
+\begin{textblock}{}(2.75,9.35)
+  \href{https://mybinder.org/v2/gh/xgarrido/master_python_teaching/master?filepath=slides\%2F04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
+ \end{textblock}
+#+end_export
 
 
 * pandas par l'exemple                                             :noexport:
