@@ -1,0 +1,154 @@
+#+TITLE:  Librairie =matplotlib=
+#+AUTHOR: Xavier Garrido
+#+DATE:   02/03/2017
+#+OPTIONS: toc:nil ^:{}
+#+LATEX_HEADER: \setcounter{chapter}{5}
+
+* À la découverte des planètes extrasolaires
+
+Le fichier [[https://owncloud.lal.in2p3.fr/index.php/s/VhgDvSljdzftZ2c][=planets.csv=]] contient des informations relatives aux planètes extrasolaires depuis la
+première "découverte" en 1989. Le document fait notamment référence aux techniques de découverte de
+ces objets et recense les informations glanées par leurs découvreurs : période orbitale en jours,
+masse de la planète, distance à l'objet en années lumières et année de découverte. Dans cet
+exercice, on utilisera le module =pandas= plus à même de traiter des fichiers de données mélant
+données numériques et alphanumériques.
+
+1) Après avoir lu le fichier, afficher un premier résumé des propriétés statistiques du fichier. On
+   prendra garde à ne pas conserver les lignes pour lesquelles les informations manquent (données
+   associées à la valeur =NaN=).
+
+2) Faire de même en ayant au préalable regrouper les données par méthode de détection.
+
+3) Représenter le nombre de planètes découvertes en fonction du temps.
+
+4) Représenter cette même information en fonction de la méthode utilisée pour la découverte.
+
+5) Pour les deux principales méthodes, représenter la variation de la période orbitale en fonction
+   de la distance à la planète. Finalement, ajouter à la figure précédente, deux sous-figures,
+   présentant les distributions de période orbitale et de distance pour chacune des deux
+   méthodes. Les trois représentations doivent figurer sur la même figure et conclure quant aux
+   caractéristiques des objets extrasolaires mis en évidence par chacune des deux méthodes.
+
+** Correction                                                   :correction:
+
+Correction consultable à cette [[https://colab.research.google.com/drive/17LFuw9lb2sk0kRmYlGv1R5Un3nR069mQ][adresse]]
+
+* /Iris setosa, Iris virginica et Iris versicolor/
+
+Le jeu de données /Iris/ contient les propriétés morphologiques de 3 espèces de fleur d'iris
+collectées par Edgar Anderson. Ce jeu de données est surtout reputé par l'utilisation faite en 1936
+par Ronald Fisher pour démontrer la puissance de son algorithme d'analyse discriminante linéaire à
+même de séparer les 3 espèces de fleur d'iris. Ces données sont devenues depuis un cas typique pour
+de nombreuses techniques de classification automatique en /machine learning/.
+
+- Télécharger le fichier [[https://owncloud.lal.in2p3.fr/index.php/s/Z7bymhD4przBPZc][=iris.csv=]]
+  Charger ce fichier dans un =pandas.DataFrame= et créer une nouvelle colonne associant la variété
+  d'iris à une couleur (0, 1, 2 ou =red, green, blue= ou ...)
+
+- Représenter les distributions normalisées de longueur et de largeur des sépales et des pétales
+  pour les 3 espèces
+
+- Représenter dans un diagramme (largeur des sépales /vs./ longueur des sépales), la largeur des
+  pétales ainsi que l'espèce de fleur d'iris considérée
+
+- Représenter l'ensemble des combinaisons possibles de données (largeur des sépales /vs./ longueur
+  des sépales, largeur des sépales /vs./ largeur des pétales...), les figures situées dans la
+  diagonale devant correspondre aux distributions normalisées des différentes grandeurs.
+
+** Correction                                                   :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/iris.py
+:END:
+
+#+BEGIN_SRC python -n
+  import numpy as np
+  import pandas as pd
+  df = pd.read_csv("./data/iris.csv")
+
+  sepal_length = df["sepal.length"]
+  sepal_width = df["sepal.width"]
+  petal_length = df["petal.length"]
+  petal_width = df["petal.width"]
+  variety = df["variety"]
+  df["colors"] = np.where(variety == "Setosa", "C0",
+                          np.where(variety == "Versicolor", "C1", "C2"))
+  # Version pure python
+  # variety2int = {k: i for i, k in enumerate(variety.unique())}
+  # colors = [variety2int[k] for k in variety]
+
+  # Distributions des longueurs
+  import matplotlib.pyplot as plt
+
+  kwargs = dict(histtype="stepfilled", alpha=0.5, bins=20)
+
+  species = variety.unique()
+  labels = {"longueur des sépales [cm]" : sepal_length,
+            "largeur des sépales [cm]"  : sepal_width,
+            "longueur des pétales [cm]" : petal_length,
+            "largeur des pétales [cm]"  : petal_width}
+
+  for xlabel, data in labels.items():
+      # Determine best range and bin probability
+      r = (np.min(data), np.max(data))
+      plt.figure()
+      for s in species:
+          plt.hist(data[variety == s], **kwargs, label=s, range=r)
+      plt.xlabel(xlabel)
+      plt.legend()
+
+  # Diagrammes longueur vs. largeur sépales
+  plt.figure()
+  plt.scatter(sepal_length, sepal_width, s=100*petal_width,
+              c=df["colors"], alpha=0.2)
+  plt.xlabel("longueur des sépales [cm]")
+  plt.ylabel("largeur des sépales [cm]")
+
+  # Création d'une légende à partir d'un scatter plot vide
+  for i, v in enumerate(variety.unique()):
+      plt.scatter([], [], c="C{}".format(i), alpha=0.2, label=v)
+  plt.legend()
+
+#+END_SRC
+
+#+ATTR_LATEX: :align p{0.5\textwidth}p{0.5\textwidth}
+| [[file:figures/sepal_length.pdf]] | [[file:figures/sepal_width.pdf]] |
+| [[file:figures/petal_length.pdf]] | [[file:figures/petal_width.pdf]] |
+
+[[file:figures/iris.pdf]]
+
+#+BEGIN_SRC python -n
+  # Changement de taille de police uniquement pour cette figure
+  with plt.rc_context({"font.size": 5}):
+        # Définition d'une grille de sous-figures
+        fig, ax = plt.subplots(len(labels), len(labels),
+                               sharex="col", sharey="row",
+                               figsize=(1.5*len(labels), 1.5*len(labels)))
+
+        for l1, d1 in labels.items():
+              i1 = list(labels.keys()).index(l1)
+              for l2, d2 in labels.items():
+                    i2 = list(labels.keys()).index(l2)
+                    for v in variety.unique():
+                          sc = (variety == v)
+                          if l1 == l2:
+                                ax[i1, i2].hist(d1[sc], alpha=0.5, bins=10, density=True)
+                          else:
+                                ax[i1, i2].scatter(d2[sc], d1[sc], s=5, alpha=0.5)
+                                ax[-1, i1].set_xlabel(l1)
+                                ax[i1, 0].set_ylabel(l1)
+
+        # # Création d'une légende à partir d'un scatter plot vide
+        # for key, name in iris.items():
+        #       plt.scatter([], [], label=name)
+        #       plt.legend(title="iris", bbox_to_anchor=(1, len(iris)/2+1), loc="upper left")
+        #       fig.subplots_adjust(right=0.9)
+  plt.show()
+#+END_SRC
+
+[[file:figures/iris_all.pdf]]
+
+[[https://owncloud.lal.in2p3.fr/index.php/s/JyxFTWPPxBB5jCK][Télécharger la solution]]
+
+* Footnotes
+
+[fn:19d5b0088c02b452] on pourra s'aider ou pas de la fonction =piecewise= de =numpy=
