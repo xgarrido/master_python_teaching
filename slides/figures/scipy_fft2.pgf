@@ -187,7 +187,7 @@
 \pgftext[x=5.760000in,y=0.430778in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont 5}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=3.280000in,y=0.240809in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \omega\) [Hz]}%
+\pgftext[x=3.280000in,y=0.240809in,,top]{\sffamily\fontsize{10.000000}{12.000000}\selectfont fréquence [Hz]}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%

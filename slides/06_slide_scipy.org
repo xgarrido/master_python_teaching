@@ -262,21 +262,21 @@
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
 
 #+ATTR_BEAMER: :overlay +-
-- =scipy= fournit l'interface *=odeint=* pour résoudre les EDO en plus de l'interface =ode=, plus complète
-  mais plus subtile
+- =scipy= fournit l'interface *=solve_ivp=* (/Solve an Initial Value Problem/) pour résoudre les EDO
 
 - Une équation différentielle ordinaire peut s'écrire sous la forme *$y'=f(y, t)$* où *$y = [y_1(t),
   y_2(t),\ldots, y_n(t)]$* et *$f$ est une fonction fournissant les dérivées des fonctions $y_i(t)$*
 
-- La résolution /via/ la fonction =odeint= implique la connaissance de $f$ et des conditions initiales
-  $y(0)$
+- La résolution /via/ la fonction =solve_ivp= implique la connaissance de $f$ et des conditions
+  initiales $y(0)$
 
   #+BEGIN_SRC python
-    y_t = odeint(f, y_0, t)
+    y_t = solve_ivp(f, t, y0)
   #+END_SRC
 
   où =t= est un vecteur =numpy= correspondant à l'échantillonnage (temps, position,...) et =y_t= contient,
   pour chaque échantillon =t=, une colonne pour chaque solution\nbsp$y_i(t)$
+
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
 #+BEAMER: \framesubtitle{\href{http://en.wikipedia.org/wiki/Double_pendulum}{Mouvement du double pendule}}
 
@@ -322,7 +322,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: def dy(y, t):
+  In [1]: def dy(t, y):
      ...:     g, l, m = 9.82, 0.5, 0.1
      ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
      ...:
@@ -340,7 +340,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: g, l, m = 9.82, 0.5, 0.1
-  In [2]: def dy(y, t):
+  In [2]: def dy(t, y):
      ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
      ...:
      ...:     dy1 = 6.0/m/l**2*(2*y3 - 3*np.cos(y1-y2)*y4)/(16 - 9*np.cos(y1-y2)**2)
@@ -361,8 +361,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [6]: t = np.linspace(0, 10, 250)
 
   In [7]: # Résolution des équations différentielles
-  In [8]: from scipy.integrate import odeint
-  In [9]: y = odeint(dy, y0, t)
+  In [8]: from scipy.integrate import solve_ivp
+  In [9]: sol = solve_ivp(dy, t_span=[0, 10], y0=y0, t_eval=t)
 #+END_SRC
 
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
@@ -375,22 +375,23 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [10]: t1, t2 = y[:, 0], y[:, 1]
+  In [10]: theta1, theta2 = sol.y[0], sol.y[1]
   In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
-  In [12]: ax[0].plot(t, t1, label=r"$\theta_1$")
-  In [13]: ax[0].plot(t, t2, label=r"$\theta_2$")
+  In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
+  In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
   In [14]: ax[0].set(xlabel=r"$t$ [s]",
                      ylabel=r"$\theta$ [rad]")
   In [15]: ax[0].legend()
 
-  In [16]: x1, y1 = l*np.sin(t1), -l*np.cos(t1)
-  In [17]: x2, y2 = x1 + l*np.sin(t2), y1 - l*np.cos(t2)
+  In [16]: x1, y1 = l*np.sin(theta1), -l*np.cos(theta1)
+  In [17]: x2, y2 = l*np.sin(theta2)+x1, -l*np.cos(theta2)+y1
   In [18]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
   In [19]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
   In [20]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
   In [21]: ax[1].legend()
 #+END_SRC
 
+θ
 ** Figure
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -458,17 +459,19 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEAMER: \scriptsize
 - On pose $p = \frac{\text{d}x}{\text{d}t}$
   #+BEGIN_SRC latex
-    \begin{align*}
+    \begin{equation*}
+      \left\{\begin{aligned}
       \frac{\text{d}p}{\text{d}t}&=-2\zeta\omega_0p-\omega_0^2x\\
       \frac{\text{d}x}{\text{d}t}&=p
-    \end{align*}
+      \end{aligned}\right.
+    \end{equation*}
   #+END_SRC
 
 #+BEAMER: \pause
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: def dy(y, t, zeta, w0):
+  In [1]: def dy(t, y, zeta, w0):
      ...:     x, p = y[0], y[1]
      ...:
      ...:     dx = p
@@ -477,11 +480,11 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [2]: y0 = [1.0, 0.0]
   In [3]: t = np.linspace(0, 10, 1000)
   In [4]: w0 = 2*np.pi*1.0
-  In [5]: from scipy.integrate import odeint
-  In [6]: y1 = odeint(dy, y0, t, args=(0.0, w0))
-  In [7]: y2 = odeint(dy, y0, t, args=(0.2, w0))
-  In [8]: y3 = odeint(dy, y0, t, args=(1.0, w0))
-  In [9]: y4 = odeint(dy, y0, t, args=(5.0, w0))
+  In [5]: from scipy.integrate import solve_ivp
+  In [6]: sol1 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(0.0, w0))
+  In [7]: sol2 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(0.2, w0))
+  In [8]: sol3 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(1.0, w0))
+  In [9]: sol4 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(5.0, w0))
 #+END_SRC
 
 ** Figure
@@ -505,7 +508,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEGIN_SRC python
   In [1]: from scipy.fftpack import fft, fftfreq
 
-  In [2]: F = fft(y2[:, 0])
+  In [2]: F = fft(sol2.y[0])
   In [3]: w = fftfreq(t.size, t[1]-t[0])
   In [4]: plt.plot(w, np.abs(F))
 #+END_SRC

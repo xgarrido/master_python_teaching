@@ -2,7 +2,7 @@
 #+AUTHOR: Xavier Garrido
 #+DATE:   02/03/2017
 #+OPTIONS: toc:nil ^:{}
-#+LATEX_HEADER: \setcounter{chapter}{5}
+#+LATEX_HEADER: \setcounter{chapter}{3}
 
 * À la découverte des planètes extrasolaires
 
@@ -148,7 +148,3 @@ de nombreuses techniques de classification automatique en /machine learning/.
 [[file:figures/iris_all.pdf]]
 
 [[https://owncloud.lal.in2p3.fr/index.php/s/JyxFTWPPxBB5jCK][Télécharger la solution]]
-
-* Footnotes
-
-[fn:19d5b0088c02b452] on pourra s'aider ou pas de la fonction =piecewise= de =numpy=
