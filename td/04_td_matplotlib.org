@@ -33,7 +33,7 @@ données numériques et alphanumériques.
 
 Correction consultable à cette [[https://colab.research.google.com/drive/17LFuw9lb2sk0kRmYlGv1R5Un3nR069mQ][adresse]]
 
-* /Iris setosa, Iris virginica et Iris versicolor/
+* /Iris setosa, Iris virginica et Iris versicolor/ (facultatif)
 
 Le jeu de données /Iris/ contient les propriétés morphologiques de 3 espèces de fleur d'iris
 collectées par Edgar Anderson. Ce jeu de données est surtout reputé par l'utilisation faite en 1936

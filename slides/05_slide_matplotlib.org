@@ -1056,7 +1056,7 @@ sans échapper les caractères précédés de =\=
     \includegraphics<2>[width=1.1\linewidth]{figures/puzo_patrick1.pdf}
   \end{center}
 #+END_SRC
-** Figure 3D
+** COMMENT Figure 3D
 *** Python code
 :PROPERTIES:
 :BEAMER_COL: 0.52
@@ -1091,7 +1091,7 @@ http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master
 
 http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-4-Matplotlib.ipynb#Coutour-plots-with-projections
 #+END_COMMENT
-** Figure 3D
+** COMMENT Figure 3D
 #+BEAMER: \framesubtitle{\texttt{plot3D} \& \texttt{scatter3D}}
 
 *** Python code
@@ -1653,7 +1653,7 @@ avec =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial
   \end{center}
 #+END_SRC
 
-* =matplotlib= et plus si affinités
+* COMMENT =matplotlib= et plus si affinités
 ** Titre
 :PROPERTIES:
 :BEAMER_ENV: fullframe

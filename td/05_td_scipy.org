@@ -33,26 +33,21 @@ troisième colonne. Dans cet exercice, on cherche à reproduire la figure ci-des
 
 [[file:figures/higgs_gg.pdf]]
 
-- Représenter le nombre d'événements di-photons en fonction de l'énergie. On oubliera pas
-  d'intituler les axes de cette figure afin d'y faire figurer toute information pertinente.
+1) Représenter le nombre d'événements di-photons en fonction de l'énergie. On n'oubliera pas
+   d'intituler les axes de cette figure afin d'y faire figurer toute information pertinente.
 
-- Représenter le modèle suivant
-  #+BEGIN_SRC latex
-    \begin{align*}
-      y_\text{modèle} = -1.668\,10^{-2}x^3 + 7.697x^2 + -1208.9x + 6.527\,10^{4}
-    \end{align*}
-  #+END_SRC
-  Calculer la valeur du $\chi^2$ où
-
+2) Pour décrire le bruit de fond, on considère un modèle basé sur un polynome de degré 4. Ajuster ce
+   modèle aux données étant donné les incertitudes. Calculer la valeur du $\chi^2$ où
   #+BEGIN_SRC latex
     \begin{align*}
       \chi^2=\sum_i\frac{\left(y_i-y_\text{modèle}(x_i)\right)^2}{\sigma_{y_i}^2}
     \end{align*}
   #+END_SRC
-
   et la diviser par le nombre de degrés de liberté qui correspond au nombre de points expérimentaux
   moins le nombre de paramètres du modèle. Pour information, une valeur de \chi^{2}/ndof voisine de
   1 démontre l'adéquation statistique entre données et modèle.
+
+3)
 
 - Représenter dans une sous figure, la différence entre le modèle et les données puis normaliser
   cette différence par rapport à l'erreur sur chacun des points expérimentaux. Une découverte en
@@ -63,61 +58,137 @@ troisième colonne. Dans cet exercice, on cherche à reproduire la figure ci-des
   échéant, donner la masse de cette particule.
 
 ** Correction                                                   :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/higgs.py :session higgs
+:END:
+On commence par lire le fichier à l'aide de =pandas=
+#+BEGIN_SRC jupyter-python
+  %matplotlib inline
+  import pandas as pd
+  data = pd.read_csv("./data/higgs-gg.csv")
+  print(data.head())
+#+END_SRC
 
-#+BEGIN_SRC python :tangle scripts/higgs.py :results output
+#+RESULTS:
+:    energy  events      sigma
+: 0   105.0  4017.0  63.379808
+: 1   106.0  3763.0  61.343296
+: 2   107.0  3534.0  59.447456
+: 3   108.0  3531.0  59.422218
+: 4   109.0  3294.0  57.393379
+
+On représente le nombre d'événements di-photons en fonction de la masse invariante/énergie du
+système
+#+BEGIN_SRC jupyter-python
+  x, y, yerr = data["energy"], data["events"], data["sigma"]
+  plt.errorbar(x, y, yerr=yerr, fmt=".k", label="ATLAS data")
+  plt.ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
+  plt.xlabel(r"$m_{\gamma\gamma}$ [MeV]");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/f2a19589e833e50b6e74c7325df962a65da54f8b.png]]
+
+On définit un modèle de bruit de fond sur la base d'une fonction polynomiale d'ordre 4. Pour un jeu
+de paramètres pas complètement aberrant, on peut représenter le modèle et les données
+#+BEGIN_SRC jupyter-python
   import numpy as np
-  data = np.loadtxt("./data/higgs-gg.csv", delimiter=",")
+  # "Theoritical model" = 4th order polynomial
+  def model(x, *parameters):
+      y = 0.0
+      for i, p in enumerate(parameters):
+          y += p*np.power(x, i)
+      return y
+#+END_SRC
 
-  x, y, yerr = data.T
+On ajuste finalement les données à ce modèle étant donné les barres d'erreurs associées à l'aide de
+la fonction =curve_fit=
+#+BEGIN_SRC jupyter-python
+  # Polynom order
+  n = 4
+  from scipy.optimize import curve_fit
+  popt, pcov = curve_fit(model, x, y, sigma=yerr, p0=np.full(n, 1.0))
+  print(popt)
+#+END_SRC
 
-  import matplotlib.pyplot as plt
+#+RESULTS:
+: [ 5.86044926e+04 -1.05618630e+03  6.54129011e+00 -1.37900894e-02]
 
+#+BEGIN_SRC jupyter-python
+  plt.errorbar(x, y, yerr=yerr, fmt=".k", label="ATLAS data")
+  xmodel = np.linspace(105, 160, 100)
+  plt.plot(xmodel, model(xmodel, *popt), "-r", label="modèle")
+  plt.ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
+  plt.xlabel(r"$m_{\gamma\gamma}$ [MeV]")
+  chi2 = np.sum((y - model(x, *popt))**2/yerr**2)
+  plt.legend(title=r"$\chi2$/ndf = {:.2f}".format(chi2/(len(y)-n)));
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/bbd343a2fcdf99c95004a513f69bf8bcdb1a937a.png]]
+
+#+BEGIN_SRC jupyter-python
   grid = plt.GridSpec(4, 1, hspace=0, wspace=0)
 
   main = plt.subplot(grid[0:3], xticklabels=[])
   main.errorbar(x, y, yerr=yerr, fmt=".k", label="ATLAS data")
   main.set_ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
 
-  # "Theoritical model" = 4th order polynomial
-  def model(x, parameters=[6.527e4, -1208.9, 7.697, -1.668e-2]):
-      y = 0.0
-      for i, p in enumerate(parameters):
-          y += p*np.power(x, i)
-      return y
-
   xmodel = np.linspace(105, 160, 100)
-  main.plot(xmodel, model(xmodel), "-r", label="modèle polynomial")
+  popt, pcov = curve_fit(model, x, y, sigma=yerr, p0=np.full(4, 1.0))
+  main.plot(xmodel, model(xmodel, *popt), "-r", label="modèle polynomial")
 
   # Plot deviation
   sub = plt.subplot(grid[3])
-  dev = (y - model(x))/yerr
+  dev = (y - model(x, *popt))/yerr
   sub.errorbar(x, dev, fmt=".k")
   sub.set_ylabel(r"$\frac{y-y_\mathrm{modèle}}{\sigma}$ [$\sigma$]")
   sub.set_xlabel(r"$m_{\gamma\gamma}$ [MeV]")
 
-  # Calculate chi2/ndf and add it to legend
-  chi2n = np.sum(dev**2)/(len(dev)-4)
-  main.plot([], [], linestyle="None", label=r"$\chi^2/$ndf = {0:.2f}".format(chi2n))
   main.legend()
 
   mask = (dev > 3)
   sub.scatter(x[mask], dev[mask], edgecolors="red", c="none", s=100)
 
-  print("Masse du boson de Higgs = {} GeV".format(x[mask][0]))
-
-  # Fit with a 4th order polynomial
-  parameters = np.polyfit(x, y, 3)
-  fit = np.poly1d(parameters)
-  print("Best parameters : " + str(parameters))
-
-  plt.show()
+  print("Masse du boson de Higgs = {} GeV".format(*x[mask].values))
+  print("Best parameters : {}".format(popt))
 #+END_SRC
 
 #+RESULTS:
+:RESULTS:
 : Masse du boson de Higgs = 126.0 GeV
-: Best parameters : [ -1.66824264e-02   7.69724379e+00  -1.20891766e+03   6.52746509e+04]
+: Best parameters : [ 5.86044926e+04 -1.05618630e+03  6.54129011e+00 -1.37900894e-02]
+[[file:./.ob-jupyter/a42d6b8464fba181a74a71441b2a7e6687f58444.png]]
+:END:
 
-[[file:figures/mpl_higgs_gg.pdf]]
+
+#+BEGIN_SRC jupyter-python
+  plt.errorbar(x, y, yerr=yerr, fmt=".k")
+  plt.ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
+  plt.xlabel(r"$m_{\gamma\gamma}$ [MeV]")
+  orders = np.arange(2, 13)
+  chi2ndf = np.empty_like(orders, dtype=np.float)
+  for i, n in enumerate(orders):
+      popt, pcov = curve_fit(model, x, y, sigma=yerr, p0=np.full(n, 1.0))
+      chi2 = np.sum((y - model(x, *popt))**2/yerr**2)
+      chi2ndf[i] = chi2/(len(y) - n)
+      plt.plot(xmodel, model(xmodel, *popt),
+               label=r"n = {} - $\chi2$/ndf = {:.2f}".format(n, chi2ndf[i]))
+  plt.legend(bbox_to_anchor=(1, 1));
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/3c8c956387bb7016b50833fbfcd6ffc40c32456d.png]]
+
+#+BEGIN_SRC jupyter-python
+  plt.semilogy(orders, chi2ndf, ".k")
+  plt.ylabel(r"$\chi2$/ndf")
+  plt.xlabel(r"polynomial order");
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/1b7cff348ee72c57690a81b98807a2e956856d77.png]]
+
 
 [[https://owncloud.lal.in2p3.fr/index.php/s/0u7iKiSksnGQrGJ][Télécharger la solution]]
 
@@ -128,3 +199,5 @@ https://apmonitor.com/pdc/index.php/Main/SimulateHIV
 https://sam-dolan.staff.shef.ac.uk/mas212/notebooks/ODE_Example.html
 
 https://ipython-books.github.io/123-simulating-an-ordinary-differential-equation-with-scipy/
+
+http://kitchingroup.cheme.cmu.edu/blog/2013/02/07/Solving-Bessel-s-Equation-numerically/
