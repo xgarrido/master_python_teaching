@@ -560,7 +560,6 @@ Finalement, il convient de revenir à l'espace colorimétrique $(R, V, B)$ pour 
       [1, -1, 0]
   ])
 
-
   M4 = M3.T
   M5 = M2
   M6 = np.array([

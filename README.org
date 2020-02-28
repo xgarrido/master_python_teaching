@@ -419,6 +419,22 @@ each =tikzpicture=. =tikz/external= looks if the pdf exist and if not, export it
 #+BEGIN_SRC latex
   \RequirePackage{nicefrac}
 #+END_SRC
+***** New commands
+****** Mathematical & physics related commands
+#+BEGIN_SRC latex
+  \renewcommand{\d}{\text{d}}
+  %%\newcommand{\vv}[1]{\overrightarrow{#1}}
+  \renewcommand{\div}{\ensuremath{\text{div}}}
+  \newcommand{\rot}{\ensuremath{\vv{\text{rot}}}}
+  \newcommand{\grad}{\ensuremath{\vv{\text{grad}}}}
+  \newcommand{\ket}[1]{\ensuremath{|#1\rangle}\xspace}
+  \newcommand{\bra}[1]{\ensuremath{\langle #1|}\xspace}
+  \newcommand{\psh}[2]{\ensuremath{\langle #1|#2\rangle}\xspace}
+  \newcommand{\cmark}{\ding{51}}
+  \newcommand{\xmark}{\ding{55}}
+#+END_SRC
+
+
 **** Lectures/class style
 :PROPERTIES:
 :HEADER-ARGS: :tangle lecture-style.sty

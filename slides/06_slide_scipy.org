@@ -331,7 +331,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
      ...:     dy3 = -0.5*m*l**2*(+dy1*dy2*np.sin(y1-y2) + 3*(g/l)*np.sin(y1))
      ...:     dy4 = -0.5*m*l**2*(-dy1*dy2*np.sin(y1-y2) + 1*(g/l)*np.sin(y2))
      ...:
-     ...:     return [dy1, dy2, dy3, dy4]
+     ...:     return dy1, dy2, dy3, dy4
 #+END_SRC
 
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
@@ -348,7 +348,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
      ...:     dy3 = -0.5*m*l**2*(+dy1*dy2*np.sin(y1-y2) + 3*(g/l)*np.sin(y1))
      ...:     dy4 = -0.5*m*l**2*(-dy1*dy2*np.sin(y1-y2) + 1*(g/l)*np.sin(y2))
      ...:
-     ...:     return [dy1, dy2, dy3, dy4]
+     ...:     return dy1, dy2, dy3, dy4
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -476,7 +476,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
      ...:
      ...:     dx = p
      ...:     dp = -2 * zeta * w0 * p - w0**2 * x
-     ...:     return [dx, dp]
+     ...:     return dx, dp
   In [2]: y0 = [1.0, 0.0]
   In [3]: t = np.linspace(0, 10, 1000)
   In [4]: w0 = 2*np.pi*1.0

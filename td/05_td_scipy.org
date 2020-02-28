@@ -47,19 +47,17 @@ troisième colonne. Dans cet exercice, on cherche à reproduire la figure ci-des
   moins le nombre de paramètres du modèle. Pour information, une valeur de \chi^{2}/ndof voisine de
   1 démontre l'adéquation statistique entre données et modèle.
 
-3)
-
-- Représenter dans une sous figure, la différence entre le modèle et les données puis normaliser
-  cette différence par rapport à l'erreur sur chacun des points expérimentaux. Une découverte en
-  physique des particules est établie lorsque le nombre d'écart-type \sigma entre données
-  expérimentales et modèle est supérieur à 5. Isoler graphiquement les points expérimentaux pour
-  lesquels la déviation est supérieure à 3\sigma. Déterminer enfin la valeur maximale de cette
-  déviation en nombre de \sigma et affirmer ou non avoir découvert le boson de Higgs. Le cas
-  échéant, donner la masse de cette particule.
+3) Représenter dans une sous figure, la différence entre le modèle et les données puis normaliser
+   cette différence par rapport à l'erreur sur chacun des points expérimentaux. Une découverte en
+   physique des particules est établie lorsque le nombre d'écart-type \sigma entre données
+   expérimentales et modèle est supérieur à 5. Isoler graphiquement les points expérimentaux pour
+   lesquels la déviation est supérieure à 3\sigma. Déterminer enfin la valeur maximale de cette
+   déviation en nombre de \sigma et affirmer ou non avoir découvert le boson de Higgs. Le cas
+   échéant, donner la masse de cette particule.
 
 ** Correction                                                   :correction:
 :PROPERTIES:
-:HEADER-ARGS: :tangle scripts/higgs.py :session higgs
+:HEADER-ARGS: :tangle scripts/higgs.py :session higgs :exports both
 :END:
 On commence par lire le fichier à l'aide de =pandas=
 #+BEGIN_SRC jupyter-python
@@ -89,8 +87,7 @@ système
 #+RESULTS:
 [[file:./.ob-jupyter/f2a19589e833e50b6e74c7325df962a65da54f8b.png]]
 
-On définit un modèle de bruit de fond sur la base d'une fonction polynomiale d'ordre 4. Pour un jeu
-de paramètres pas complètement aberrant, on peut représenter le modèle et les données
+On définit un modèle de bruit de fond sur la base d'une fonction polynomiale d'ordre 4.
 #+BEGIN_SRC jupyter-python
   import numpy as np
   # "Theoritical model" = 4th order polynomial
@@ -162,6 +159,8 @@ la fonction =curve_fit=
 :END:
 
 
+#+BEGIN_COMMENT
+
 #+BEGIN_SRC jupyter-python
   plt.errorbar(x, y, yerr=yerr, fmt=".k")
   plt.ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
@@ -189,15 +188,77 @@ la fonction =curve_fit=
 #+RESULTS:
 [[file:./.ob-jupyter/1b7cff348ee72c57690a81b98807a2e956856d77.png]]
 
+#+END_COMMENT
 
-[[https://owncloud.lal.in2p3.fr/index.php/s/0u7iKiSksnGQrGJ][Télécharger la solution]]
+* Équation de Bessel
 
-* ODE
+L'équation différentielle de Bessel intervient dans nombre de problèmes physiques présentant une
+symétrie cylindrique parmi lesquels :
 
+- propagation d'ondes électromagnétiques ou d'ondes acoustiques dans un guide cylindrique (/cf./ cours
+  & TD EM L3),
+- phénomènes de diffraction par une fente circulaire,
+- étude de la modulation de fréquence en télécommunications,
+
+L'équation différentielle de Bessel a pour expression
+#+BEGIN_SRC latex
+  \begin{align*}
+    x^2\frac{\d^2y}{\d x^2}+x\frac{\d y}{\d x}+(x^2-\alpha^2)y=0
+  \end{align*}
+#+END_SRC
+où $\alpha$ peut être un nombre réel ou complexe mais, le plus souvent, est un nombre entier naturel
+correspondant à l'ordre de la fonction. Les solutions de cette équation sont les fonctions de Bessel
+de première espèce $J_\alpha(x)$, définies en zéro et les fonctions de Bessel de seconde espèce
+$Y_\alpha(x)$. Dans cet exercice, nous nous intéresserons uniquement à la fonction de Bessel
+$J_0(x)$.
+
+1) À l'aide du module =scipy.integrate= et de sa fonction =solve_ivp=, déterminer numériquement la
+   solution de l'équation de Bessel d'ordre 0.
+
+2) Représenter cette solution ainsi que la fonction analytique de Bessel $J_0(x)$ puis, dans une
+   sous-figure, représenter la différence entre chaque fonction.
+
+** Correction                                                   :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/bessel.py :session bessel :exports both
+:END:
+
+#+BEGIN_SRC jupyter-python
+  %matplotlib inline
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  def dy(x, y, nu=0):
+    y, dydx = y[0], y[1]
+    d2ydx2 = (-x * dydx - (x**2 - nu**2)*y)/x**2
+    return dydx, d2ydx2
+
+  xmin, xmax = 1e-15, 10
+  x = np.arange(xmin, xmax, 0.1)
+  from scipy.integrate import solve_ivp
+  sol = solve_ivp(dy, t_span=[xmin, xmax], y0=[1, 0], t_eval=x)
+
+  grid = plt.GridSpec(4, 1, hspace=0)
+  main = plt.subplot(grid[0:3], xticklabels=[])
+  from scipy.special import jn, jvp
+  main.plot(sol.t, sol.y[0], ".k", label="numérique")
+  main.plot(x, jn(0, x), "-r", label="analytique")
+  main.set_ylabel(r"$J_0(x)$")
+  main.legend()
+  dev = plt.subplot(grid[-1])
+  dev.plot(sol.t, jn(0, sol.t) - sol.y[0], ".k")
+  dev.set_xlabel(r"$x$")
+  dev.set_ylabel(r"$\Delta J_0(x)$");
+#+END_SRC
+
+#+ATTR_LATEX: :width 0.7\linewidth
+#+RESULTS:
+[[file:./.ob-jupyter/a59ed9d0a9100f4c0cc687d52941e51520bd55fd.png]]
+
+* COMMENT Autres ressources
+#+BEGIN_COMMENT
 https://apmonitor.com/pdc/index.php/Main/SimulateHIV
-
 https://sam-dolan.staff.shef.ac.uk/mas212/notebooks/ODE_Example.html
-
 https://ipython-books.github.io/123-simulating-an-ordinary-differential-equation-with-scipy/
-
 http://kitchingroup.cheme.cmu.edu/blog/2013/02/07/Solving-Bessel-s-Equation-numerically/
+#+END_COMMENT
