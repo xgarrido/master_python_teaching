@@ -91,7 +91,7 @@
     print(M)
   #+END_SRC
 
-* Fonctions universelles
+* COMMENT Fonctions universelles
 
 - Créer un tableau à une dimension contenant 1 million de valeurs aléatoires comprises entre 1 et
   100
@@ -147,7 +147,7 @@
 
 ** Correction                                                   :correction:
 
-#+BEGIN_SRC jupyter-python -n :tangle scripts/seattle1.py :exports both
+#+BEGIN_SRC jupyter-python -n :tangle scripts/seattle.py :exports both
   import numpy as np
 
   def print_report(prcp, Tmin, Tmax):
@@ -317,6 +317,10 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
    Convertir l'image initiale en niveau de gris et l'afficher.
 
 *** Correction                                                 :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/couleurs.py
+:END:
+
 1)
    #+BEGIN_SRC jupyter-python :exports both
      import numpy as np
@@ -412,6 +416,9 @@ fonctions =imread= et =imshow= pour lire puis afficher l'image =matplotlib= comm
 #+END_SRC
 
 *** Correction                                                 :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/couleurs.py
+:END:
 
 1)
    #+BEGIN_SRC jupyter-python :exports code
@@ -540,7 +547,7 @@ Finalement, il convient de revenir à l'espace colorimétrique $(R, V, B)$ pour 
  #+END_SRC
 
 *** Correction                                                 :correction:
-#+BEGIN_SRC jupyter-python :exports both
+#+BEGIN_SRC jupyter-python :exports both :tangle scripts/transfert_couleurs.py
   import numpy as np
   import matplotlib.pyplot as plt
 

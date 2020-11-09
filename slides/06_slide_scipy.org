@@ -322,8 +322,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: def dy(t, y):
-     ...:     g, l, m = 9.82, 0.5, 0.1
+  In [1]: g, l, m = 9.82, 0.5, 0.1
+  In [2]: def dy(t, y):
      ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
      ...:
      ...:     dy1 = 6.0/m/l**2*(2*y3 - 3*np.cos(y1-y2)*y4)/(16 - 9*np.cos(y1-y2)**2)
@@ -391,7 +391,6 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [21]: ax[1].legend()
 #+END_SRC
 
-θ
 ** Figure
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -428,8 +427,9 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
       text.set_text("temps = %.1f s" % (i*0.04))
       return pendule, mvt1, mvt2, text
 
-  ani = animation.FuncAnimation(fig, animate, np.arange(1, len(y)),
-                                interval=25, blit=True)
+  from matplotlib.animation import FuncAnimation
+  ani = FuncAnimation(fig, animate, np.arange(1, len(t)),
+                      interval=25, blit=True)
   ani.save("double_pendulum.mp4", fps=15)
 #+END_SRC
 
@@ -509,15 +509,15 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [1]: from scipy.fftpack import fft, fftfreq
 
   In [2]: F = fft(sol2.y[0])
-  In [3]: w = fftfreq(t.size, t[1]-t[0])
-  In [4]: plt.plot(w, np.abs(F))
+  In [3]: freq = fftfreq(t.size, t[1]-t[0])
+  In [4]: plt.plot(freq, np.abs(F))
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [5]: mask = w > 0
-  In [6]: plt.plot(w[mask], np.abs(F[mask]))
+  In [6]: plt.plot(freq[mask], np.abs(F[mask]))
 #+END_SRC
 
 ** Figure

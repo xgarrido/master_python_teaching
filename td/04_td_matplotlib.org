@@ -13,9 +13,7 @@ masse de la planète, distance à l'objet en années lumières et année de déc
 exercice, on utilisera le module =pandas= plus à même de traiter des fichiers de données mélant
 données numériques et alphanumériques.
 
-1) Après avoir lu le fichier, afficher un premier résumé des propriétés statistiques du fichier. On
-   prendra garde à ne pas conserver les lignes pour lesquelles les informations manquent (données
-   associées à la valeur =NaN=).
+1) Après avoir lu le fichier, afficher un premier résumé des propriétés statistiques du fichier.
 
 2) Faire de même en ayant au préalable regrouper les données par méthode de détection.
 
@@ -30,8 +28,194 @@ données numériques et alphanumériques.
    caractéristiques des objets extrasolaires mis en évidence par chacune des deux méthodes.
 
 ** Correction                                                   :correction:
+:PROPERTIES:
+:HEADER-ARGS: :tangle scripts/planets.py :session planets :exports both
+:END:
 
-Correction consultable à cette [[https://colab.research.google.com/drive/17LFuw9lb2sk0kRmYlGv1R5Un3nR069mQ][adresse]]
+#+BEGIN_SRC jupyter-python :tangle no :exports none :results none
+  %matplotlib inline
+#+END_SRC
+
+#+BEGIN_SRC jupyter-python
+  import pandas as pd
+  data = pd.read_csv("data/planets.csv")
+  print(data.dropna().describe())
+#+END_SRC
+
+#+RESULTS:
+:        number  orbital_period        mass    distance         year
+: count   498.0      498.000000  498.000000  498.000000   498.000000
+: mean      1.0      835.778671    2.509320   52.068213  2007.377510
+: std       0.0     1469.128259    3.636274   46.596041     4.167284
+: min       1.0        1.328300    0.003600    1.350000  1989.000000
+: 25%       1.0       38.272250    0.212500   24.497500  2005.000000
+: 50%       1.0      357.000000    1.245000   39.940000  2009.000000
+: 75%       1.0      999.600000    2.867500   59.332500  2011.000000
+: max       1.0    17337.500000   25.000000  354.000000  2014.000000
+
+
+#+BEGIN_SRC jupyter-python
+  by_method = data.groupby("method")
+  print(by_method.mean())
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+                                 number  orbital_period      mass     distance  \
+  method
+  Astrometry                        1.0      631.180000       NaN    17.875000
+  Eclipse Timing Variations         1.0     4751.644444  5.125000   315.360000
+  Imaging                           1.0   118247.737500       NaN    67.715937
+  Microlensing                      1.0     3153.571429       NaN  4144.000000
+  Orbital Brightness Modulation     1.0        0.709307       NaN  1180.000000
+  Pulsar Timing                     1.0     7343.021201       NaN  1200.000000
+  Pulsation Timing Variations       1.0     1170.000000       NaN          NaN
+  Radial Velocity                   1.0      823.354680  2.630699    51.600208
+  Transit                           1.0       21.102073  1.470000   599.298080
+  Transit Timing Variations         1.0       79.783500       NaN  1104.333333
+
+                                        year
+  method
+  Astrometry                     2011.500000
+  Eclipse Timing Variations      2010.000000
+  Imaging                        2009.131579
+  Microlensing                   2009.782609
+  Orbital Brightness Modulation  2011.666667
+  Pulsar Timing                  1998.400000
+  Pulsation Timing Variations    2007.000000
+  Radial Velocity                2007.518987
+  Transit                        2011.236776
+  Transit Timing Variations      2012.500000
+#+end_example
+
+#+BEGIN_SRC jupyter-python
+  by_year = data.groupby("year")
+  by_year.count().number.plot.bar();
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/c00d3c4b03b9e4d215e8d7e98c54a9ea187be290.png]]
+
+#+BEGIN_SRC jupyter-python
+  by_method_year = data.groupby(["method", "year"])
+  print(by_method_year.count().number.unstack())
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  year                           1989  1992  1994  1995  1996  1997  1998  1999  \
+  method
+  Astrometry                      NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Eclipse Timing Variations       NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Imaging                         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Microlensing                    NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Orbital Brightness Modulation   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Pulsar Timing                   NaN   2.0   1.0   NaN   NaN   NaN   NaN   NaN
+  Pulsation Timing Variations     NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Radial Velocity                 1.0   NaN   NaN   1.0   6.0   1.0   5.0  15.0
+  Transit                         NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+  Transit Timing Variations       NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN
+
+  year                           2000  2001  ...  2005  2006  2007  2008  2009  \
+  method                                     ...
+  Astrometry                      NaN   NaN  ...   NaN   NaN   NaN   NaN   NaN
+  Eclipse Timing Variations       NaN   NaN  ...   NaN   NaN   NaN   2.0   1.0
+  Imaging                         NaN   NaN  ...   1.0   4.0   1.0   8.0   3.0
+  Microlensing                    NaN   NaN  ...   2.0   1.0   NaN   4.0   2.0
+  Orbital Brightness Modulation   NaN   NaN  ...   NaN   NaN   NaN   NaN   NaN
+  Pulsar Timing                   NaN   NaN  ...   NaN   NaN   NaN   NaN   NaN
+  Pulsation Timing Variations     NaN   NaN  ...   NaN   NaN   1.0   NaN   NaN
+  Radial Velocity                16.0  12.0  ...  36.0  21.0  35.0  43.0  74.0
+  Transit                         NaN   NaN  ...   NaN   5.0  16.0  17.0  18.0
+  Transit Timing Variations       NaN   NaN  ...   NaN   NaN   NaN   NaN   NaN
+
+  year                           2010  2011  2012  2013  2014
+  method
+  Astrometry                      1.0   NaN   NaN   1.0   NaN
+  Eclipse Timing Variations       2.0   3.0   1.0   NaN   NaN
+  Imaging                         6.0   3.0   2.0   7.0   NaN
+  Microlensing                    2.0   1.0   6.0   4.0   NaN
+  Orbital Brightness Modulation   NaN   2.0   NaN   1.0   NaN
+  Pulsar Timing                   NaN   1.0   NaN   NaN   NaN
+  Pulsation Timing Variations     NaN   NaN   NaN   NaN   NaN
+  Radial Velocity                43.0  94.0  38.0  29.0  11.0
+  Transit                        48.0  80.0  92.0  75.0  40.0
+  Transit Timing Variations       NaN   1.0   1.0   1.0   1.0
+
+  [10 rows x 23 columns]
+#+end_example
+
+#+BEGIN_SRC jupyter-python
+  by_method_year.count().number.unstack().T.plot.bar(stacked=True);
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/7a8d3413e3f5681d1dc7836eeef7ef89718eb7e3.png]]
+
+#+BEGIN_SRC jupyter-python
+  subdata = data.set_index("method").loc[["Radial Velocity", "Transit"]]
+  print(subdata.head())
+#+END_SRC
+
+#+RESULTS:
+:                  number  orbital_period   mass  distance  year
+: method
+: Radial Velocity       1         269.300   7.10     77.40  2006
+: Radial Velocity       1         874.774   2.21     56.95  2008
+: Radial Velocity       1         763.000   2.60     19.84  2011
+: Radial Velocity       1         326.030  19.40    110.62  2007
+: Radial Velocity       1         516.220  10.50    119.47  2009
+
+#+BEGIN_SRC jupyter-python
+  import numpy as np
+  colors = np.where(subdata.index == "Transit", "tab:blue", "tab:orange")
+  subdata.plot.scatter(x="distance", y="orbital_period", c=colors, alpha=0.5, loglog=True);
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/444f5f30e6870565cf2a0b9535eaf412d7d4b501.png]]
+
+#+BEGIN_SRC jupyter-python
+  import matplotlib.pyplot as plt
+
+  plt.figure(figsize=(8, 8))
+  grid = plt.GridSpec(4, 4, hspace=0, wspace=0)
+  main = plt.subplot(grid[:-1, 1:], xticklabels=[], yticklabels=[],
+                     xscale="log", yscale="log")
+
+  selected_methods = ["Radial Velocity", "Transit"]
+  methods = {k: None for k in selected_methods}
+  for method in selected_methods:
+    methods[method] = {"x": subdata.loc[method].distance,
+                       "y": subdata.loc[method].orbital_period}
+
+  for method, xy in methods.items():
+    main.plot(xy["x"], xy["y"], "o", alpha=0.5, label=method)
+  main.legend(ncol=2, bbox_to_anchor=(0.5, 1.05), loc="center")
+
+  xlims = main.get_xlim()
+  x_hist = plt.subplot(grid[-1, 1:], yticklabels=[],
+                       xlim=xlims, xscale="log", xlabel="distance [light years]")
+  x_hist.invert_yaxis()
+
+  ylims = main.get_ylim()
+  y_hist = plt.subplot(grid[:-1, 0], xticklabels=[],
+                       ylim=ylims, yscale="log", ylabel="orbital period [days]")
+  y_hist.invert_xaxis()
+
+  kwargs = dict(alpha=0.5, histtype="stepfilled")
+  for method, xy in methods.items():
+    x, y = xy["x"], xy["y"]
+    x_hist.hist(x, orientation="vertical", **kwargs,
+                bins=np.logspace(np.log10(xlims[0]), np.log10(xlims[1]), 50))
+    y_hist.hist(y, orientation="horizontal", **kwargs,
+                bins=np.logspace(np.log10(ylims[0]), np.log10(ylims[1]), 50))
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/cb4f0d11b94dbe9406b8ceb84d2ca2c15a9f1977.png]]
+
+# Correction consultable à cette [[https://colab.research.google.com/drive/17LFuw9lb2sk0kRmYlGv1R5Un3nR069mQ][adresse]]
 
 * /Iris setosa, Iris virginica et Iris versicolor/ (facultatif)
 
@@ -41,9 +225,8 @@ par Ronald Fisher pour démontrer la puissance de son algorithme d'analyse discr
 même de séparer les 3 espèces de fleur d'iris. Ces données sont devenues depuis un cas typique pour
 de nombreuses techniques de classification automatique en /machine learning/.
 
-- Télécharger le fichier [[https://owncloud.lal.in2p3.fr/index.php/s/Z7bymhD4przBPZc][=iris.csv=]]
-  Charger ce fichier dans un =pandas.DataFrame= et créer une nouvelle colonne associant la variété
-  d'iris à une couleur (0, 1, 2 ou =red, green, blue= ou ...)
+- Télécharger le fichier [[https://owncloud.lal.in2p3.fr/index.php/s/Z7bymhD4przBPZc][=iris.csv=]]. Charger ce fichier dans un =pandas.DataFrame= et créer une
+  nouvelle colonne associant la variété d'iris à une couleur (0, 1, 2 ou =red, green, blue= ou ...)
 
 - Représenter les distributions normalisées de longueur et de largeur des sépales et des pétales
   pour les 3 espèces
@@ -146,5 +329,3 @@ de nombreuses techniques de classification automatique en /machine learning/.
 #+END_SRC
 
 [[file:figures/iris_all.pdf]]
-
-[[https://owncloud.lal.in2p3.fr/index.php/s/JyxFTWPPxBB5jCK][Télécharger la solution]]

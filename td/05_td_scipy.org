@@ -59,9 +59,12 @@ troisième colonne. Dans cet exercice, on cherche à reproduire la figure ci-des
 :PROPERTIES:
 :HEADER-ARGS: :tangle scripts/higgs.py :session higgs :exports both
 :END:
+#+BEGIN_SRC jupyter-python :tangle no :exports none
+  %matplotlib inline
+#+END_SRC
+
 On commence par lire le fichier à l'aide de =pandas=
 #+BEGIN_SRC jupyter-python
-  %matplotlib inline
   import pandas as pd
   data = pd.read_csv("./data/higgs-gg.csv")
   print(data.head())
@@ -78,6 +81,7 @@ On commence par lire le fichier à l'aide de =pandas=
 On représente le nombre d'événements di-photons en fonction de la masse invariante/énergie du
 système
 #+BEGIN_SRC jupyter-python
+  import matplotlib.pyplot as plt
   x, y, yerr = data["energy"], data["events"], data["sigma"]
   plt.errorbar(x, y, yerr=yerr, fmt=".k", label="ATLAS data")
   plt.ylabel(r"Nombre d'événements $H\to\gamma\gamma$")
@@ -223,12 +227,19 @@ $J_0(x)$.
 :HEADER-ARGS: :tangle scripts/bessel.py :session bessel :exports both
 :END:
 
-#+BEGIN_SRC jupyter-python
+#+BEGIN_SRC jupyter-python :tangle no :exports none
   %matplotlib inline
+#+END_SRC
+
+#+BEGIN_SRC jupyter-python
+import scipy
+scipy.__version__
+#+END_SRC
+#+BEGIN_SRC jupyter-python
   import numpy as np
   import matplotlib.pyplot as plt
 
-  def dy(x, y, nu=0):
+  def dy(x, y, nu):
     y, dydx = y[0], y[1]
     d2ydx2 = (-x * dydx - (x**2 - nu**2)*y)/x**2
     return dydx, d2ydx2
@@ -236,7 +247,7 @@ $J_0(x)$.
   xmin, xmax = 1e-15, 10
   x = np.arange(xmin, xmax, 0.1)
   from scipy.integrate import solve_ivp
-  sol = solve_ivp(dy, t_span=[xmin, xmax], y0=[1, 0], t_eval=x)
+  sol = solve_ivp(dy, t_span=[xmin, xmax], y0=[1, 0], t_eval=x, args=(0,))
 
   grid = plt.GridSpec(4, 1, hspace=0)
   main = plt.subplot(grid[0:3], xticklabels=[])
@@ -249,11 +260,57 @@ $J_0(x)$.
   dev.plot(sol.t, jn(0, sol.t) - sol.y[0], ".k")
   dev.set_xlabel(r"$x$")
   dev.set_ylabel(r"$\Delta J_0(x)$");
+
+
 #+END_SRC
 
 #+ATTR_LATEX: :width 0.7\linewidth
 #+RESULTS:
-[[file:./.ob-jupyter/a59ed9d0a9100f4c0cc687d52941e51520bd55fd.png]]
+:RESULTS:
+: /home/garrido/Workdir/CMB/development/pysm/pyenv/lib/python3.8/site-packages/scipy/integrate/_ivp/common.py:40: UserWarning: The following arguments have no effect for a chosen solver: `args`.
+:   warn("The following arguments have no effect for a chosen solver: {}."
+# [goto error]
+#+begin_example
+
+  TypeErrorTraceback (most recent call last)
+  <ipython-input-2-ce09fb7aab3e> in <module>
+       10 x = np.arange(xmin, xmax, 0.1)
+       11 from scipy.integrate import solve_ivp
+  ---> 12 sol = solve_ivp(dy, t_span=[xmin, xmax], y0=[1, 0], t_eval=x, args=(0,))
+       13
+       14 grid = plt.GridSpec(4, 1, hspace=0)
+
+  ~/Workdir/CMB/development/pysm/pyenv/lib/python3.8/site-packages/scipy/integrate/_ivp/ivp.py in solve_ivp(fun, t_span, y0, method, t_eval, dense_output, events, vectorized, **options)
+      475         method = METHODS[method]
+      476
+  --> 477     solver = method(fun, t0, y0, tf, vectorized=vectorized, **options)
+      478
+      479     if t_eval is None:
+
+  ~/Workdir/CMB/development/pysm/pyenv/lib/python3.8/site-packages/scipy/integrate/_ivp/rk.py in __init__(self, fun, t0, y0, t_bound, max_step, rtol, atol, vectorized, first_step, **extraneous)
+       98         self.max_step = validate_max_step(max_step)
+       99         self.rtol, self.atol = validate_tol(rtol, atol, self.n)
+  --> 100         self.f = self.fun(self.t, self.y)
+      101         if first_step is None:
+      102             self.h_abs = select_initial_step(
+
+  ~/Workdir/CMB/development/pysm/pyenv/lib/python3.8/site-packages/scipy/integrate/_ivp/base.py in fun(t, y)
+      137         def fun(t, y):
+      138             self.nfev += 1
+  --> 139             return self.fun_single(t, y)
+      140
+      141         self.fun = fun
+
+  ~/Workdir/CMB/development/pysm/pyenv/lib/python3.8/site-packages/scipy/integrate/_ivp/base.py in fun_wrapped(t, y)
+       19
+       20     def fun_wrapped(t, y):
+  ---> 21         return np.asarray(fun(t, y), dtype=dtype)
+       22
+       23     return fun_wrapped, y0
+
+  TypeError: dy() missing 1 required positional argument: 'nu'
+#+end_example
+:END:
 
 * COMMENT Autres ressources
 #+BEGIN_COMMENT

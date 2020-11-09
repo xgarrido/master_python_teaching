@@ -1,0 +1,365 @@
+#+TITLE:  Librairie =scipy=
+#+AUTHOR: Xavier Garrido
+#+DATE:   07/02/2018
+#+OPTIONS: toc:nil ^:{}
+#+LATEX_HEADER: \setcounter{chapter}{5}
+
+* À la recherche des ondes gravitationnelles
+
+Le 11 février 2016, la collaboration LIGO-VIRGO a annoncé la découverte de la première onde
+gravitationnelle[fn:a79b39c5dad6741]. Le signal =GW150914= est compatible avec les prédictions de la relativité générale
+et correspondrait à la chute en spirale puis à la fusion d'une paire de trous noirs. C'est la
+première détection d'ondes gravitationnelles directe.
+
+#+CAPTION: *Vues aériennes des deux interféromètres de l'expérience LIGO.*
+[[file:figures/ligo.jpg]]
+
+
+La détection a été faite le 14 septembre 2015 vers 9h50 sur les deux sites américains de
+l'expérience LIGO. Chaque site, en Louisiane et dans l'état de Washington, héberge deux
+interféromètres qui mesurent l'amplitude de la déformation de l'espace-temps aussi appelée /strain,/
+suite au passage d'une onde gravitationnelle.
+
+Dans cet exercice, on propose une première analyse des signaux de cet événement =GW150914=.
+
+** Prérequis
+
+Les fichiers de données LIGO sont sérialisés dans le format binaire [[https://www.hdfgroup.org/][=hdf5=]]. Vous aurez donc besoin
+dans un premier temps d'installer la librairie [[http://www.h5py.org/][=h5py=]] /via/ =pip=. Il faudra dans un second temps
+télécharger les fichiers de données suivant:
+
+- [[https://losc.ligo.org/s/events/GW150914/H-H1_LOSC_4_V2-1126259446-32.hdf5][signal =H1=]] issu du détecteur Hanford,
+- [[https://losc.ligo.org/s/events/GW150914/L-L1_LOSC_4_V2-1126259446-32.hdf5][signal =L1=]] issu du détecteur Livingstone.
+
+Enfin, l'expérience LIGO fournit [[https://losc.ligo.org/s/sample_code/readligo.py][un script python]] permettant la lecture des fichiers de
+données. Après l'avoir téléchargé, placez ce fichier dans le répertoire courant où votre code
+d'analyse se trouvera.
+
+** Premiers coups d'oeil aux données
+
+À l'aide de la fonction =loaddata= du script =readligo.py=, charger en mémoire les données (temps,
+/strain/) de chacun des deux interféromètres. Représenter la déformation (/strain/) en fonction du temps
+pour chaque détecteur puis sachant que le temps de l'événement =GW150914= est $t$ = 1126259462.44 s,
+représenter les données à \pm 5 secondes autour du temps de référence.
+
+Calculer la moyenne et la variance du signal autour du signal =GW150914.= En comparant ces valeurs à
+celles issues d'une région temporelle vierge de signal, en déduire qu'à ce stade de l'analyse, le
+signal =GW150914= est compatible avec du bruit.
+
+** Analyse en fréquence du signal
+
+On peut également représenter les données dans le domaine de Fourier afin d'avoir une idée plus
+précise du contenu en fréquence. On peut en particulier représenter la densité spectrale d'amplitude
+(/Amplitude Spectral Density/ ou /ASD/) qui correspond à la racine carrée de la densité spectrale de
+puissance (/Power Spectral Density/ ou /PSD/). Cette dernière est définie comme le carré du module de la
+transformée de Fourier, divisé par la largeur de bande spectrale. Cette quantité est représentative
+de la répartition fréquentielle de la puissance d'un signal suivant les fréquences qui le
+composent.
+
+Sans rentrer dans plus de détail mathématique, on utilisera pour estimer la /PSD/ la fonction =welch=
+basée sur la méthode éponyme[fn:fd2ec391dcbe42e] disponible dans la librairie
+[[https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.signal.welch.html][=scipy.signal=]]. Sachant que la fréquence d'échantillonage du signal est de 4096 Hz et que le nombre
+d'échantillon pour la transformée de Fourier correspond à 4 fois la fréquence
+d'échantillonage. Calculer puis représenter en échelle $\log-\log$ la densité spectrale d'amplitude
+des deux signaux. Limiter le domaine de fréquence à l'intervalle [20 -- 2000] Hz : en-deçà de 20 Hz,
+les données sont pas correctement étalonnées; au-delà de 2000 Hz, les données ne peuvent contenir
+d'information en fréquence au-delà de la fréquence de Nyquist qui correspond à la moitié du taux
+d'échantillonnage soit 2048 Hz.
+
+/Indication: les seuls paramètres que l'on fournira à la fonction =welch= sont la fréquence
+d'échantillonage =fs= et la longueur de chaque segment =nperseg = 4*fs=/.
+
+** Spectrogrammes des signaux
+
+On peut également visualiser la puissance du signal à l'aide d'un spectrogramme dans l'espace
+fréquence--temps. À l'aide de la fonction =specgram= de =matplotlib=, représenter le spectrogramme pour
+chaque signaux à \pm 5 secondes autour du temps supposé de l'événement. On utilisera sans plus de
+justification, les paramètres suivants pour le spectrogramme :
+
+#+BEGIN_SRC python
+  fs = 4096 # Hz
+  NFFT = int(fs/8)
+  noverlap = int(NFFT*15/16)
+  window = np.blackman(NFFT)
+#+END_SRC
+
+Les lignes spectrales présentes à 500, 1000 et 1500 Hz correspondent aux harmoniques des modes
+"violon" des fibres supportant les miroirs des interféromètres.
+
+** "Blanchiment" des données
+
+Afin de mettre en évidence le signal de l'onde gravitationnelle, il convient alors de "blanchir" les
+données c'est-à-dire de diviser, dans le domaine Fourier, le signal par l'amplitude du bruit. Dans
+un premier temps, interpoler la /PSD/ de chaque signal afin de pouvoir sur-échantillonner les
+signaux. Utiliser ensuite la fonction ci-dessous appliquée à chaque déformation-/strain/ (=dt= correspond à
+l'écart temporel entre deux points successifs du signal).
+
+#+BEGIN_SRC python
+ def whiten(strain, interp_psd, dt):
+      Nt = len(strain)
+      freqs = np.fft.rfftfreq(Nt, dt)
+      freqs1 = np.linspace(0, 2048., Nt/2+1)
+
+      # whitening: transform to freq domain, divide by asd, then transform back,
+      # taking care to get normalization right.
+      hf = np.fft.rfft(strain)
+      norm = 1./np.sqrt(1./(dt*2))
+      white_hf = hf / np.sqrt(interp_psd(freqs)) * norm
+      white_ht = np.fft.irfft(white_hf, n=Nt)
+      return white_ht
+#+END_SRC
+
+Finalement, représenter les données "blanchies" sur l'intervalle temporel d'intérêt.
+
+* Correction                                                     :correction:
+:PROPERTIES:
+:HEADER-ARGS: :session virgo :tangle virgo.py
+:END:
+
+** Add lib path to PYTHONPATH                                     :noexport:
+#+BEGIN_SRC jupyter-python
+  import sys
+  sys.path.insert(0, "./lib")
+  %pip install h5py
+#+END_SRC
+
+#+RESULTS:
+: Defaulting to user installation because normal site-packages is not writeable
+: Collecting h5py
+:   Downloading h5py-2.10.0-cp38-cp38-manylinux1_x86_64.whl (2.9 MB)
+: [?25l[K     |▏                               | 10 kB 36.4 MB/s eta 0:00:01[K     |▎                               | 20 kB 12.2 MB/s eta 0:00:01[K     |▍                               | 30 kB 11.7 MB/s eta 0:00:01[K     |▌                               | 40 kB 10.2 MB/s eta 0:00:01[K     |▋                               | 51 kB 10.1 MB/s eta 0:00:01[K     |▊                               | 61 kB 9.7 MB/s eta 0:00:01[K     |▉                               | 71 kB 9.5 MB/s eta 0:00:01[K     |█                               | 81 kB 9.4 MB/s eta 0:00:01[K     |█                               | 92 kB 9.5 MB/s eta 0:00:01[K     |█▏                              | 102 kB 9.4 MB/s eta 0:00:01[K     |█▎                              | 112 kB 9.4 MB/s eta 0:00:01[K     |█▍                              | 122 kB 9.4 MB/s eta 0:00:01[K     |█▌                              | 133 kB 9.4 MB/s eta 0:00:01[K     |█▋                              | 143 kB 9.4 MB/s eta 0:00:01[K     |█▊                              | 153 kB 9.4 MB/s eta 0:00:01[K     |█▉                              | 163 kB 9.4 MB/s eta 0:00:01[K     |██                              | 174 kB 9.4 MB/s eta 0:00:01[K     |██                              | 184 kB 9.4 MB/s eta 0:00:01[K     |██▏                             | 194 kB 9.4 MB/s eta 0:00:01[K     |██▎                             | 204 kB 9.4 MB/s eta 0:00:01[K     |██▍                             | 215 kB 9.4 MB/s eta 0:00:01[K     |██▌                             | 225 kB 9.4 MB/s eta 0:00:01[K     |██▋                             | 235 kB 9.4 MB/s eta 0:00:01[K     |██▊                             | 245 kB 9.4 MB/s eta 0:00:01[K     |██▉                             | 256 kB 9.4 MB/s eta 0:00:01[K     |███                             | 266 kB 9.4 MB/s eta 0:00:01[K     |███                             | 276 kB 9.4 MB/s eta 0:00:01[K     |███▏                            | 286 kB 9.4 MB/s eta 0:00:01[K     |███▎                            | 296 kB 9.4 MB/s eta 0:00:01[K     |███▍                            | 307 kB 9.4 MB/s eta 0:00:01[K     |███▌                            | 317 kB 9.4 MB/s eta 0:00:01[K     |███▋                            | 327 kB 9.4 MB/s eta 0:00:01[K     |███▊                            | 337 kB 9.4 MB/s eta 0:00:01[K     |███▉                            | 348 kB 9.4 MB/s eta 0:00:01[K     |████                            | 358 kB 9.4 MB/s eta 0:00:01[K     |████                            | 368 kB 9.4 MB/s eta 0:00:01[K     |████▎                           | 378 kB 9.4 MB/s eta 0:00:01[K     |████▍                           | 389 kB 9.4 MB/s eta 0:00:01[K     |████▌                           | 399 kB 9.4 MB/s eta 0:00:01[K     |████▋                           | 409 kB 9.4 MB/s eta 0:00:01[K     |████▊                           | 419 kB 9.4 MB/s eta 0:00:01[K     |████▉                           | 430 kB 9.4 MB/s eta 0:00:01[K     |█████                           | 440 kB 9.4 MB/s eta 0:00:01[K     |█████                           | 450 kB 9.4 MB/s eta 0:00:01[K     |█████▏                          | 460 kB 9.4 MB/s eta 0:00:01[K     |█████▎                          | 471 kB 9.4 MB/s eta 0:00:01[K     |█████▍                          | 481 kB 9.4 MB/s eta 0:00:01[K     |█████▌                          | 491 kB 9.4 MB/s eta 0:00:01[K     |█████▋                          | 501 kB 9.4 MB/s eta 0:00:01[K     |█████▊                          | 512 kB 9.4 MB/s eta 0:00:01[K     |█████▉                          | 522 kB 9.4 MB/s eta 0:00:01[K     |██████                          | 532 kB 9.4 MB/s eta 0:00:01[K     |██████                          | 542 kB 9.4 MB/s eta 0:00:01[K     |██████▏                         | 552 kB 9.4 MB/s eta 0:00:01[K     |██████▎                         | 563 kB 9.4 MB/s eta 0:00:01[K     |██████▍                         | 573 kB 9.4 MB/s eta 0:00:01[K     |██████▌                         | 583 kB 9.4 MB/s eta 0:00:01[K     |██████▋                         | 593 kB 9.4 MB/s eta 0:00:01[K     |██████▊                         | 604 kB 9.4 MB/s eta 0:00:01[K     |██████▉                         | 614 kB 9.4 MB/s eta 0:00:01[K     |███████                         | 624 kB 9.4 MB/s eta 0:00:01[K     |███████                         | 634 kB 9.4 MB/s eta 0:00:01[K     |███████▏                        | 645 kB 9.4 MB/s eta 0:00:01[K     |███████▎                        | 655 kB 9.4 MB/s eta 0:00:01[K     |███████▍                        | 665 kB 9.4 MB/s eta 0:00:01[K     |███████▌                        | 675 kB 9.4 MB/s eta 0:00:01[K     |███████▋                        | 686 kB 9.4 MB/s eta 0:00:01[K     |███████▊                        | 696 kB 9.4 MB/s eta 0:00:01[K     |███████▉                        | 706 kB 9.4 MB/s eta 0:00:01[K     |████████                        | 716 kB 9.4 MB/s eta 0:00:01[K     |████████                        | 727 kB 9.4 MB/s eta 0:00:01[K     |████████▏                       | 737 kB 9.4 MB/s eta 0:00:01[K     |████████▎                       | 747 kB 9.4 MB/s eta 0:00:01[K     |████████▌                       | 757 kB 9.4 MB/s eta 0:00:01[K     |████████▋                       | 768 kB 9.4 MB/s eta 0:00:01[K     |████████▊                       | 778 kB 9.4 MB/s eta 0:00:01[K     |████████▉                       | 788 kB 9.4 MB/s eta 0:00:01[K     |█████████                       | 798 kB 9.4 MB/s eta 0:00:01[K     |█████████                       | 808 kB 9.4 MB/s eta 0:00:01[K     |█████████▏                      | 819 kB 9.4 MB/s eta 0:00:01[K     |█████████▎                      | 829 kB 9.4 MB/s eta 0:00:01[K     |█████████▍                      | 839 kB 9.4 MB/s eta 0:00:01[K     |█████████▌                      | 849 kB 9.4 MB/s eta 0:00:01[K     |█████████▋                      | 860 kB 9.4 MB/s eta 0:00:01[K     |█████████▊                      | 870 kB 9.4 MB/s eta 0:00:01[K     |█████████▉                      | 880 kB 9.4 MB/s eta 0:00:01[K     |██████████                      | 890 kB 9.4 MB/s eta 0:00:01[K     |██████████                      | 901 kB 9.4 MB/s eta 0:00:01[K     |██████████▏                     | 911 kB 9.4 MB/s eta 0:00:01[K     |██████████▎                     | 921 kB 9.4 MB/s eta 0:00:01[K     |██████████▍                     | 931 kB 9.4 MB/s eta 0:00:01[K     |██████████▌                     | 942 kB 9.4 MB/s eta 0:00:01[K     |██████████▋                     | 952 kB 9.4 MB/s eta 0:00:01[K     |██████████▊                     | 962 kB 9.4 MB/s eta 0:00:01[K     |██████████▉                     | 972 kB 9.4 MB/s eta 0:00:01[K     |███████████                     | 983 kB 9.4 MB/s eta 0:00:01[K     |███████████                     | 993 kB 9.4 MB/s eta 0:00:01[K     |███████████▏                    | 1.0 MB 9.4 MB/s eta 0:00:01[K     |███████████▎                    | 1.0 MB 9.4 MB/s eta 0:00:01[K     |███████████▍                    | 1.0 MB 9.4 MB/s eta 0:00:01[K     |███████████▌                    | 1.0 MB 9.4 MB/s eta 0:00:01[K     |███████████▋                    | 1.0 MB 9.4 MB/s eta 0:00:01[K     |███████████▊                    | 1.1 MB 9.4 MB/s eta 0:00:01[K     |███████████▉                    | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████                    | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████                    | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▏                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▎                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▍                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▋                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▊                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |████████████▉                   | 1.1 MB 9.4 MB/s eta 0:00:01[K     |█████████████                   | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████                   | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▏                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▎                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▍                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▌                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▋                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▊                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████▉                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |██████████████                  | 1.2 MB 9.4 MB/s eta 0:00:01[K     |██████████████                  | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▏                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▎                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▍                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▌                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▋                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▊                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████▉                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |███████████████                 | 1.3 MB 9.4 MB/s eta 0:00:01[K     |███████████████                 | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▏                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▎                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▍                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▌                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▋                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▊                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████▉                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |████████████████                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |████████████████                | 1.4 MB 9.4 MB/s eta 0:00:01[K     |████████████████▏               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████▎               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████▍               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████▌               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████▋               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████▉               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |█████████████████               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |█████████████████               | 1.5 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▏              | 1.5 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▎              | 1.5 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▍              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▌              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▋              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▊              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████▉              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████              | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▏             | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▎             | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▍             | 1.6 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▌             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▋             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▊             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████▉             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████             | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▏            | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▎            | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▍            | 1.7 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▌            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▋            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▊            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████▉            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████            | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▏           | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▎           | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▍           | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▌           | 1.8 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▋           | 1.9 MB 9.4 MB/s eta 0:00:01[K     |████████████████████▊           | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████           | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████           | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▏          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▎          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▍          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▌          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▋          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▊          | 1.9 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████▉          | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████          | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████          | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▏         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▎         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▍         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▌         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▋         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▊         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████▉         | 2.0 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████         | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████         | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▏        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▎        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▍        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▌        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▋        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▊        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████▉        | 2.1 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████        | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████        | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▏       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▎       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▍       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▌       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▋       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▊       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████▉       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████       | 2.2 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▏      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▎      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▍      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▌      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▋      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▊      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████▉      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████      | 2.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▏     | 2.3 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▎     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▍     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▌     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▋     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▊     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████▉     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████     | 2.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▏    | 2.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▎    | 2.4 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▍    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▌    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▋    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▊    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████▉    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████    | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▏   | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▎   | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▍   | 2.5 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▌   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▋   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▊   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████▉   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████   | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▎  | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▍  | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▌  | 2.6 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▋  | 2.7 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▊  | 2.7 MB 9.4 MB/s eta 0:00:01[K     |█████████████████████████████▉  | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████  | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████  | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▏ | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▎ | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▍ | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▌ | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▋ | 2.7 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▊ | 2.8 MB 9.4 MB/s eta 0:00:01[K     |██████████████████████████████▉ | 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████ | 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████ | 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▏| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▎| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▍| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▌| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▋| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▊| 2.8 MB 9.4 MB/s eta 0:00:01[K     |███████████████████████████████▉| 2.9 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████████| 2.9 MB 9.4 MB/s eta 0:00:01[K     |████████████████████████████████| 2.9 MB 9.4 MB/s
+: [?25hRequirement already satisfied: six in /usr/lib/python3.8/site-packages (from h5py) (1.14.0)
+: Requirement already satisfied: numpy>=1.7 in /home/garrido/.local/lib/python3.8/site-packages (from h5py) (1.18.1)
+: Installing collected packages: h5py
+: Successfully installed h5py-2.10.0
+: Note: you may need to restart the kernel to use updated packages.
+
+** Importation des libraires scientifiques
+#+BEGIN_SRC jupyter-python
+  %matplotlib inline
+  import numpy as np
+  import matplotlib.pyplot as plt
+  plt.__file__
+#+END_SRC
+
+#+RESULTS:
+: /home/garrido/.local/lib/python3.8/site-packages/matplotlib/pyplot.py
+
+** Importation de la librairie pour la lecture des données LIGO
+#+BEGIN_SRC jupyter-python
+  import readligo as rl
+#+END_SRC
+
+#+RESULTS:
+
+** Déclaration des propriétés de l'événement
+*** Nom de l'événement
+#+BEGIN_SRC jupyter-python :results none
+  event_name = "GW150914"
+#+END_SRC
+
+*** Fichiers associés à l'événement
+Les détections ont été réalisées par deux détecteurs :
+- =H1= correspond au détecteur d'Hanford situé dans l'état de Washington,
+- =L1= correspond au détecteur de Livingston situé dans l'état de Louisiane.
+
+#+BEGIN_SRC jupyter-python :results none
+  fn_H1 = "data/H-H1_LOSC_4_V2-1126259446-32.hdf5"
+  fn_L1 = "data/L-L1_LOSC_4_V2-1126259446-32.hdf5"
+#+END_SRC
+
+*** COMMENT Autres propriétés
+#+BEGIN_COMMENT
+"fs"          : 4096,
+"tevent"      : 1126259462.44,
+"utcevent"    : "2015-09-14T09:50:45.44",
+"m1"          : 41.743,
+"m2"          : 29.237,
+"a1"          : 0.355,
+"a2"          : -0.769,
+"approx"      : "lalsim.SEOBNRv2",
+"fband"       : [43.0,300.0],
+"f_min"       : 10.0
+#+END_COMMENT
+
+** Lecture des événements
+La fonction =loaddata= de la librairie =readligo= permet de récupérer la déformée (/strain/) en fonction
+du temps
+#+BEGIN_SRC jupyter-python
+  strain_H1, time_H1, _ = rl.loaddata(fn_H1)
+  strain_L1, time_L1, _ = rl.loaddata(fn_L1)
+#+END_SRC
+
+#+RESULTS:
+: ./lib/readligo.py:138: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+:   shortnameArray = dqInfo['DQShortnames'].value
+: ./lib/readligo.py:144: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+:   injnameArray = injInfo['InjShortnames'].value
+: ./lib/readligo.py:149: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+:   gpsStart = meta['GPSstart'].value
+
+** Premier aperçu des données temporelles
+#+BEGIN_SRC jupyter-python
+  tevent = 1126259462.44
+  t = time_H1
+  deltat = 5 #sec
+  idxt = np.where(np.abs(t-tevent) < deltat)# & (t < tevent+dt))
+
+  fig, axes = plt.subplots(2, 1, figsize=(8, 8))
+  axes[0].plot(t, strain_H1, label="H1 strain")
+  axes[0].plot(t, strain_L1, label="L1 strain")
+  axes[0].set_title("Événement {}".format(event_name))
+  axes[0].set_ylabel("strain [no unit]")
+  axes[1].plot(t[idxt]-tevent, strain_H1[idxt], label="H1 strain")
+  axes[1].plot(t[idxt]-tevent, strain_L1[idxt], label="L1 strain")
+  axes[1].set_xlabel("temps (s) depuis {}".format(tevent))
+  axes[1].set_ylabel("strain [no unit]")
+  axes[0].legend(bbox_to_anchor=(1, 1));
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: /home/garrido/.local/lib/python3.8/site-packages/IPython/core/pylabtools.py:132: UserWarning: Creating legend with loc="best" can be slow with large amounts of data.
+:   fig.canvas.print_figure(bytes_io, **kw)
+[[file:./.ob-jupyter/f09c4673e8e0d24534df687c4c93f9bedd1e1278.png]]
+:END:
+
+#+BEGIN_SRC jupyter-python
+  print(strain_H1.shape)
+  print("Autour du signal", np.mean(strain_H1[idxt]), np.std(strain_H1[idxt]))
+  print("1000 premiers échantillons", np.mean(strain_H1[:1000]), np.std(strain_H1[:1000]))
+#+END_SRC
+
+#+RESULTS:
+: (131072,)
+: Autour du signal 7.907175815934779e-22 2.598620239209574e-19
+: 1000 premiers échantillons 2.5771587195786363e-20 1.3877060407480395e-19
+
+** Distribution du signal en fréquence
+Plotting these data in the Fourier domain gives us an idea of the frequency content of the data. A
+way to visualize the frequency content of the data is to plot the amplitude spectral density, ASD.
+
+The ASDs are the square root of the power spectral densities (PSDs), which are averages of the
+square of the fast fourier transforms (FFTs) of the data.
+
+They are an estimate of the "strain-equivalent noise" of the detectors versus frequency, which limit
+the ability of the detectors to identify GW signals.
+
+They are in units of strain/rt(Hz). So, if you want to know the root-mean-square (rms) strain noise
+in a frequency band, integrate (sum) the squares of the ASD over that band, then take the
+square-root.
+
+*** Déclaration du taux d'échantillonage du signal et de la transformée de Fourrier
+#+BEGIN_SRC jupyter-python
+  fs = 4096
+  nfft = 4*fs
+  from scipy.signal import welch as psd
+  freqs, Pxx_H1 = psd(strain_H1, fs = fs, nperseg = nfft)
+  freqs, Pxx_L1 = psd(strain_L1, fs = fs, nperseg = nfft)
+
+  plt.figure(figsize=(10,8))
+  plt.loglog(freqs, np.sqrt(Pxx_H1), label="H1 strain")
+  plt.loglog(freqs, np.sqrt(Pxx_L1), label="L1 strain")
+  plt.grid()
+  plt.xlim(20, 2000.)
+  plt.ylim(1e-24, 1e-19)
+  plt.legend();
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/1a173a94fcb9bf49f84344c57f904d8d529caebb.png]]
+*** Interpolation des PSD
+#+BEGIN_SRC jupyter-python
+  from scipy.interpolate import interp1d
+  psd_H1 = interp1d(freqs, Pxx_H1)
+  psd_L1 = interp1d(freqs, Pxx_L1)
+#+END_SRC
+
+#+RESULTS:
+
+** Whitening
+From the ASD above, we can see that the data are very strongly "colored" - noise fluctuations are
+much larger at low and high frequencies and near spectral lines, reaching a roughly flat ("white")
+minimum in the band around 80 to 300 Hz.
+
+We can "whiten" the data (dividing it by the noise amplitude spectrum, in the fourier domain),
+suppressing the extra noise at low frequencies and at the spectral lines, to better see the weak
+signals in the most sensitive band.
+
+Whitening is always one of the first steps in astrophysical data analysis (searches, parameter
+estimation). Whitening requires no prior knowledge of spectral lines, etc; only the data are needed.
+
+To get rid of remaining high frequency noise, we will also bandpass the data.
+
+The resulting time series is no longer in units of strain; now in units of "sigmas" away from the
+mean.
+
+We will plot the whitened strain data, along with the signal template, after the matched filtering
+section, below.
+
+#+BEGIN_SRC jupyter-python
+  def whiten(strain, interp_psd, dt):
+      Nt = len(strain)
+      freqs = np.fft.rfftfreq(Nt, dt)
+      freqs1 = np.linspace(0, 2048, Nt//2+1)
+
+      # whitening: transform to freq domain, divide by asd, then transform back,
+      # taking care to get normalization right.
+      hf = np.fft.rfft(strain)
+      norm = 1./np.sqrt(1./(dt*2))
+      white_hf = hf / np.sqrt(interp_psd(freqs)) * norm
+      white_ht = np.fft.irfft(white_hf, n=Nt)
+      return white_ht
+
+  # now whiten the data from H1 and L1, and the template (use H1 PSD):
+  dt = time_H1[1] - time_H1[0]
+  strain_H1_whiten = whiten(strain_H1, psd_H1, dt)
+  strain_L1_whiten = whiten(strain_L1, psd_L1, dt)
+#+END_SRC
+
+#+RESULTS:
+
+** Spectrogrammes
+#+BEGIN_SRC jupyter-python
+  deltat = 5 #sec
+  idxt = np.where(np.abs(t-tevent) < deltat)# & (t < tevent+dt))
+  # pick a shorter FTT time interval, like 1/8 of a selfecond:
+  NFFT = int(fs/8)
+  # and with a lot of overlap, to resolve short-time features:
+  NOVL = int(NFFT*15/16)
+  # and choose a window that minimizes "spectral leakage"
+  # (https://en.wikipedia.org/wiki/Spectral_leakage)
+  window = np.blackman(NFFT)
+
+  # the right colormap is all-important! See:
+  # http://matplotlib.org/examples/color/colormaps_reference.html
+  # viridis seems to be the best for our purposes, but it's new; if you don't have it, you can settle for ocean.
+  #spec_cmap='viridis'
+  # spec_cmap='ocean'
+
+  # Plot the H1 spectrogram:
+  plt.figure(figsize=(10,6))
+  plt.specgram(strain_H1[idxt], NFFT=NFFT, Fs=fs, window=window,
+               noverlap=NOVL, xextent=[-deltat,deltat])
+  plt.xlabel('time (s) since '+str(tevent))
+  plt.ylabel('Frequency (Hz)')
+  plt.colorbar()
+  plt.axis([-deltat, deltat, 0, 2000])
+  plt.title('LIGO H1 strain data near ' + event_name)
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: Text(0.5, 1.0, 'LIGO H1 strain data near GW150914')
+[[file:./.ob-jupyter/12c63f26e1eb91b87f2051cefd3ccb8e1220b7c1.png]]
+:END:
+
+* Footnotes
+
+[fn:a79b39c5dad6741] The LIGO Sientific Collaboration, the Virgo Collaboration, /"Observation of
+gravitational waves from a binary black hole merger"/, Physical Review Letters, vol. 116, no 6, 2016
+[[https://arxiv.org/abs/1602.03837][arxiv 1602.0387]].
+
+[fn:fd2ec391dcbe42e] Welch, P. D., /"The use of Fast Fourier Transform for the estimation of power
+spectra: A method based on time averaging over short, modified periodograms"/, IEEE Transactions on
+Audio and Electroacoustics, 1967

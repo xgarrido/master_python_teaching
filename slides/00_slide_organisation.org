@@ -35,7 +35,7 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
   - *Langage interprété* : Pas besoin de compiler le code. L'interpréteur Python lit et exécute
     directement le code python.
 
-* Langage Python : /pros & cons/
+* Langage Python : /pros/ & /cons/
 
 - Avantages:
   - Le principal avantage est la facilité de programmation, minimisant le temps nécessaire pour
@@ -54,7 +54,7 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
   - langage de programmation interprété et typé dynamiquement \to *exécution du code python plus
     lente* par rapport aux langages de programmation compilés statiquement, tels que C et Fortran.
 
-* Langage Python : /pros & cons/
+* COMMENT Langage Python : /pros & cons/
 
 #+BEGIN_REMARK
 _Python 2 ou Python 3 ?_
@@ -69,7 +69,7 @@ enseignement, nous utiliserons _Python 3.7_
 * Programme du cours \faIcon{list-ol}
 
 - *Bases de la programmation en Python* (2 séances)
-  - environnement Python (=venv=, =pip=, =ipython=)
+  - environnement Python : interpréteurs, IDE
   - type de données, /containers/, bloc conditionnel, boucles =for=
   - fonctions, scripts & modules, initiation à la programmation orientée objet
 
@@ -97,31 +97,14 @@ enseignement, nous utiliserons _Python 3.7_
 
 * Déroulement cours/TD
 
-- Cours amphi. A3 ou A4 $\lesssim$ 1 heure
+- Cours $\lesssim$ 1 heure et TD ~ 1h30 à distance
 
-- TD salles 401 (MAG1/MAG3) et 515 (MAG2/MAG4) ~ 1h30
+  - lundi 15h45 à 18h15 ([[https://eu.bbcollab.com/guest/a434df7e1de64373891293f413187201][lien Collaborate]])
+  - mardi 15h45 à 18h15 ([[https://eu.bbcollab.com/guest/8f1c5601053f451fb3c44be2c1cfaba9][lien Collaborate]])
 
-- Examen (2 heures) *sur machine* la semaine du 16 Mars 2020
+- Examen (2 heures) *sur machine* (en présentiel ? à distance ?)
 
-#+BEAMER: \pause
-
-- Cours/TD du lundi
-
-  #+BEGIN_REMARK
-  _TD du 10/02 pour le groupe MAG4 se déroulera le 13/02 à 15h45 (salle 401)_
-  #+END_REMARK
-
-- Cours/TD du mercredi
-
-  #+BEGIN_REMARK
-  _Cours/TD du 29/01 se déroulera le 28/01, même heure, amphi. A6_
-  #+END_REMARK
-
-  #+BEGIN_REMARK
-  _TD du 12/02 pour le groupe MAG2 se déroulera le 18/02 à 15h45 (salle 307)_
-  #+END_REMARK
-
-* Notes/transparents de cours \faIcon{archive}
+* COMMENT Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
 :BEAMER_OPT: fragile
 :END:
