@@ -19,3 +19,5 @@ doc/
 td/_minted*
 /README.el
 **/.ob-jupyter/
+**/.ipynb_checkpoints/
+**/__pycache__/
