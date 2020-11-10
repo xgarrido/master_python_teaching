@@ -97,10 +97,14 @@ enseignement, nous utiliserons _Python 3.7_
 
 * Déroulement cours/TD
 
-- Cours $\lesssim$ 1 heure et TD ~ 1h30 à distance
+- Cours à distance $\lesssim$ 1 heure 
 
-  - lundi 15h45 à 18h15 ([[https://eu.bbcollab.com/guest/a434df7e1de64373891293f413187201][lien Collaborate]])
-  - mardi 15h45 à 18h15 ([[https://eu.bbcollab.com/guest/8f1c5601053f451fb3c44be2c1cfaba9][lien Collaborate]])
+  - lundi à partir de 15h45 ([[https://eu.bbcollab.com/guest/a434df7e1de64373891293f413187201][lien Collaborate]])
+  - mardi à partir de 15h45 ([[https://eu.bbcollab.com/guest/8f1c5601053f451fb3c44be2c1cfaba9][lien Collaborate]])
+
+  - TD à distance ~ 1h30 : 1 session Collaborate générale + questions/réponses individualisées /via/
+    lien Zoom
+
 
 - Examen (2 heures) *sur machine* (en présentiel ? à distance ?)
 

@@ -18,3 +18,4 @@ slides/_minted*
 doc/
 td/_minted*
 /README.el
+**/.ob-jupyter/
