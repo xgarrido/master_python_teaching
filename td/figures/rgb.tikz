@@ -1,0 +1,38 @@
+\tikzset{%
+  >=latex, % option for nice arrows
+  inner sep=0pt,%
+  outer sep=2pt,%
+  mark coordinate/.style={inner sep=0pt,outer sep=0pt,minimum size=3pt,
+    fill=black,circle}%
+}
+\begin{tikzpicture}
+  \sf\scriptsize
+  \begin{scope}[]
+    %% characteristic points
+    \coordinate[mark coordinate] (O) at (0, 0);
+    \coordinate[mark coordinate] (OO) at (6, -6);
+    \coordinate[mark coordinate, fill=red] (A) at (4, -4);
+    \coordinate[mark coordinate, fill=green] (B) at (2, -2);
+
+    \draw (0, 0) node[above] {$(0, 0)$} rectangle (6, -6) node[below] {$(600, 600)$};
+    \draw[dashed, red] (4, 0) -- (A);
+    \draw[dashed, red] (0, -4) -- (A) node[below] {$A\,(400, 400)$};
+    \draw[dashed, green] (6, -2) -- (B);
+    \draw[dashed, green] (2, -6) -- (B) node[above] {$B\,(200, 200)$};
+  \end{scope}
+
+  \begin{scope}[xshift=7cm]
+    %% characteristic points
+    \coordinate[mark coordinate] (O) at (0, 0);
+    \coordinate[mark coordinate] (OO) at (6, -6);
+    \coordinate[mark coordinate, fill=red] (A) at (2, -2);
+    \coordinate[mark coordinate, fill=green] (B) at (4, -2);
+    \coordinate[mark coordinate, fill=blue] (C) at (3, -4);
+
+    \draw (0, 0) node[above] {$(0, 0)$} rectangle (6, -6) node[below] {$(600, 600)$};
+    \draw[dashed, red]   (A) node[above, fill=white] {$A\,(200, 200)$} circle (1.5);
+    \draw[dashed, green] (B) node[above, fill=white] {$B\,(400, 200)$} circle (1.5);
+    \draw[dashed, blue]  (C) node[below] {$C\,(300, 400)$} circle (1.5);
+    \draw[->, green] (B) -- (5.5, -2) node[green, midway, below] {$R=150$};
+  \end{scope}
+\end{tikzpicture}
