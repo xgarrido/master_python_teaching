@@ -267,7 +267,7 @@ systématiquement charger l'environnement virtuel défini lors de ce premier exe
    #+END_SRC
    Déterminer le nombre d'itérations $n$ nécessaires pour que la valeur de \pi soit correcte jusqu'à
    la 7^{ème} décimale.
-
+   
 ** Correction                                                   :correction:
 
 1)

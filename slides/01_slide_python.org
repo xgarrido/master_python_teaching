@@ -246,8 +246,8 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 - Sous Linux, l'installation est relativement simple 
   #+BEGIN_SRC shell-session
-    @\prompt@ pip install --user jupyter
-    @\prompt@ jupyter notebook
+    @\prompt@ pip install --user jupyter-lab
+    @\prompt@ jupyter lab
   #+END_SRC
 
 - Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][Anaconda]]
@@ -263,11 +263,26 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
   #+BEGIN_SRC latex
     \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
   #+END_SRC
-
-- Vous pouvez enfin utiliser Google Colaboratory
+  ou Google Colaboratory
   #+BEGIN_SRC latex
     \href{https://colab.research.google.com}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
   #+END_SRC
+
+* Installation & utilisation des notebooks
+
+- Vous pouvez finalement vous connecter sur les machines de l'université et initier une session
+  Jupyter
+
+  1) depuis votre ordinateur personnel[fn:382b9b24d416887]
+     #+BEGIN_SRC shell-session
+       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@tp-ssh1.dep-informatique.u-psud.fr
+     #+END_SRC
+
+  2) une fois la connection =ssh= établie
+     #+BEGIN_SRC shell-session
+       @\prompt@ jupyter lab --port 8891 --ip 127.0.0.1 --no-browser
+     #+END_SRC
+     puis ouvrir le lien dans un navigateur web 
 
 * COMMENT Interpréteur =ipython=
 
@@ -867,3 +882,9 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
   L'instruction =continue= est particulièrement utile afin d'éviter une trop grande
   imbrication d'instructions =if= successives.
   #+END_REMARK
+
+* Footnotes
+
+[fn:382b9b24d416887] si =tp-ssh1= ne semble pas accessible, vous pouvez essayer =tp-ssh2= ou =tp-ssh3=
+
+

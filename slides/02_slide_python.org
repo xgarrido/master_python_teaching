@@ -647,7 +647,7 @@ Pour plus de détails sur les us et coutumes en matière de documentation /cf./
 \titlepage
 #+END_EXPORT
 
-* Scripts/modules
+* COMMENT Scripts/modules
 
 #+ATTR_BEAMER: :overlay +-
 - Jusqu'à présent l'ensemble des commandes ou blocs d'instructions ont été tapé
