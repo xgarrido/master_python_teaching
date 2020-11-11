@@ -261,7 +261,7 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 - Vous pouvez aussi utiliser le "bac à sable" =mybinder=
   #+BEGIN_SRC latex
-    \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
+    \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD?urlpath=lab}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
   #+END_SRC
   ou Google Colaboratory
   #+BEGIN_SRC latex
