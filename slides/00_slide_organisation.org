@@ -95,7 +95,13 @@ enseignement, nous utiliserons _Python 3.7_
   - _Outils statistiques & Générateurs aléatoires_
   - _Interpolation, intégration numérique, traitement du signal..._
 
-* Déroulement cours/TD
+* Bibliographie \faIcon{bookmark}
+
+- /Open Classrooms/ : [[https://openclassrooms.com/courses/apprenez-a-programmer-en-python][Apprenez à programmer en Python]]
+- [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
+- [[http://www.scipy-lectures.org/index.html][*Scipy Lectures Notes*]]
+- [[https://github.com/jrjohansson/scientific-python-lectures][*Scientific Python Lectures*]]
+* Déroulement cours/TD \faIcon{laptop-code}
 
 - Cours à distance $\lesssim$ 1 heure 
 
@@ -103,10 +109,15 @@ enseignement, nous utiliserons _Python 3.7_
   - mardi à partir de 15h45 ([[https://eu.bbcollab.com/guest/8f1c5601053f451fb3c44be2c1cfaba9][lien Collaborate]])
 
   - TD à distance ~ 1h30 : 1 session Collaborate générale + questions/réponses individualisées /via/
-    lien Zoom
+    lien Google Meet ou Zoom
 
 
 - Examen (2 heures) *sur machine* (en présentiel ? à distance ?)
+
+* Contacts \faIcon{address-book}
+
+- Noë Roy, [[mailto:noe.roy@universite-paris-saclay.fr][*noe.roy@universite-paris-saclay.fr*]]
+- Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
 
 * COMMENT Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
@@ -156,9 +167,3 @@ enseignement, nous utiliserons _Python 3.7_
 _Ressources disponibles sur dokeos [[http://formation.u-psud.fr][http://formation.u-psud.fr]]_
 #+END_CBOX
 
-* Bibliographie \faIcon{bookmark}
-
-- /Open Classrooms/ : [[https://openclassrooms.com/courses/apprenez-a-programmer-en-python][Apprenez à programmer en Python]]
-- [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
-- [[http://www.scipy-lectures.org/index.html][*Scipy Lectures Notes*]]
-- [[https://github.com/jrjohansson/scientific-python-lectures][*Scientific Python Lectures*]]
