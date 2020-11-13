@@ -405,10 +405,10 @@ customize the highlighted source code output using =fancyvrb=.
 
 We use the external library from =tikz= to cache i.e. produce a =pdf= file of
 each =tikzpicture=. =tikz/external= looks if the pdf exist and if not, export it.
-#+BEGIN_SRC latex
-  \input "|mkdir -p latex.d"
-  \input "|mkdir -p /tmp/latex.d"
-#+END_SRC
+# #+BEGIN_SRC latex
+#   \input "|mkdir -p latex.d"
+#   \input "|mkdir -p /tmp/latex.d"
+# #+END_SRC
 
 ****** [[http://www.ctan.org/pkg/xspace][xspace]] package
 #+BEGIN_SRC latex

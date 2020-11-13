@@ -1,4 +1,4 @@
-#+TITLE:  Interpréteurs, éditeurs de texte et environnement de développement
+#+TITLE:  Interpréteurs & environnements de développement
 #+AUTHOR: Xavier Garrido
 #+DATE:   12/01/2020
 #+OPTIONS: toc:nil ^:{} author:nil
@@ -184,106 +184,6 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
     Type:      builtin_function_or_method
   #+END_SRC
 
-* Comment et où écrire un programme =python= ?
-
-1) Directement dans l'interpréteur =ipython=
-  - @@beamer:\color{green}\faThumbsUp@@ :: @@beamer:\color{green}@@ permet de
-       tester en intéractif le code et sa validité
-  - @@beamer:\color{red}\faThumbsDown@@ :: @@beamer:\color{red}@@ rend difficile
-       la réutilisation et la modification du code
-
-#+BEAMER: \pause
-
-2) [@2] Dans un éditeur de texte (=emacs=, =vim=, =notepad++=) puis 
-   #+BEGIN_SRC python
-     @\prompt@ python mon_code.py
-   #+END_SRC
-    
-   ou directement dans l'interpréteur =ipython= en faisant
-   #+BEGIN_SRC python
-     @\prompt@ ipython
- 
-    In [1]: %run mon_code.py
-   #+END_SRC
-
-* Comment et où écrire un programme =python= ?
-
-3) [@3] Dans un environnement de développement intégré (/IDE/)
-   - [[https://www.jetbrains.com/fr-fr/pycharm/][=pycharm=]], [[https://pyzo.org/][=pyzo=]], [[https://www.spyder-ide.org/][=spyder=]], ...
-   - [[https://atom.io/][=atom=]], [[https://www.sublimetext.com/][=sublime text=]], ...
-
-      # - @@beamer:\color{green}\faThumbsUp@@ :: @@beamer:\color{green}@@ interpréteur intégré,
-      #   vérification de la syntaxe, complétion
-      # - @@beamer:\color{red}\faThumbsDown@@ :: @@beamer:\color{red}@@ cohabitation avec des
-      #   environnements virtuels
-
-#+BEAMER: \pause
-
-4) [@4] Dans un /notebook/ Jupyter \to *solution utilisée pour les TD*
-
-* Jupyter et ses /notebooks/
-
-- Les /notebooks/ Jupyter sont des "cahiers électroniques" qui, dans un même document, peuvent
-  rassembler du *texte, des images, des formules mathématiques et du code informatique
-  exécutable*. Ils sont manipulables interactivement dans *un navigateur web*.
-
-#+BEAMER: \pause
-- Initialement développés pour les langages Julia, Python et R, les /notebooks/ Jupyter, supportent
-  près de 40 langages différents (dont le C++).
-
-#+BEAMER: \pause
-- Outil de plus en plus populaire notamment pour documenter et expliquer le fonctionnement d'un code
-  (tutoriels, cours, rédaction d'articles...)
-
-* Exemple d'un /notebook/
-
-- *La cellule* est l'élément de base d'un notebook Jupyter. Elle peut contenir du texte formaté au
-  format Markdown ou du code informatique qui pourra être exécuté.
-
-[[file:figures/jupyter_example.png]]
-
-* Installation & utilisation des /notebooks/
-
-- Sous Linux, l'installation est relativement simple 
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip install --user jupyterlab
-    @\prompt@ jupyter lab
-  #+END_SRC
-
-- Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][=Anaconda=]]
-* Installation & utilisation des notebooks
-
-- Vous pouvez utiliser la plateforme Jupyter de Paris-Saclay
-
-  #+BEGIN_CENTER
-  *https://jupytercloud.lal.in2p3.fr*
-  #+END_CENTER
-
-- Vous pouvez aussi utiliser le "bac à sable" =mybinder=
-  #+BEGIN_SRC latex
-    \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD?urlpath=lab}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
-  #+END_SRC
-  ou Google Colaboratory
-  #+BEGIN_SRC latex
-    \href{https://colab.research.google.com}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
-  #+END_SRC
-
-* Installation & utilisation des notebooks
-
-- Vous pouvez finalement vous connecter sur les machines de l'université et initier une session
-  Jupyter
-
-  1) depuis votre ordinateur personnel[fn:382b9b24d416887]
-     #+BEGIN_SRC shell-session
-       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@tp-ssh1.dep-informatique.u-psud.fr
-     #+END_SRC
-
-  2) une fois la connection =ssh= établie
-     #+BEGIN_SRC shell-session
-       @\prompt@ jupyter lab --port 8891 --ip 127.0.0.1 --no-browser
-     #+END_SRC
-     puis ouvrir le lien dans un navigateur web 
-
 * COMMENT Interpréteur =ipython=
 
 - Historique des commandes
@@ -367,6 +267,105 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
    ('rm', 'rm'),
    ('rmdir', 'rmdir')]
 #+END_SRC
+
+* Comment et où écrire un programme =python= ?
+
+1) Directement dans l'interpréteur =ipython=
+  - @@beamer:\color{green}\faThumbsUp@@ :: @@beamer:\color{green}@@ permet de
+       tester en intéractif le code et sa validité
+  - @@beamer:\color{red}\faThumbsDown@@ :: @@beamer:\color{red}@@ rend difficile
+       la réutilisation et la modification du code
+
+#+BEAMER: \pause
+
+2) [@2] Dans un éditeur de texte (=emacs=, =vim=, =notepad++=) puis 
+   #+BEGIN_SRC python
+     @\prompt@ python mon_code.py
+   #+END_SRC
+    
+   ou directement dans l'interpréteur =ipython= en faisant
+   #+BEGIN_SRC python
+     @\prompt@ ipython
+ 
+    In [1]: %run mon_code.py
+   #+END_SRC
+
+* Comment et où écrire un programme =python= ?
+
+3) [@3] Dans un environnement de développement intégré (/IDE/)
+   - [[https://www.jetbrains.com/fr-fr/pycharm/][=pycharm=]], [[https://pyzo.org/][=pyzo=]], [[https://www.spyder-ide.org/][=spyder=]], ...
+   - [[https://atom.io/][=atom=]], [[https://www.sublimetext.com/][=sublime text=]], ...
+
+      # - @@beamer:\color{green}\faThumbsUp@@ :: @@beamer:\color{green}@@ interpréteur intégré,
+      #   vérification de la syntaxe, complétion
+      # - @@beamer:\color{red}\faThumbsDown@@ :: @@beamer:\color{red}@@ cohabitation avec des
+      #   environnements virtuels
+
+#+BEAMER: \pause
+
+4) [@4] Dans un /notebook/ Jupyter \to *solution utilisée pour les TD*
+
+* Jupyter et ses /notebooks/
+
+- Les /notebooks/ Jupyter sont des "cahiers électroniques" qui, dans un même document, peuvent
+  rassembler du *texte, des images, des formules mathématiques et du code informatique
+  exécutable*. Ils sont manipulables interactivement dans *un navigateur web*.
+
+#+BEAMER: \pause
+- Initialement développés pour les langages Julia, Python et R, les /notebooks/ Jupyter, supportent
+  près de 40 langages différents (dont le C++).
+
+#+BEAMER: \pause
+- Outil de plus en plus populaire notamment pour documenter et expliquer le fonctionnement d'un code
+  (tutoriels, cours, rédaction d'articles...)
+
+* Exemple d'un /notebook/
+
+- *La cellule* est l'élément de base d'un notebook Jupyter. Elle peut contenir du texte formaté au
+  format Markdown ou du code informatique qui pourra être exécuté.
+
+[[file:figures/jupyter_example.png]]
+
+* Installation & utilisation des /notebooks/
+
+- Sous Linux, l'installation est relativement simple 
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install --user jupyterlab
+    @\prompt@ jupyter lab
+  #+END_SRC
+
+- Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][=Anaconda=]]
+* Installation & utilisation des notebooks
+
+- Vous pouvez vous connecter sur les machines de l'université et initier une session Jupyter
+
+  1) depuis votre ordinateur personnel[fn:382b9b24d416887]
+     #+BEGIN_SRC shell-session
+       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@tp-ssh1.dep-informatique.u-psud.fr
+     #+END_SRC
+
+  2) une fois la connection =ssh= établie
+     #+BEGIN_SRC shell-session
+       @\prompt@ jupyter lab --port 8891 --ip 127.0.0.1 --no-browser
+     #+END_SRC
+     puis ouvrir le lien dans un navigateur web 
+
+* Installation & utilisation des notebooks
+
+- Vous pouvez également utiliser la plateforme Jupyter de Paris-Saclay
+
+  #+BEGIN_CENTER
+  *https://jupytercloud.lal.in2p3.fr*
+  #+END_CENTER
+
+- Vous pouvez finalement utiliser le "bac à sable" =mybinder=
+  #+BEGIN_SRC latex
+    \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD?urlpath=lab}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
+  #+END_SRC
+  ou Google Colaboratory
+  #+BEGIN_SRC latex
+    \href{https://colab.research.google.com}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
+  #+END_SRC
 
 * Variables, structure conditionnelle et autres boucles               :title:
 :PROPERTIES:
@@ -703,8 +702,8 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 #+ATTR_BEAMER: :overlay +-
 - utilisation des mot-clés *=if/elif/else=*
 - la fin de chaque condition est matérialisée par *le caractère =:=*
-- *l'indentation (4 espaces ou une tabulation) délimite le bloc de condition*
-- dans =ipython=, appuyer sur =Entrée= deux fois pour exécuter le bloc
+- *l'indentation (2 espaces ou une tabulation) délimite le bloc de condition*
+# - dans =ipython=, appuyer sur =Entrée= deux fois pour exécuter le bloc
 
 * COMMENT Structure conditionnelle
 
