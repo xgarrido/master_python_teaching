@@ -2131,6 +2131,8 @@ up. Practically, everything can be done within this section.
   \usemintedstyle{solarizedlight}
   \definecolor{solarizedbg}{RGB}{253,246,227}
   \newcommand{\prompt}{\color{orange}{\scriptsize\faIcon{terminal}}}
+  %% \let\origttt\texttt
+  %% \renewcommand{\texttt}[1]{\tikz[overlay]\node[draw=green,inner sep=1pt, anchor=text, rectangle, rounded corners=1pt, green] {\smaller[0.75]{\origttt{#1}}};\phantom{#1}\ignorespaces}
 #+END_SRC
 
 ****** Postamble

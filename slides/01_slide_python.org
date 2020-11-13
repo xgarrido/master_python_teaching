@@ -246,11 +246,11 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 - Sous Linux, l'installation est relativement simple 
   #+BEGIN_SRC shell-session
-    @\prompt@ pip install --user jupyter-lab
+    @\prompt@ pip install --user jupyterlab
     @\prompt@ jupyter lab
   #+END_SRC
 
-- Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][Anaconda]]
+- Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][=Anaconda=]]
 * Installation & utilisation des notebooks
 
 - Vous pouvez utiliser la plateforme Jupyter de Paris-Saclay
