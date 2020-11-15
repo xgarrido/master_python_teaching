@@ -358,13 +358,13 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
   *https://jupytercloud.lal.in2p3.fr*
   #+END_CENTER
 
-- Vous pouvez finalement utiliser le "bac à sable" =mybinder=
+- Vous pouvez finalement utiliser Google Colaboratory
+  #+BEGIN_SRC latex
+    \href{https://colab.research.google.com/github/xgarrido/binder-sandbox}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
+  #+END_SRC
+  ou dans le "bac à sable" =mybinder=
   #+BEGIN_SRC latex
     \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD?urlpath=lab}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
-  #+END_SRC
-  ou Google Colaboratory
-  #+BEGIN_SRC latex
-    \href{https://colab.research.google.com}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
   #+END_SRC
 
 * Variables, structure conditionnelle et autres boucles               :title:
