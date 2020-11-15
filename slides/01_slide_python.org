@@ -881,7 +881,6 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
   L'instruction =continue= est particulièrement utile afin d'éviter une trop grande
   imbrication d'instructions =if= successives.
   #+END_REMARK
-
 * Footnotes
 
 [fn:382b9b24d416887] si =tp-ssh1= ne semble pas accessible, vous pouvez essayer =tp-ssh2= ou =tp-ssh3=
