@@ -533,6 +533,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
     Out[5]: 1.0
   #+END_SRC
 
+#+BEGIN_COMMENT
 #+BEAMER: \pause
 #+BEGIN_REMARK
 En Python 2.X, la division entière pouvait se faire à l'aide de l'opérateur =/=
@@ -541,7 +542,6 @@ dès lors que des entiers étaient impliqués.
 Python 3.X a introduit l'opérateur =//= pour lever toutes ambiguïtés.
 #+END_REMARK
 
-#+BEGIN_COMMENT
 /cf./ cours
 http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb#Operators-and-comparisons
 
