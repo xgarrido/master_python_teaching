@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{n}{img} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{imread}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}mon\PYGZus{}image.png\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{imshow}\PYG{p}{(}\PYG{n}{img}\PYG{p}{)}
+\end{Verbatim}
