@@ -1,0 +1,192 @@
+((* extends 'latex/index.tex.j2' *))
+
+((* block packages *))
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{minted}
+
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{fontspec}
+\usepackage{xunicode}
+\fi
+
+\usepackage{hyperref}
+
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+\graphicspath{
+  {./plot/}
+  {./figures/}
+}
+
+\usepackage{comment}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows,decorations,backgrounds,patterns,matrix,shapes,fit,calc,shadows,plotmarks,spy,trees}
+
+\usepackage{xspace}
+
+\usepackage{nicefrac}
+\usepackage[breakable]{tcolorbox}
+
+
+\usepackage{mathpazo}
+
+\usepackage{prelim2e}
+\usepackage{gitinfo2}
+
+\usepackage{ccaption}
+
+\usepackage[top=2cm, width=16cm]{geometry}
+\usepackage[Export]{adjustbox}
+
+\usepackage{fancyhdr}
+\usepackage{fncychap}
+\usepackage{titlesec}
+
+((* endblock packages *))
+
+((* block definitions *))
+\ifxetex
+\setsansfont[Mapping=tex-text]{Myriad Pro}
+\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Minion Pro}
+\setmonofont[Scale=0.9]{Inconsolata}
+\fi
+
+\renewcommand{\d}{\text{d}}
+%%\newcommand{\vv}[1]{\overrightarrow{#1}}
+\renewcommand{\div}{\ensuremath{\text{div}}}
+\newcommand{\rot}{\ensuremath{\vv{\text{rot}}}}
+\newcommand{\grad}{\ensuremath{\vv{\text{grad}}}}
+\newcommand{\ket}[1]{\ensuremath{|#1\rangle}\xspace}
+\newcommand{\bra}[1]{\ensuremath{\langle #1|}\xspace}
+\newcommand{\psh}[2]{\ensuremath{\langle #1|#2\rangle}\xspace}
+
+\definecolor{red}{HTML}{DC322F}
+\definecolor{green}{HTML}{859900}
+\definecolor{blue}{HTML}{268bd2}
+\definecolor{orange}{HTML}{CB4B16}
+\definecolor{gray}{RGB}{107,108,110}
+\definecolor{violet}{HTML}{8B1B59}
+\colorlet{default}{violet}
+\definecolor{solarizedbg}{RGB}{253,246,227}
+
+
+\providecommand{\tightlist}{%
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setlength{\parindent}{0cm}
+
+\ChTitleVar{\Huge\bfseries\sffamily\color{default}}
+\ChNameVar{\raggedleft\fontsize{14}{16}\selectfont\sffamily\color{default}}
+\ChNumVar{\raggedleft\fontsize{60}{62}\selectfont\sffamily\color{default}}
+\ChRuleWidth{0pt}
+\AtBeginDocument{\chapter{}\vspace{-1.5cm}}
+
+\titleformat*{\section}{\Large\bfseries\sffamily\color{default}}
+\titleformat*{\subsection}{\large\bfseries\sffamily\color{default!75}}
+\titleformat*{\subsubsection}{\itshape\color{default!60}}
+
+
+\makeatletter
+\let\old@rule\@rule
+\def\@rule[#1]#2#3{\textcolor{default!60}{\old@rule[#1]{#2}{#3}}}
+\renewcommand{\DOCH}{%
+\vspace{-2cm}
+\raggedleft
+\CNV\FmN{\@chapapp}\space \CNoV\thechapter
+\par\nobreak
+%% \vspace{-3cm}
+}
+
+\catcode`\_=12
+\newcommand{\filenameparse}[1]{\expandafter\filename@parse@#1\@nil}
+\def\filename@parse@#1_#2_#3\@nil{%
+  \gdef\fileA{#1}% first part
+  \gdef\fileB{#2}% middle part
+  \gdef\fileC{#3}% final part
+}
+\catcode`\_=8
+\filenameparse{\jobname}
+\makeatother
+
+\let\orighref\href
+\renewcommand{\href}[2]{\orighref{#1}{#2\,\scalebox{0.75}{\faExternalLink*}}}
+\renewcommand*{\PrelimText}{\textnormal{\small\color{gray}{\scriptsize\faGithub*}
+\ttfamily\orighref{https://github.com/xgarrido/master_python_teaching/commit/\gitHash}{\color{gray}\texttt{\gitAbbrevHash}}
+- \gitAuthorDate}}
+
+\renewcommand{\footnoterule}{\color{gray}%
+  \vskip-\footruleskip\vskip-\footrulewidth%
+  \vspace{10pt}\hrule width\columnwidth height0.0pt \vspace{5pt} \color{gray}}
+\renewcommand{\thefootnote}{\alph{footnote}}
+\interfootnotelinepenalty=10000
+
+\renewcommand{\chaptername}{Exercice}
+
+\renewenvironment{verbatim}
+               {\begin{tcolorbox}[colframe=red, colback=red!20]\color{red}\faIcon{exclamation-circle}\sffamily\bfseries}
+               {\end{tcolorbox}}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}, fontsize=\small}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{\begin{tcolorbox}[colback=solarizedbg, coltext=gray, frame empty]}{\end{tcolorbox}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[HTML]{b58900}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+
+% Additional commands for more recent versions of Pandoc
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+\newcommand{\ImportTok}[1]{\textcolor{default}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+((* endblock definitions *))
+
+((* block commands *))
+\hypersetup{
+  xetex,
+  colorlinks=true,
+  urlcolor=gray,
+  filecolor=gray,
+  linkcolor=gray,
+  citecolor=gray,
+  plainpages=false,
+  pdfpagelabels,
+  bookmarksnumbered,
+  pagebackref
+}
+
+\usemintedstyle{solarizedlight}
+\setcounter{chapter}{\fileA - 1}
+((* endblock commands *))
+
+((* block docclass *))
+\documentclass[10pt,a4paper]{report}
+((* endblock docclass *))
+
+((* block maketitle *))((* endblock maketitle *))

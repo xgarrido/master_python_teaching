@@ -6,7 +6,7 @@
 *.snm
 *.aux
 *.fdb*
-*.tex*
+*.tex
 *.toc
 *.sty
 *.auxlock
