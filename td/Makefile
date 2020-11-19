@@ -1,29 +1,14 @@
 # -*- mode: makefile; -*-
-EMACS=emacs
-BATCH=$(EMACS) --batch --no-init-file						\
-		--eval "(require 'org)"						\
-		--eval "(org-babel-do-load-languages 'org-babel-load-languages	\
-			'((shell . t)))"					\
-		--eval "(setq org-babel-use-quick-and-dirty-noweb-expansion t)" \
-		--eval "(setq org-confirm-babel-evaluate nil)"			\
-		--eval '(org-babel-load-file "../README.org")'                  \
-		--eval '(org-babel-tangle-file "../README.org")'
-
-ifndef with-correction
-	BATCH += --eval "(setq org-export-exclude-tags '(\"correction\"))"
-else
-endif
-
-files_org = $(wildcard *.org)
-files_pdf = $(files_org:.org=.pdf)
 files_ipynb = $(wildcard *.ipynb)
+files_pdf = $(files_ipynb:.ipynb=.pdf)
 files_binder = $(addprefix ../binder-sandbox/, $(files_ipynb))
 
 all: $(files_pdf)
 
-%.pdf: %.org
+%.pdf: %.ipynb
 	@echo "NOTICE: Exporting $< to pdf..."
-	@TEXINPUTS=".:..:$$TEXINPUTS" $(BATCH) --visit "$<" --funcall python-export-classes > /dev/null 2>&1
+	@jupyter nbconvert --to latex --template-file .td.tex.j2 --no-input $< --TagRemovePreprocessor.remove_cell_tags="correction"
+	@xelatex -shell-escape $(<:.ipynb=.tex)
 
 ipynb: $(files_binder)
 
@@ -39,4 +24,4 @@ else
 endif
 
 clean:
-	@rm -rf	latex.d *.tex *.aux *.pdf *.fdb* *~ _minted*
+	@rm -rf	latex.d *.tex *.aux *.pdf *.fdb* *~ _minted* *.toc *.out *.log svg-inkscape
