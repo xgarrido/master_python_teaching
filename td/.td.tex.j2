@@ -3,7 +3,6 @@
 ((* block packages *))
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{minted}
 
 \usepackage{ifxetex}
 \ifxetex
@@ -25,11 +24,7 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows,decorations,backgrounds,patterns,matrix,shapes,fit,calc,shadows,plotmarks,spy,trees}
 
-\usepackage{xspace}
-
-\usepackage{nicefrac}
 \usepackage[breakable]{tcolorbox}
-
 
 \usepackage{mathpazo}
 
@@ -41,8 +36,8 @@
 \usepackage[top=2cm, width=16cm]{geometry}
 \usepackage[Export]{adjustbox}
 
-\usepackage{fancyhdr}
 \usepackage{fncychap}
+\usepackage{fancyvrb}
 \usepackage{titlesec}
 
 ((* endblock packages *))
@@ -55,13 +50,6 @@
 \fi
 
 \renewcommand{\d}{\text{d}}
-%%\newcommand{\vv}[1]{\overrightarrow{#1}}
-\renewcommand{\div}{\ensuremath{\text{div}}}
-\newcommand{\rot}{\ensuremath{\vv{\text{rot}}}}
-\newcommand{\grad}{\ensuremath{\vv{\text{grad}}}}
-\newcommand{\ket}[1]{\ensuremath{|#1\rangle}\xspace}
-\newcommand{\bra}[1]{\ensuremath{\langle #1|}\xspace}
-\newcommand{\psh}[2]{\ensuremath{\langle #1|#2\rangle}\xspace}
 
 \definecolor{red}{HTML}{DC322F}
 \definecolor{green}{HTML}{859900}
@@ -129,7 +117,6 @@
                {\end{tcolorbox}}
 
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}, fontsize=\small}
-% Add ',fontsize=\small' for more characters per line
 \newenvironment{Shaded}{\begin{tcolorbox}[colback=solarizedbg, coltext=gray, frame empty]}{\end{tcolorbox}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
@@ -181,8 +168,8 @@
   pagebackref
 }
 
-\usemintedstyle{solarizedlight}
-\setcounter{chapter}{\fileA - 1}
+\setcounter{chapter}{\fileA}
+\addtocounter{chapter}{-1}
 ((* endblock commands *))
 
 ((* block docclass *))

@@ -5,7 +5,7 @@ files_binder = $(addprefix ../binder-sandbox/, $(files_ipynb))
 
 all: $(files_pdf)
 
-%.pdf: %.ipynb
+%.pdf: %.ipynb .td.tex.j2
 	@echo "NOTICE: Exporting $< to pdf..."
 	@jupyter nbconvert --to latex --template-file .td.tex.j2 --no-input $< --TagRemovePreprocessor.remove_cell_tags="correction"
 	@xelatex -shell-escape $(<:.ipynb=.tex)
