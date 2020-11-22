@@ -428,18 +428,17 @@ intégrées au langage Python
 
 * Les dictionnaires
 
-- Les dictionnaires sont des structures *mutables*, non ordonnées, formées
-  d’enregistrements de type *=clé:valeur=*
+- Les dictionnaires sont des structures *mutables*, ordonnées, formées d’enregistrements de type
+  *=clé:valeur=*
 
-- Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de
-  sa clé
+- Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de sa clé
 
   #+BEGIN_SRC python
     In [1]: tel = {"emmanuelle": 5752, "sébastien": 5578}
 
     In [2]: tel["francis"] = 5915
     In [3]: tel
-    Out[3]: {'sébastien': 5578, 'francis': 5915, 'emmanuelle': 5752}
+    Out[3]: {'emmanuelle': 5752, 'sébastien': 5578, 'francis': 5915}
     In [4]: tel["sébastien"]
     Out[4]: 5578
 
@@ -455,11 +454,10 @@ intégrées au langage Python
 
 * Les dictionnaires
 
-- Les dictionnaires sont des structures *mutables*, non ordonnées, formées
-  d’enregistrements de type *=clé:valeur=*
+- Les dictionnaires sont des structures *mutables*, ordonnées, formées d’enregistrements de type
+  *=clé:valeur=*
 
-- Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de
-  sa clé
+- Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de sa clé
 
   #+BEGIN_SRC python
     In [1]: tel = {"emmanuelle": 5752, "sébastien": 5578, 'francis': 5915}
@@ -740,7 +738,7 @@ Pour plus de détails sur les us et coutumes en matière de documentation /cf./
        Quand tu prends confiance en la confiance tu deviens confiant.
      #+END_SRC
 
-* Modules =python=
+* COMMENT Modules =python=
 
 #+BEGIN_REMARK
 Lors de l'importation, le module est mis _en cache_ et il faut donc le recharger
