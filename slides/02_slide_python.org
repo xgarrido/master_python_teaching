@@ -470,7 +470,37 @@ intégrées au langage Python
     Clé/Valeur : Francis/5915
   #+END_SRC
 
+* Les dictionnaires
+
 - *Tout objet /immutable/ peut servir de clé*
+
+  #+BEAMER: \pause
+  #+BEGIN_SRC python
+    In [1]: tel = {["simpson", "homer"]: 5752, ["simpson", "lisa"]: 5578}
+    ---------------------------------------------------------------------------
+    TypeError                                 Traceback (most recent call last)
+    <ipython-input-1-164bdc165001> in <module>
+    ----> 1 tel = {["simpson", "homer"]: 5752, ["simpson", "lisa"]: 5578}
+
+    TypeError: unhashable type: 'list'
+  #+END_SRC
+
+  #+BEAMER: \pause
+  #+BEGIN_SRC python
+    In [2]: tel = {("simpson", "homer"): 5752, ("simpson", "lisa"): 5578}
+
+    In [3]: tel["simpson", "homer"]
+    Out[3]: 5752
+
+    In [4]: tel["simspson", "bart"] = 8424
+
+    In [5]: tel
+    Out[5]: 
+    {('simpson', 'homer'): 5752,
+     ('simpson', 'lisa'): 5578,
+     ('simspson', 'bart'): 8424}
+  #+END_SRC
+
 
 * COMMENT Intermède /geek/
 
