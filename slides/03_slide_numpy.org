@@ -12,14 +12,14 @@
 
 #+BEAMER: \pause
 
-- =numpy= fournit en particulier des objets de type *vecteurs, matrices et en généralisant la notion
-  de tableaux à $n$ dimensions \to =ndarray=*
+- =numpy= fournit en particulier des objets de type *vecteurs, matrices en généralisant la notion de
+  tableaux à $n$ dimensions \to =ndarray=*
 
 #+BEAMER: \pause
 
-- =numpy= facilite et *optimise[fn:e0eb780c73d6562]* les opérations de *stockage et
-  de manipulation* des données *numériques* notamment lorsque la taille des
-  tableaux devient importante \to /array oriented computing/
+- =numpy= facilite et *optimise[fn:e0eb780c73d6562]* les opérations de *stockage et de manipulation* des
+  données *numériques* notamment lorsque la taille des tableaux devient importante \to /array oriented
+  computing/
 
 * Installation & importation de =numpy=
 
@@ -153,7 +153,7 @@ http://www.scipy-lectures.org/intro/numpy/array_object.html#numpy-arrays
 
   #+BEAMER: \pause
   #+BEGIN_SRC python
-    In [2]: %timeit a = np.arange(1000); a**2
+    In [2]: %timeit np.arange(1000)**2
     2.21 µs ± 11.4 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
   #+END_SRC
 
