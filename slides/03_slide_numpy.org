@@ -222,13 +222,13 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
     In [1]: np.zeros(10)
     Out[1]: array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
 
-    In [2]: np.ones(shape=(3,3))
+    In [2]: np.ones(shape=(3, 3))
     Out[2]:
     array([[ 1.,  1.,  1.],
            [ 1.,  1.,  1.],
            [ 1.,  1.,  1.]])
 
-    In [3]: np.full((3,3), 666.666, dtype=np.int)
+    In [3]: np.full((3, 3), 666.666, dtype=np.int)
     Out[3]:
     array([[666, 666, 666],
            [666, 666, 666],
@@ -277,7 +277,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
   In [4]: img = np.random.randn(30, 30)
   In [5]: plt.imshow(img, cmap=plt.cm.hot,
-                     extent=(0,30,0,30))
+                     extent=(0, 30, 0, 30))
   In [6]: plt.colorbar()
 #+END_SRC
 
@@ -376,7 +376,7 @@ Le type de données numériques stockées est fixé à la création du tableau
            [2, 1, 1],
            [2, 0, 5]])
 
-    In [3]: x[(1, 2), (0,2)]
+    In [3]: x[(1, 2), (0, 2)]
     Out[4]: array([2, 5])
   #+END_SRC
 
@@ -525,7 +525,6 @@ Le type de données numériques stockées est fixé à la création du tableau
 - Autres fonctions : =np.exp(), np.power(), np.log(), np.log10(),...=
 
 * Opérations mathématiques : intermède graphique
-
 ** Python code
 :PROPERTIES:
 :BEAMER_COL: 0.5
