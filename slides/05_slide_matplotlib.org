@@ -41,7 +41,7 @@
     In [2]: import matplotlib.pyplot as plt
 
     In [3]: mpl.__version__
-    Out[3]: '3.1.3'
+    Out[3]: '3.3.3'
   #+END_SRC
 
 ** Comment afficher vos figures : =show()= or not =show()=
@@ -141,8 +141,9 @@
 :END:
 
 #+BEGIN_EXPORT beamer
-\title{Épisode 1 : \emph{Kozmetix} sous \texttt{matplotlib}}
+\title{\emph{Kozmetix} sous \texttt{matplotlib}}
 \titlepage
+\thispagestyle{empty}
 #+END_EXPORT
 
 ** /Kozmetix/ sous =matplotlib=
@@ -648,8 +649,9 @@ sans échapper les caractères précédés de =\=
 :END:
 
 #+BEGIN_EXPORT beamer
-\title{Épisode 2 : Les modes de représentation}
+\title{Les modes de représentation}
 \titlepage
+\thispagestyle{empty}
 #+END_EXPORT
 
 ** /Scatter plot/
@@ -784,9 +786,6 @@ sans échapper les caractères précédés de =\=
   In [3]: plt.hist(data, bins=30, normed=True)
 #+END_SRC
 
-- Pour découvrir l'ensemble des options d'affichage *=plt.hist?=* ou
-  *=help(plt.hist)=*
-
 *** Figure
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -819,6 +818,8 @@ sans échapper les caractères précédés de =\=
   In [5]: plt.hist(x2, **kwargs)
   In [6]: plt.hist(x3, **kwargs);
 #+END_SRC
+
+- Pour découvrir l'ensemble des options d'affichage *=plt.hist?=* ou *=help(plt.hist)=*
 
 *** Figure
 :PROPERTIES:
