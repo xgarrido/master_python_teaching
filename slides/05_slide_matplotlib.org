@@ -44,7 +44,52 @@
     Out[3]: '3.3.3'
   #+END_SRC
 
-** Comment afficher vos figures : =show()= or not =show()=
+** Première figure sous =matplotlib=
+#+BEAMER: \setbeamercovered{invisible}
+
+*** Python code
+:PROPERTIES:
+:BEAMER_COL: 0.52
+:END:
+#+BEGIN_SRC python
+  In [1]: %matplotlib
+  In [2]: import matplotlib.pyplot as plt
+  In [3]: import numpy as np
+
+  In [4]: x = np.linspace(0, 3*np.pi, 100)
+
+  In [5]: plt.plot(x, np.sin(x))
+  In [6]: plt.plot(x, np.cos(x))
+#+END_SRC
+
+#+BEAMER: \pause
+#+BEGIN_SRC latex
+  \begin{tikzpicture}[remember picture,overlay]
+    \tikzset{codeblock/.style={color=#1!50,rounded corners=0.5ex, opacity=0.2, fill}}
+    \begin{scope}[yshift=-0.55cm]
+    \draw[codeblock=blue] (6.5ex,22.5ex) rectangle (16ex,25ex);
+    \node[blue] (t) [xshift=55ex, yshift=+28ex] {\small Utiliser \texttt{\bf \%matplotlib inline} dans un notebook};
+    \draw[->, blue] (t.west) to [out=180, in=0] (17ex, 23.5ex);
+    \end{scope}
+  \end{tikzpicture}
+#+END_SRC
+
+#+BEAMER: \pause
+- Sauvegarder la figure (=eps=, =pdf=, =png=)
+
+#+BEGIN_SRC python
+  In [7]: plt.savefig("/tmp/mpl1.pdf")
+#+END_SRC
+
+*** Figure
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+ATTR_LATEX: :width 1.1\linewidth
+[[file:figures/mpl.pdf]]
+
+** COMMENT Comment afficher vos figures : =show()= or not =show()=
 
 #+BEAMER: \setbeamercovered{invisible}
 
@@ -61,8 +106,6 @@
     plt.show()
   #+END_SRC
 
-  #+BEAMER: \pause
-
   #+BEGIN_SRC latex
     \begin{tikzpicture}[remember picture,overlay]
       \tikzset{codeblock/.style={color=#1!50,rounded corners=0.5ex, opacity=0.2, fill}}
@@ -72,7 +115,7 @@
     \end{tikzpicture}
   #+END_SRC
 
-** Comment afficher vos figures : =show()= or not =show()=
+** COMMENT Comment afficher vos figures : =show()= or not =show()=
 
 #+BEAMER: \setbeamercovered{invisible}
 
@@ -90,8 +133,6 @@
     In [7]: plt.plot(x, np.cos(x))
   #+END_SRC
 
-  #+BEAMER: \pause
-
   #+BEGIN_SRC latex
     \begin{tikzpicture}[remember picture,overlay]
       \tikzset{codeblock/.style={color=#1!50,rounded corners=0.5ex, opacity=0.2, fill}}
@@ -103,37 +144,6 @@
 
 - Possibilité également de lancer la commande =ipython= avec l'option =--matplotlib=
 
-** Première figure sous =matplotlib=
-*** Python code
-:PROPERTIES:
-:BEAMER_COL: 0.52
-:END:
-
-#+BEGIN_SRC python
-  In [1]: %matplotlib
-  In [2]: import matplotlib.pyplot as plt
-  In [3]: import numpy as np
-
-  In [4]: x = np.linspace(0, 3*np.pi, 100)
-
-  In [5]: plt.plot(x, np.sin(x))
-  In [6]: plt.plot(x, np.cos(x))
-#+END_SRC
-
-#+BEAMER: \pause
-- Sauvegarder la figure (=eps=, =pdf=, =png=)
-
-#+BEGIN_SRC python
-  In [7]: plt.savefig("/tmp/mpl1.pdf")
-#+END_SRC
-
-*** Figure
-:PROPERTIES:
-:BEAMER_COL: 0.5
-:END:
-
-#+ATTR_LATEX: :width 1.1\linewidth
-[[file:figures/mpl.pdf]]
 * /Kozmetix/ sous =matplotlib=
 ** Titre
 :PROPERTIES:
