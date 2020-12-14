@@ -1486,27 +1486,20 @@ avec =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [2]: plt.subplots(2, 3)
+  In [1]: fig, ax = plt.subplots(2, 3, sharex=True, sharey=True)
 #+END_SRC
 #+BEAMER: \pause\vskip-30pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [3]: plt.subplots_adjust(hspace=0.4, wspace=0.4)
-#+END_SRC
-#+BEAMER: \pause\vskip-30pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [4]: plt.subplots(2, 3, sharex="col", sharey="row")
-#+END_SRC
-#+BEAMER: \pause\vskip-30pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [5]: fig, ax = plt.subplots(2, 3, sharex="col",
-                                 sharey="row")
-  In [6]: for i in range(2):
+  In [2]: for i in range(2):
      ...:     for j in range(3):
      ...:         ax[i, j].text(0.5, 0.5, str((i, j)),
      ...:                       fontsize=18, ha="center")
+#+END_SRC
+#+BEAMER: \pause\vskip-30pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [3]: plt.subplots_adjust(hspace=0, wspace=0)
 #+END_SRC
 
 *** Figure
@@ -1516,10 +1509,11 @@ avec =axes([x, y, w, h])= et *=x,y,w,h= exprimés en fraction du canevas initial
 
 #+BEGIN_SRC latex
   \begin{center}
-    \includegraphics<1>[width=1.1\linewidth]{figures/mpl_subplot6.pdf}
-    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_subplot7.pdf}
-    \includegraphics<3>[width=1.1\linewidth]{figures/mpl_subplot8.pdf}
-    \includegraphics<4>[width=1.1\linewidth]{figures/mpl_subplot9.pdf}
+    %% \includegraphics<1>[width=1.1\linewidth]{figures/mpl_subplot6.pdf}
+    %% \includegraphics<2>[width=1.1\linewidth]{figures/mpl_subplot7.pdf}
+    \includegraphics<1>[width=1.1\linewidth]{figures/mpl_subplot8.pdf}
+    \includegraphics<2>[width=1.1\linewidth]{figures/mpl_subplot9.pdf}
+    \includegraphics<3>[width=1.1\linewidth]{figures/mpl_subplot_hspace.pdf}
   \end{center}
 #+END_SRC
 
