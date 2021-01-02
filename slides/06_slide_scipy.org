@@ -5,14 +5,13 @@
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 
-* =scipy= ?
+* =scipy= \faIcon{question-circle}
 
 #+ATTR_BEAMER: :overlay +-
-- Le module =scipy= vise à unifier et fédérer un ensemble de bibliothèques Python
-  à usage scientifique
+- Le module =scipy= vise à unifier et fédérer un ensemble de bibliothèques Python à usage scientifique
 
-- =scipy= s'appuie sur =numpy= en utilisant les objets de type tableaux et fournit
-  des algorithmes scientifiques optimisés :
+- =scipy= s'appuie sur =numpy= en utilisant les objets de type tableaux et fournit des algorithmes
+  scientifiques optimisés :
 
   - Algèbre linéaire (résolution d'équations linéaires, valeurs/vecteur propres)
   - Fonctions spéciales (fonction de Bessel, loi de distribution,...)
@@ -32,7 +31,7 @@
 - Convention d'importation : l'ensemble des modules =scipy= peuvent être importés
   individuellement
   #+BEGIN_SRC python
-    In [1]: import scipy.linalg as linalg
+    In [1]: from scipy import linalg
   #+END_SRC
 
 * *=scipy.linalg=* : algèbre linéaire
@@ -516,7 +515,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [5]: mask = w > 0
+  In [5]: mask = freq > 0
   In [6]: plt.plot(freq[mask], np.abs(F[mask]))
 #+END_SRC
 
@@ -553,14 +552,14 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [5]: img_flou = ndimage.gaussian_filter(img, sigma=10)
 #+END_SRC
 
-#+BEAMER: \pause\vskip-18pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [6]: fig, ax = plt.subplots(2,2)
-  In [7]: ax[1, 0].imshow(img[:,:,0], cmap=plt.cm.Reds)
-  In [8]: ax[0, 1].imshow(img[:,:,1], cmap=plt.cm.Greens)
-  In [9]: ax[1, 1].imshow(img[:,:,2], cmap=plt.cm.Blues)
-#+END_SRC
+# #+BEAMER: \pause\vskip-18pt
+# #+ATTR_LATEX: :options fontsize=\scriptsize
+# #+BEGIN_SRC python
+#   In [6]: fig, ax = plt.subplots(2,2)
+#   In [7]: ax[1, 0].imshow(img[:,:,0], cmap=plt.cm.Reds)
+#   In [8]: ax[0, 1].imshow(img[:,:,1], cmap=plt.cm.Greens)
+#   In [9]: ax[1, 1].imshow(img[:,:,2], cmap=plt.cm.Blues)
+# #+END_SRC
 
 ** Figure
 :PROPERTIES:
@@ -572,7 +571,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<1>[width=1.1\linewidth]{figures/scipy_ndimage0.pdf}
     \includegraphics<2>[width=1.1\linewidth]{figures/scipy_ndimage1.pdf}
     %% \includegraphics<3>[width=1.1\linewidth]{figures/scipy_ndimage2.pdf}
-    \includegraphics<3>[width=1.1\linewidth]{figures/scipy_ndimage3.pdf}
+    %% \includegraphics<3>[width=1.1\linewidth]{figures/scipy_ndimage3.pdf}
   \end{center}
 #+END_SRC
 
