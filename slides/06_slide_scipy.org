@@ -698,13 +698,12 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 - Exemple de fonction à minimiser
   #+BEGIN_SRC latex
     \begin{align*}
-      \chi^2(p_0,\ldots,p_n) = \sum_i^N \frac{\left(y_i^\text{data}-y^\text{model}(x_i|p_0,\ldots,p_n)\right)^2}{\sigma_{y_i^\text{data}}^2}
+      \chi^2(p_0,\ldots,p_n) = \sum_i^N \frac{\left(y_i^\text{data}-y^\text{model}(x_i^\text{data}|p_0,\ldots,p_n)\right)^2}{\sigma_{y_i^\text{data}}^2}
     \end{align*}
   #+END_SRC
   où $p_0,\ldots,p_n$ sont les $n$ paramètres du modèle.
 
 * *=scipy.optimize=* : ajustement d'un modèle/fonction à des données
-
 ** Python
 :PROPERTIES:
 :BEAMER_COL: 0.6
@@ -712,26 +711,26 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: def f(x, a, b, c):
+  In [1]: def model(x, a, b, c):
      ...:     return a*np.exp(-b*x) + c
 
   In [2]: a, b, c = 2.5, 1.3, 0.5
   In [3]: xdata = np.linspace(0, 4, 25)
   In [4]: dy = 0.2
-  In [5]: ydata = f(xdata, a, b, c) +  dy*np.random.randn(xdata.size)
+  In [5]: ydata = model(xdata, a, b, c) +  dy*np.random.randn(xdata.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [6]: from scipy.optimize import curve_fit
-  In [7]: popt, pcov = curve_fit(f, xdata, ydata,
+  In [7]: popt, pcov = curve_fit(model, xdata, ydata,
                                  sigma=np.full_like(ydata, dy))
   In [8]: popt
   Out[8]: array([ 2.28680731,  1.21827861,  0.45424157])
 
   In [9]: x = np.linspace(0, 4, 100)
-  In[10]: plt.plot(x, f(x, *popt))
+  In[10]: plt.plot(x, model(x, *popt))
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -748,7 +747,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [12]: np.sqrt(np.diag(pcov))
-  Out[12]: array([ 0.16549342,  0.190719  ,  0.09236422])
+  Out[12]: array([0.1296717 , 0.15961548, 0.06583479])
 #+END_SRC
 
 ** Figure
@@ -771,7 +770,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
         \vdots&\vdots&\ddots&\vdots\\
         \sigma_{p_np_0}&\cdots&\cdots&\sigma_{p_n}^2
       \end{array}
-      \right)
+      \right)\\
+      \text{avec }\sigma_{p_ip_j}=\langle p_i\rangle\langle p_j\rangle - \langle p_ip_j\rangle
       \end{align*}
     }
     \includegraphics<5-6>[width=\linewidth]{figures/scipy_fit3.pdf}
