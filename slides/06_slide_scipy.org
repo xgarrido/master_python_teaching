@@ -16,6 +16,7 @@
   - Algèbre linéaire (résolution d'équations linéaires, valeurs/vecteur propres)
   - Fonctions spéciales (fonction de Bessel, loi de distribution,...)
   - Algorithmes d'interpolation, d'intégration et d'optimisation
+  - Résolution d'équations différentielles ordinaires
   - Traitement du signal et des images (transformée de Fourier, convolution,...)
 
 #+COMMMENT: https://www.nature.com/articles/s41592-019-0686-2
@@ -165,22 +166,22 @@
   In [1]: def f(x):
      ...:     return np.sin(x)
 
-  In [2]: n = np.arange(0, 10)
-  In [3]: y_meas = f(n) + 0.1*np.random.randn(n.size)
+  In [2]: x_meas = np.arange(0, 10)
+  In [3]: y_meas = f(x_meas) + 0.1*np.random.randn(x_meas.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [4]: from scipy.interpolate import interp1d
-  In [5]: linear_interpolation = interp1d(n, y_meas)
+  In [5]: linear_interpolation = interp1d(x_meas, y_meas)
   In [6]: yinterp1 = linear_interpolation(np.linspace(0, 9, 100))
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [7]: cubic_interpolation = interp1d(n, y_meas, kind="cubic")
+  In [7]: cubic_interpolation = interp1d(x_meas, y_meas, kind="cubic")
   In [8]: yinterp2 = cubic_interpolation(np.linspace(0, 9, 100))
 #+END_SRC
 
@@ -210,9 +211,9 @@
 
 - Exemple $\int_{-\infty}^{+\infty}\exp(-x^2)\text{d}x = \sqrt\pi$
   #+BEGIN_SRC python
-    In [1]: import scipy.integrate as integrate
+    In [1]: from scipy.integrate import quad
 
-    In [2]: val, abserr = integrate.quad(lambda x : np.exp(-x**2), -np.inf, +np.inf)
+    In [2]: val, abserr = quad(lambda x : np.exp(-x**2), -np.inf, +np.inf)
     In [3]: print("I =", val, "+/-", abserr)
     I = 1.7724538509055159 +/- 1.4202636780944923e-08
   #+END_SRC
@@ -220,13 +221,13 @@
 
 - Exemple d'intégration avec passage de paramètre : $I(a,b)=\int_{0}^{1}(ax^2+b)\text{d}x$
   #+BEGIN_SRC python
-    In [1]: import scipy.integrate as integrate
+    In [1]: from scipy.integrate import quad
 
     In [2]: def integrand(x, a, b):
        ...:     return a*x**2+b
     In [3]: a = 2
     In [4]: b = 1
-    In [5]: integrate.quad(integrand, 0, 1, args=(a, b))
+    In [5]: quad(integrand, 0, 1, args=(a, b))
     Out[7]: (1.6666666666666667, 1.8503717077085944e-14)
   #+END_SRC
 * *=scipy.integrate=* : intégration de fonctions
@@ -539,7 +540,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: import scipy.ndimage as ndimage
+  In [1]: from scipy import ndimage
 
   In [2]: img = ndimage.imread("../data/puzo_patrick.png")
   In [3]: plt.imshow(img)
@@ -717,7 +718,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [2]: a, b, c = 2.5, 1.3, 0.5
   In [3]: xdata = np.linspace(0, 4, 25)
   In [4]: dy = 0.2
-  In [5]: ydata = model(xdata, a, b, c) +  dy*np.random.randn(xdata.size)
+  In [5]: ydata = model(xdata, a, b, c) + dy*np.random.randn(xdata.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
