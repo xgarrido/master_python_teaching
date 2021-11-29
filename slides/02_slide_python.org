@@ -145,7 +145,7 @@ intégrées au langage Python
     Out[7]: ".siof xueD .inifni'l à'uqsuj étpmoc àjéd a sirroN kcuhC"
   #+END_SRC
 
-* Les chaînes de caractères
+* COMMENT Les chaînes de caractères
 #+BEAMER: \framesubtitle{Parcours \& sélection de chaînes}
 
 - Remplacement de sous-chaînes :
@@ -167,7 +167,7 @@ intégrées au langage Python
   l'objet qu'à la condition de créer une nouvelle référence en mémoire !
   #+END_REMARK
 
-* Les chaînes de caractères
+* COMMENT Les chaînes de caractères
 #+BEAMER: \framesubtitle{Parcours \& sélection de chaînes}
 
 #+ATTR_BEAMER: :overlay +-
@@ -251,6 +251,15 @@ intégrées au langage Python
 
     In [2]: canevas.format(2017)
     Out[2]: "L'année 2017 s'écrit 11111100001 en binaire et 7e1 en héxadécimal"
+  #+END_SRC
+* Les chaînes de caractères
+#+BEAMER: \framesubtitle{\emph{f-string}}
+
+  #+BEGIN_SRC python
+    In [1]: nom, prenom, age = "Van Rossum", "Guido", 64
+    In [2]: print(f"Nom: {nom}, prénom: {prenom}, age: {age}")
+    
+    Out[2]: 'Nom: Van Rossum, prénom: Guido, age: 64'
   #+END_SRC
 
 * Les listes
@@ -463,14 +472,14 @@ intégrées au langage Python
     In [1]: tel = {"emmanuelle": 5752, "sébastien": 5578, 'francis': 5915}
 
     In [2]: for key, value in tel.items():
-       ...:     print("Clé/Valeur : {}/{}".format(key.capitalize(), value))
+       ...:     print(f"Clé/Valeur : {key.capitalize()}/{value}")
 
     Clé/Valeur : Emmanuelle/5752
     Clé/Valeur : Sébastien/5578
     Clé/Valeur : Francis/5915
   #+END_SRC
 
-* Les dictionnaires
+* COMMENT Les dictionnaires
 
 - *Tout objet /immutable/ peut servir de clé*
 
@@ -500,7 +509,6 @@ intégrées au langage Python
      ('simpson', 'lisa'): 5578,
      ('simspson', 'bart'): 8424}
   #+END_SRC
-
 
 * COMMENT Intermède /geek/
 
@@ -595,8 +603,8 @@ Par défaut, la valeur de retour d'une fonction est =None=
        ...:     return entier // diviseur, entier % diviseur
        ...:
 
-    In [2]: partie_entiere, diviseur = decomposer(20,3)
-    In [3]: partie_entiere, diviseur
+    In [2]: partie_entiere, reste = decomposer(20,3)
+    In [3]: partie_entiere, reste
     Out[3]: (6, 2)
   #+END_SRC
 

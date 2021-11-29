@@ -25,7 +25,6 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
   - *syntaxe minimaliste* facile à apprendre,
   - moins de lignes de code, moins de bugs, plus facile à entretenir.
 
-#+BEAMER: \pause
 #+ATTR_BEAMER: :overlay +-
 - Détails techniques :
   - *Type dynamique* : pas besoin de définir le type de variables, les arguments de fonction ou les
@@ -101,22 +100,21 @@ enseignement, nous utiliserons _Python 3.7_
 - [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
 - [[http://www.scipy-lectures.org/index.html][*Scipy Lectures Notes*]]
 - [[https://github.com/jrjohansson/scientific-python-lectures][*Scientific Python Lectures*]]
+  
 * Déroulement cours/TD \faIcon{laptop-code}
 
-- Cours à distance $\lesssim$ 1 heure 
+- Cours $\lesssim$ 1 heure, lundi (amphi. A6) ou mardi (salle 113) à partir de 15h45
 
-  - lundi à partir de 15h45 ([[https://eu.bbcollab.com/guest/a434df7e1de64373891293f413187201][lien Collaborate]])
-  - mardi à partir de 15h45 ([[https://eu.bbcollab.com/guest/8f1c5601053f451fb3c44be2c1cfaba9][lien Collaborate]])
-
-  - TD à distance ~ 1h30 : 1 session Collaborate générale + questions/réponses individualisées /via/
-    lien Google Meet ou Zoom
-
-
-- Examen (2 heures) *sur machine* (en présentiel ? à distance ?)
+- TD ~ 1h30 
+  - Groupe 1 : salle 401 
+  - Groupe 2 : salle 515
+  - Groupe 3 : salle 306
+    
+- Examen (2 heures) *sur machine* 
 
 * Contacts \faIcon{address-book}
 
-- Noë Roy, [[mailto:noe.roy@universite-paris-saclay.fr][*noe.roy@universite-paris-saclay.fr*]]
+- Adrien La Posta, [[mailto:noe.roy@universite-paris-saclay.fr][*adrien.la-posta@universite-paris-saclay.fr*]]
 - Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
 
 * COMMENT Notes/transparents de cours \faIcon{archive}

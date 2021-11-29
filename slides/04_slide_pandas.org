@@ -34,7 +34,7 @@
   #+END_SRC
 
 #+BEAMER: \pause
-- tandis que pour un dictionnaire, l'accès se fait par clé
+- Pour un dictionnaire, l'accès se fait par clé
 
   #+BEGIN_SRC python
     In [1]: d = {"a": 0, "b": 1, "c": 2, "d": 3}
@@ -222,7 +222,7 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
   - depuis votre terminal /via/ la commande
 
     #+BEGIN_SRC shell-session
-    @\prompt@ jupyter notebook /chemin/vers/le/notebook
+    @\prompt@ jupyter lab /chemin/vers/le/notebook
     #+END_SRC
 
 #+BEGIN_SRC latex

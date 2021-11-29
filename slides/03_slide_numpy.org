@@ -181,7 +181,7 @@ http://www.scipy-lectures.org/intro/numpy/array_object.html#numpy-arrays
 
 - ou en forçant le type de données \footnotesize(=float=, =int=, =bool=, 16, 32, 64 bits)
   #+BEGIN_SRC python
-    In [1]: v = np.array([0, 1, 2, 3], dtype=np.float)
+    In [1]: v = np.array([0, 1, 2, 3], dtype=float)
     In [2]: v.dtype
     Out[2]: dtype('float64')
   #+END_SRC
@@ -648,7 +648,7 @@ Le type de données numériques stockées est fixé à la création du tableau
            [ 1.,  1.,  1.],
            [ 1.,  1.,  1.]])
 
-    In [3]: M*M
+    In [3]: M * M
     Out[3]:
     array([[ 1.,  1.,  1.],
            [ 1.,  1.,  1.],
@@ -844,6 +844,47 @@ Le type de données numériques stockées est fixé à la création du tableau
 #+ATTR_LATEX: :width 1.1\linewidth
 [[file:figures/mask.pdf]]
 
+* Entrées/sorties de =numpy=
+
+- =numpy= permet de charger un fichier texte dans un objet de type =ndarray=
+  #+BEGIN_SRC python
+    In [1]: cat /tmp/results.tsv
+    # id        OPP    MQ1     MA
+    21606456   9.90  12.32  16.00
+    21402354  11.20  10.50  12.25
+
+    In [2]: results = np.loadtxt("/tmp/results.tsv")
+    In [3]: results
+    Out[3]:
+    array([[  2.16064560e+07,   9.90000000e+00,   1.23200000e+01,
+              1.60000000e+01],
+           [  2.14023540e+07,   1.12000000e+01,   1.05000000e+01,
+              1.22500000e+01]])
+  #+END_SRC
+
+* Entrées/sorties de =numpy=
+
+#+ATTR_BEAMER: :overlay +-
+- =numpy= permet également de sauvegarder un tableau dans un fichier texte
+  #+BEGIN_SRC python
+    In [4]: np.savetxt("/tmp/results2.tsv", results)
+  #+END_SRC
+
+- *le module [[http://pandas.pydata.org/][=pandas=]] est toutefois bien mieux adapté à la lecture/écriture de fichier contenant des
+  données numériques*
+
+* Annexes
+:PROPERTIES:
+:BEAMER_OPT: plain
+:BEAMER_ENV: fullframe
+:END:
+
+#+BEAMER: \partpage
+
+* Opérations algébriques : /Broadcasting/[fn:1c1516c060af0c15]
+
+#+ATTR_LATEX: :width 0.7\linewidth
+[[file:figures/broadcast.pdf]]
 * Opérations diverses : concaténation
 
 - Concaténation de vecteurs
@@ -927,47 +968,9 @@ Le type de données numériques stockées est fixé à la création du tableau
            [3, 6]])
 #+END_SRC
 
-* Entrées/sorties de =numpy=
+#+RESULTS:
 
-- =numpy= permet de charger un fichier texte dans un objet de type =ndarray=
-  #+BEGIN_SRC python
-    In [1]: cat /tmp/results.tsv
-    # id        OPP    MQ1     MA
-    21606456   9.90  12.32  16.00
-    21402354  11.20  10.50  12.25
 
-    In [2]: results = np.loadtxt("/tmp/results.tsv")
-    In [3]: results
-    Out[3]:
-    array([[  2.16064560e+07,   9.90000000e+00,   1.23200000e+01,
-              1.60000000e+01],
-           [  2.14023540e+07,   1.12000000e+01,   1.05000000e+01,
-              1.22500000e+01]])
-  #+END_SRC
-
-* Entrées/sorties de =numpy=
-
-#+ATTR_BEAMER: :overlay +-
-- =numpy= permet également de sauvegarder un tableau dans un fichier texte
-  #+BEGIN_SRC python
-    In [4]: np.savetxt("/tmp/results2.tsv", results)
-  #+END_SRC
-
-- le module [[http://pandas.pydata.org/][=pandas=]] est toutefois bien mieux adapté à la lecture de fichier
-  contenant des données numériques
-
-* Annexes
-:PROPERTIES:
-:BEAMER_OPT: plain
-:BEAMER_ENV: fullframe
-:END:
-
-#+BEAMER: \partpage
-
-* Opérations algébriques : /Broadcasting/[fn:1c1516c060af0c15]
-
-#+ATTR_LATEX: :width 0.7\linewidth
-[[file:figures/broadcast.pdf]]
 * Footnotes
 
 [fn:e0eb780c73d6562] les principales fonctions de =numpy= sont implémentées en C
