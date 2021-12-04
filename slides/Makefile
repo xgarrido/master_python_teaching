@@ -20,5 +20,15 @@ all: $(files_pdf)
 #> /dev/null 2>&1
 # @rm -f ../*.sty
 
+
+tar: $(files_pdf)
+	@echo "NOTICE: Compressing..."
+	@for dir in "td" "slides"; do \
+		mkdir -p ../python_$(shell date +%Y)/$$dir; \
+		make -C ../$$dir; \
+		cp ../$$dir/*.pdf ../$$dir/*.ipynb ../python_$(shell date +%Y)/$$dir; \
+	done
+	@tar caf ../python_$(shell date +%Y).tar.gz ../python_$(shell date +%Y)
+
 clean:
 	@rm -rf	latex.d *.tex *.pdf *.fdb* *.vrb *.toc *.aux *.fls *.snm *.nav *.log *.out *.xdv *.pyg *~ _minted*
