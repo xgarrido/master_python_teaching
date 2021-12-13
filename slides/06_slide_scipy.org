@@ -7,7 +7,6 @@
 
 * =scipy= \faIcon{question-circle}
 
-#+ATTR_BEAMER: :overlay +-
 - Le module =scipy= vise à unifier et fédérer un ensemble de bibliothèques Python à usage scientifique
 
 - =scipy= s'appuie sur =numpy= en utilisant les objets de type tableaux et fournit des algorithmes
@@ -239,11 +238,10 @@
     \end{align*}
   #+END_SRC
 
-  #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
     In [1]: def I(n):
-       ...:     from scipy.integrate import dblquad
-       ...:     return dblquad(lambda t, x: np.exp(-x*t)/t**n, 0, np.inf, lambda t: 1, lambda t: np.inf)
+       ...:     from scipy.integrate import nquad
+       ...:     return nquad(lambda t, x: np.exp(-x*t)/t**n, [[1, np.inf], [0, np.inf]])
 
     In [2]: I(4)[0], I(4)[0]-1/4
     Out[2]: (0.2500000000043577, 4.357680882804971e-12)
@@ -252,13 +250,14 @@
     Out[3]: (0.010000000000118046, 1.1804619781674575e-13)
   #+END_SRC
 
-  #+BEAMER: \pause\vskip-18pt
-  #+ATTR_LATEX: :options fontsize=\scriptsize
-  #+BEGIN_SRC python
-    In [4]: def I(n):
-       ...:     from scipy.integrate import nquad
-       ...:     return nquad(lambda t, x: np.exp(-x*t)/t**n, [[1, np.inf], [0, np.inf]])
-  #+END_SRC
+  # #+BEAMER: \pause\vskip-18pt
+  # #+ATTR_LATEX: :options fontsize=\scriptsize
+  # #+BEGIN_SRC python
+  #   In [1]: def I(n):
+  #      ...:     from scipy.integrate import dblquad
+  #      ...:     return dblquad(lambda t, x: np.exp(-x*t)/t**n, 0, np.inf, lambda t: 1, lambda t: np.inf)
+  # #+END_SRC
+  
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
 
 #+ATTR_BEAMER: :overlay +-

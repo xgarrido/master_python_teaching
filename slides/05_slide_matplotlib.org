@@ -41,7 +41,7 @@
     In [2]: import matplotlib.pyplot as plt
 
     In [3]: mpl.__version__
-    Out[3]: '3.3.3'
+    Out[3]: '3.5.0'
   #+END_SRC
 
 ** Première figure sous =matplotlib=
@@ -1239,7 +1239,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
     \includegraphics<2>[width=1.1\linewidth]{figures/mpl_3dcontour1.pdf}
   \end{center}
 #+END_SRC
-** Autres modes de représentation
+** COMMENT Autres modes de représentation
 #+BEAMER: \framesubtitle{\emph{Polar \& Pie charts}}
 *** Figure
 :PROPERTIES:
@@ -1329,7 +1329,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
      ...:     bar.set_facecolor(plt.cm.viridis(r/10))
      ...:     bar.set_alpha(0.5)
 #+END_SRC
-** Autres modes de représentation
+** COMMENT Autres modes de représentation
 #+BEAMER: \framesubtitle{\emph{Polar \& Pie charts}}
 *** Figure
 :PROPERTIES:
