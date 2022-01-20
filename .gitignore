@@ -21,3 +21,4 @@ td/_minted*
 **/.ob-jupyter/
 **/.ipynb_checkpoints/
 **/__pycache__/
+/notes/

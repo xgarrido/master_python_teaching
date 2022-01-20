@@ -555,7 +555,7 @@ up. Practically, everything can be done within this section.
 ****** Minted lexer
 #+BEGIN_SRC latex
   \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor[HTML]{93A1A1}{\scriptsize\oldstylenums{\arabic{FancyVerbLine}}}}
-  \usemintedstyle{solarizedlight}
+  \usemintedstyle{solarized}
   \definecolor{solarizedbg}{RGB}{253,246,227}
 #+END_SRC
 ****** Fancy headings
@@ -2128,7 +2128,7 @@ up. Practically, everything can be done within this section.
 ****** Minted lexer
 #+BEGIN_SRC latex
   \renewcommand{\theFancyVerbLine}{\ttfamily \textcolor{gray}{\scriptsize\oldstylenums{\arabic{FancyVerbLine}}}}
-  \usemintedstyle{solarizedlight}
+  \usemintedstyle{solarized}
   \definecolor{solarizedbg}{RGB}{253,246,227}
   \newcommand{\prompt}{\color{orange}{\scriptsize\faIcon{terminal}}}
   %% \let\origttt\texttt
