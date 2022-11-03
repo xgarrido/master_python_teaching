@@ -484,6 +484,9 @@ On notera que le nombre complexe $i$ est noté =j= ou =J= en Python
     Out[2]: bool
     In [3]: b
     Out[3]: False
+
+    In [4]: isinstance(b, bool)
+    Out[4]: True
   #+END_SRC
 
 * Conversion explicite
@@ -616,20 +619,20 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     Out[4]: False
   #+END_SRC
 
-* Affectation multiples et parallèles
+* Affectation en parallèle
 
-- Python autorise *l'affectation simultanée* d'une même valeur à plusieurs
-  variables
-  #+BEGIN_SRC python
-    In [1]: x = y = 1.0
+# - Python autorise *l'affectation simultanée* d'une même valeur à plusieurs
+#   variables
+#   #+BEGIN_SRC python
+#     In [1]: x = y = 1.0
 
-    In [2]: x, y
-    Out[2]: (1.0, 1.0)
-  #+END_SRC
+#     In [2]: x, y
+#     Out[2]: (1.0, 1.0)
+#   #+END_SRC
 
-  #+BEAMER: \pause
+#   #+BEAMER: \pause
 
-- Python permet également *l'affectation en parallèle* de plusieurs variables
+- Python permet *l'affectation en parallèle* de plusieurs variables
   #+BEGIN_SRC python
     In [1]: x, y = 1.0, 1.0
 
@@ -637,7 +640,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     Out[2]: (1.0, 1.0)
   #+END_SRC
 
-* Application : échange de deux valeurs
+* COMMENT Application : échange de deux valeurs
 
   #+BEGIN_SRC python
     In [1]: x, y = 1.0, 2.0
@@ -703,15 +706,15 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 :BEAMER_COL: 0.5
 :END:
 #+BEGIN_SRC python
-  In [1]: bras = False
-     ...: chocolat = False
+  In [1]: is_python = True
+     ...: is_cpp = False
      ...:
-     ...: if bras:
-     ...:     print("Des bras !")
-     ...: elif chocolat:
-     ...:     print("Du chocolat !")
+     ...: if is_python:
+     ...:     print("Cours de python")
+     ...: elif is_cpp:
+     ...:     print("Cours de C++")
      ...: else:
-     ...:     print("Pas de bras, pas de chocolat")
+     ...:     print("Pas de cours d'informatique")
 #+END_SRC
 
 ** Description
