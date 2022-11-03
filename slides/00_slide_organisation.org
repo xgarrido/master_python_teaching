@@ -1,12 +1,12 @@
 #+TITLE:  Présentation & Organisation
-#+AUTHOR: Xavier Garrido
+#+AUTHOR: Adrien La Posta & Xavier Garrido
 #+DATE:   14/01/2017
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 #+BEAMER_HEADER: \institute{IJC Lab, bâtiment 200, Orsay}
 
-* Langage Python \faPython
+* COMMENT Langage Python \faPython
 
 #+BEGIN_QUOTE
 Python est un langage de programmation, dont la première version est sortie en *1991*. Créé par *Guido
@@ -67,26 +67,25 @@ enseignement, nous utiliserons _Python 3.7_
 
 * Programme du cours \faIcon{list-ol}
 
-- *Bases de la programmation en Python* (2 séances)
+- Bases de la programmation en Python (2 séances)
   - environnement Python : interpréteurs, IDE
   - type de données, /containers/, bloc conditionnel, boucles =for=
   - fonctions, scripts & modules, initiation à la programmation orientée objet
 
 #+BEAMER: \pause
 
-- *=numpy= : programmation orientée tableau* (2 séances)
+- *=numpy= : programmation orientée tableau* (1 séance)
   - gestion & manipulation données numériques
   - fonctions universelles (/ufunc/)
-  - _=pandas= : gestion de structure de données_
 
-#+BEAMER: \pause
-
-- *=matplotlib= : représentation graphique* (1 séance)
+- =matplotlib= : représentation graphique
   - création de figures, /subplots/, axes, légendes
   - histogramme, courbe de niveau, 3D
 
 #+BEAMER: \pause
 
+- *=pandas= : gestion de structure de données* (1 séance)
+  
 - *=scipy= : bibliothèques scientifiques* (2 séances)
   - _Algèbre linéaire_
   - _Transformée de Fourier_
@@ -103,12 +102,13 @@ enseignement, nous utiliserons _Python 3.7_
   
 * Déroulement cours/TD \faIcon{laptop-code}
 
-- Cours $\lesssim$ 1 heure, lundi (amphi. A6) ou mardi (salle 113) à partir de 15h45
+- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A6) à partir de 15h45
 
 - TD ~ 1h30 
   - Groupe 1 : salle 401 
   - Groupe 2 : salle 515
-  - Groupe 3 : salle 306
+  - Groupe 3 : salle 305
+  - Groupe 4 : salle 306
     
 - Examen (2 heures) *sur machine* 
 
@@ -116,7 +116,7 @@ enseignement, nous utiliserons _Python 3.7_
 
 - Adrien La Posta, [[mailto:noe.roy@universite-paris-saclay.fr][*adrien.la-posta@universite-paris-saclay.fr*]]
 - Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
-
+  
 * COMMENT Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
 :BEAMER_OPT: fragile

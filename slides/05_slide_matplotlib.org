@@ -430,7 +430,7 @@
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In[13]: plt.xticks([0, np.pi/2, np.pi, 3*np.pi/2, 2*np.pi, 5*np.pi/2, 3*np.pi],
-                     [r"$0$", r"$\pi/2$", r"$\pi$", r"$3\pi/2$", r"$2\pi", r"$5\pi/2$", r"$3\pi$"])
+                     [r"$0$", r"$\pi/2$", r"$\pi$", r"$3\pi/2$", r"$2\pi$", r"$5\pi/2$", r"$3\pi$"])
 #+END_SRC
 
 ** /Kozmetix/ sous =matplotlib=
@@ -497,13 +497,13 @@ sans échapper les caractères précédés de =\=
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [5]: ax = plt.gca()
-  In [6]: ax.spines["right"].set_color("none")
+  In [6]: ax.spines["right"].set_color(None)
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [7]: ax.spines["top"].set_color("none")
+  In [7]: ax.spines["top"].set_color(None)
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -773,7 +773,8 @@ sans échapper les caractères précédés de =\=
 #+END_SRC
 
 ** Histogramme 1D
-*** Python code
+*** Python
+code
 :PROPERTIES:
 :BEAMER_COL: 0.52
 :END:
@@ -788,7 +789,7 @@ sans échapper les caractères précédés de =\=
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [3]: plt.hist(data, bins=30, normed=True)
+  In [3]: plt.hist(data, bins=30, density=True)
 #+END_SRC
 
 *** Figure
