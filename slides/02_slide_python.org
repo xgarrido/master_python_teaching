@@ -212,7 +212,7 @@ intégrées au langage Python
     Out[3]: "Chuck Norris a déjà [...].Chuck Norris a déjà [...]"
   #+END_SRC
 
-* Les chaînes de caractères
+* COMMENT Les chaînes de caractères
 #+BEAMER: \framesubtitle{Format et \emph{Formatage}}
 
 - Utilisation des formats de données du C[fn:20089b4921487a8]
@@ -301,13 +301,12 @@ intégrées au langage Python
 
 - Initialisation d'une liste "en compréhension"
   #+BEGIN_SRC python
-    In [1]: bazar = [x ** 2 for x in range(4)]
+    In [1]: bazar = [x**2 for x in range(4)]
     In [2]: bazar
     Out[2]: [0, 1, 4, 9]
 
-    In [3]: l = [x ** 2 for x in range(1,100) if x % 10 == 3]
-    In [4]: l
-    Out[4]: [9, 169, 529, 1089, 1849, 2809, 3969, 5329, 6889, 8649]
+    In [3]: [x**2 for x in range(1, 100) if x % 10 == 3]
+    Out[3]: [9, 169, 529, 1089, 1849, 2809, 3969, 5329, 6889, 8649]
   #+END_SRC
 
 * Les listes
@@ -448,6 +447,7 @@ intégrées au langage Python
     In [2]: tel["francis"] = 5915
     In [3]: tel
     Out[3]: {'emmanuelle': 5752, 'sébastien': 5578, 'francis': 5915}
+
     In [4]: tel["sébastien"]
     Out[4]: 5578
 
@@ -616,11 +616,11 @@ Par défaut, la valeur de retour d'une fonction est =None=
 
   #+BEAMER:\pause
   #+BEGIN_SRC python
-    In [1]: f = lambda x : x**2
+    In [1]: f = lambda x: x**2
     In [2]: f(2)
     Out[2]: 4
 
-    In [3]: g = lambda x,y,z: 100*x+10*y+z
+    In [3]: g = lambda x, y, z: 100 * x + 10 * y + z
     In [4]: g(1, 2, 3)
     Out[4]: 123
   #+END_SRC

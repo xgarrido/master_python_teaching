@@ -110,7 +110,8 @@ enseignement, nous utiliserons _Python 3.7_
   - Groupe 3 : salle 305
   - Groupe 4 : salle 306
     
-- Examen (2 heures) *sur machine* 
+- Examen (2 heures) *sur machine* : session anonyme mais accès à l'ensemble des ressources du cours
+  (transparents, TD corrigés, annales)
 
 * Contacts \faIcon{address-book}
 

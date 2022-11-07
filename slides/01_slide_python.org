@@ -121,7 +121,8 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 - Contrairement à d'autres langages (C, fortran, ...), un programme =python= n'a pas à être compilé
 
-- Interpréteur standard @@beamer:\onslide<2->{$\to$ utilisation limitée}@@
+- Interpréteur standard
+  # @@beamer:\onslide<2->{$\to$ utilisation limitée}@@
   #+BEGIN_SRC python
     @\prompt@ python3.7
     Python 3.7.3 (default, Mar 27 2019, 22:11:17)
@@ -464,16 +465,17 @@ Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-p
 
 #+BEGIN_REMARK
 On notera que le nombre complexe $i$ est noté =j= ou =J= en Python
-  #+BEGIN_SRC python
-    In [1]: j = 5
-
-    In [2]: 2 + 5*j
-    Out[2]: 27
-
-    In [3]: 2 + 5j
-    Out[3]: (2+5j)
-  #+END_SRC
 #+END_REMARK
+
+#+BEGIN_SRC python
+  In [1]: j = 5
+ 
+  In [2]: 2 + 5*j
+  Out[2]: 27
+ 
+  In [3]: 2 + 5j
+  Out[3]: (2+5j)
+#+END_SRC
 
 * Type fondamentaux
 
@@ -796,7 +798,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     In [3]: n = 27
     In [4]: while n != 1:
        ...:     if n % 2:
-       ...:         n = 3*n+1
+       ...:         n = 3 * n + 1
        ...:     else:
        ...:         n //= 2
        ...:     print(n, end=" ")
@@ -861,7 +863,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 - Pour quitter une boucle =for= en cours d'exécution, on utilisera l'instruction
   *=break=*
   #+BEGIN_SRC python
-    In [1]: for i in range(-4,4,2):
+    In [1]: for i in range(-4, 4, 2):
        ...:     if i == 0:
        ...:         break
        ...:     print(i)
@@ -875,7 +877,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 - S'il s'agit de passer outre le bloc d'instruction suivant, on utilisera
   l'instruction *=continue=*
   #+BEGIN_SRC python
-    In [1]: for i in range(-4,4,2):
+    In [1]: for i in range(-4, 4, 2):
        ...:     if i == 0:
        ...:         continue
        ...:     print(i)
@@ -890,7 +892,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 - S'il s'agit de passer outre le bloc d'instruction suivant, on utilisera
   l'instruction *=continue=*
   #+BEGIN_SRC python
-    In [1]: for i in range(-4,4,2):
+    In [1]: for i in range(-4, 4, 2):
        ...:     if i == 0:
        ...:         continue
        ...:     print(i)
