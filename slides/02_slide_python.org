@@ -278,7 +278,6 @@ intégrées au langage Python
     In [3]: bazar = [1, 2, 3, 4]
 
     In [4]: bazar = [1, 2, "bleu", 3, 4]
-    Out[4]: [1, 2, 'bleu', 3, 4]
 
     In [5]: type(bazar)
     Out[5]: list
@@ -603,7 +602,7 @@ Par défaut, la valeur de retour d'une fonction est =None=
        ...:     return entier // diviseur, entier % diviseur
        ...:
 
-    In [2]: partie_entiere, reste = decomposer(20,3)
+    In [2]: partie_entiere, reste = decomposer(20, 3)
     In [3]: partie_entiere, reste
     Out[3]: (6, 2)
   #+END_SRC
