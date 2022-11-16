@@ -145,7 +145,7 @@ intégrées au langage Python
     Out[7]: ".siof xueD .inifni'l à'uqsuj étpmoc àjéd a sirroN kcuhC"
   #+END_SRC
 
-* COMMENT Les chaînes de caractères
+* Les chaînes de caractères
 #+BEAMER: \framesubtitle{Parcours \& sélection de chaînes}
 
 - Remplacement de sous-chaînes :
@@ -167,7 +167,7 @@ intégrées au langage Python
   l'objet qu'à la condition de créer une nouvelle référence en mémoire !
   #+END_REMARK
 
-* COMMENT Les chaînes de caractères
+* Les chaînes de caractères
 #+BEAMER: \framesubtitle{Parcours \& sélection de chaînes}
 
 #+ATTR_BEAMER: :overlay +-
@@ -441,22 +441,22 @@ intégrées au langage Python
 - Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de sa clé
 
   #+BEGIN_SRC python
-    In [1]: tel = {"emmanuelle": 5752, "sébastien": 5578}
+    In [1]: tel = {"jacquie": 5752, "michel": 5578}
 
-    In [2]: tel["francis"] = 5915
+    In [2]: tel["adrien"] = 5915
     In [3]: tel
-    Out[3]: {'emmanuelle': 5752, 'sébastien': 5578, 'francis': 5915}
+    Out[3]: {'jacquie': 5752, 'michel': 5578, 'adrien': 5915}
 
-    In [4]: tel["sébastien"]
+    In [4]: tel["michel"]
     Out[4]: 5578
 
     In [5]: tel.keys()
-    Out[5]: dict_keys(['emmanuelle', 'sébastien', 'francis'])
+    Out[5]: dict_keys(['jacquie', 'michel', 'adrien'])
 
     In [6]: tel.values()
     Out[6]: dict_values([5752, 5578, 5915])
 
-    In [7]: "francis" in tel
+    In [7]: "adrien" in tel
     Out[7]: True
   #+END_SRC
 
@@ -468,14 +468,14 @@ intégrées au langage Python
 - Le seul moyen d’accéder à une valeur particulière est par l’intermédiaire de sa clé
 
   #+BEGIN_SRC python
-    In [1]: tel = {"emmanuelle": 5752, "sébastien": 5578, 'francis': 5915}
+    In [1]: tel = {"jacquie": 5752, "michel": 5578, "adrien": 5915}
 
     In [2]: for key, value in tel.items():
        ...:     print(f"Clé/Valeur : {key.capitalize()}/{value}")
 
-    Clé/Valeur : Emmanuelle/5752
-    Clé/Valeur : Sébastien/5578
-    Clé/Valeur : Francis/5915
+    Clé/Valeur : Jacquie/5752
+    Clé/Valeur : Michel/5578
+    Clé/Valeur : Adrien/5915
   #+END_SRC
 
 * COMMENT Les dictionnaires

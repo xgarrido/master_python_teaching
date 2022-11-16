@@ -636,10 +636,10 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 
 - Python permet *l'affectation en parallèle* de plusieurs variables
   #+BEGIN_SRC python
-    In [1]: x, y = 1.0, 1.0
+    In [1]: x, y = 1.0, 10.0
 
     In [2]: x, y
-    Out[2]: (1.0, 1.0)
+    Out[2]: (1.0, 10.0)
   #+END_SRC
 
 * COMMENT Application : échange de deux valeurs
