@@ -22,3 +22,4 @@ td/_minted*
 **/.ipynb_checkpoints/
 **/__pycache__/
 /notes/
+/binder-sandbox
