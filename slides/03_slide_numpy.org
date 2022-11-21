@@ -113,7 +113,7 @@ Il existe plusieurs (très bonnes) raisons à cela:
   - Le type des éléments est déterminé lorsque le tableau est créé *\to plus de
     typage dynamique*
   - De même la taille du tableau est fixée à la création *\to stockage en
-    mémoire optimisée*
+    mémoire optimisé*
 
 - En raison du typage statique, les fonctions mathématiques telles que la
   multiplication et l'addition de matrices peuvent être mises en œuvre /via/ un
@@ -228,7 +228,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
            [ 1.,  1.,  1.],
            [ 1.,  1.,  1.]])
 
-    In [3]: np.full((3, 3), 666.666, dtype=np.int)
+    In [3]: np.full((3, 3), 666.666, dtype=int)
     Out[3]:
     array([[666, 666, 666],
            [666, 666, 666],
@@ -259,10 +259,10 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
   #+BEGIN_REMARK
   Un générateur aléatoire n'est par définition pas aléatoire dans une machine
   déterministe qu'est un ordinateur !
+  #+END_REMARK
   #+BEGIN_SRC python
     In [1]: np.random.seed(1234)
   #+END_SRC
-  #+END_REMARK
 
 * Création de tableau : intermède graphique
 ** Python code
@@ -273,12 +273,11 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 #+BEGIN_SRC python
   In [1]: import numpy as np
   In [2]: import matplotlib.pyplot as plt
-  In [3]: %matplotlib
 
-  In [4]: img = np.random.randn(30, 30)
-  In [5]: plt.imshow(img, cmap=plt.cm.hot,
+  In [3]: img = np.random.randn(30, 30)
+  In [4]: plt.imshow(img, cmap=plt.cm.hot)
                      extent=(0, 30, 0, 30))
-  In [6]: plt.colorbar()
+  In [5]: plt.colorbar()
 #+END_SRC
 
 ** Color map
@@ -329,17 +328,15 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
   #+END_SRC
 
 #+BEAMER: \pause
-#+BEGIN_REMARK
-Le type de données numériques stockées est fixé à la création du tableau
-#+BEGIN_SRC python
-  In [6]: x[0, 0] = 3.1415
-  In [7]: x
-  Out[7]:
-  array([[3, 3, 6, 4],
-         [9, 8, 2, 0],
-         [0, 5, 5, 4]])
-#+END_SRC
-#+END_REMARK
+- Le type de données numériques stockées est fixé à la création du tableau
+  #+BEGIN_SRC python
+    In [6]: x[0, 0] = 3.1415
+    In [7]: x
+    Out[7]:
+    array([[3, 3, 6, 4],
+           [9, 8, 2, 0],
+           [0, 5, 5, 4]])
+  #+END_SRC
 
 * Sélection par indice
 
@@ -449,12 +446,12 @@ Le type de données numériques stockées est fixé à la création du tableau
 - *Grâce à l'homogénéité des tableaux de =numpy=*, il est possible de réaliser des
   opérations mathématiques \neq listes Python
   #+BEGIN_SRC python
-    In [1]: l = [1, 2, 3, 4]
-    In [2]: l+5
+    In [1]: v = [1, 2, 3, 4]
+    In [2]: v + 5
     ---------------------------------------------------------------------------
     TypeError                                 Traceback (most recent call last)
     <ipython-input-53-1cb32c2d071d> in <module>()
-    ----> 1 l+5
+    ----> 1 v + 5
 
     TypeError: can only concatenate list (not "int") to list
   #+END_SRC
@@ -470,16 +467,16 @@ Le type de données numériques stockées est fixé à la création du tableau
     In [2]: x
     Out[2]: array([0, 1, 2, 3])
 
-    In [3]: x+5
+    In [3]: x + 5
     Out[3]: array([5, 6, 7, 8])
 
-    In [4]: x-5
+    In [4]: x - 5
     Out[4]: array([-5, -4, -3, -2])
 
-    In [5]: x*5
+    In [5]: x * 5
     Out[5]: array([ 0,  5, 10, 15])
 
-    In [5]: x/5
+    In [5]: x / 5
     Out[5]: array([ 0. ,  0.2,  0.4,  0.6]))
   #+END_SRC
 
@@ -498,7 +495,7 @@ Le type de données numériques stockées est fixé à la création du tableau
     In [3]: x**2
     Out[3]: array([0, 1, 4, 9])
 
-    In [4]: x%2
+    In [4]: x % 2
     Out[4]: array([0, 1, 0, 1])
   #+END_SRC
 
@@ -534,19 +531,18 @@ Le type de données numériques stockées est fixé à la création du tableau
 #+BEGIN_SRC python
   In [1]: import numpy as np
   In [2]: import matplotlib.pyplot as plt
-  In [3]: %matplotlib
 
-  In [4]: x = np.arange(-5, 5, 0.5)
+  In [3]: x = np.arange(-5, 5, 0.5)
 
-  In [5]: y1 = x**2 + x + 1.0
-  In [6]: y1
-  Out[6]:
+  In [4]: y1 = x**2 + x + 1.0
+  In [5]: y1
+  Out[5]:
   array([21., 16.75, 13., 9.75, 7., 4.75, 3., 1.75, 1.,
          0.75, 1., 1.75, 3., 4.75, 7., 9.75, 13., 16.75,
          21., 25.75])
 
-  In [7]: y2 = 10 * np.cos(x)
-  In [7]: plt.plot(x, y1, "o", x, y2, "o")
+  In [6]: y2 = 10 * np.cos(x)
+  In [6]: plt.plot(x, y1, "o", x, y2, "o")
 #+END_SRC
 
 ** Color map
@@ -622,8 +618,8 @@ Le type de données numériques stockées est fixé à la création du tableau
 
 * Opérations statistiques
 
-|-----------------+----------------------------------|
-| Fonction        | Description                      |
+|---------------+----------------------------------|
+| Fonction      | Description                      |
 | =np.sum=        | Somme des éléments               |
 | =np.prod=       | Produit des éléments             |
 | =np.mean=       | Valeur moyenne                   |
@@ -635,7 +631,7 @@ Le type de données numériques stockées est fixé à la création du tableau
 | =np.argmax=     | Indice de la valeur maximale     |
 | =np.median=     | Valeur médiane                   |
 | =np.percentile= | Quantiles                        |
-|-----------------+----------------------------------|
+|---------------+----------------------------------|
 
 * Opérations algébriques
 
@@ -823,15 +819,14 @@ Le type de données numériques stockées est fixé à la création du tableau
 #+BEGIN_SRC python
   In [1]: import numpy as np
   In [2]: import matplotlib.pyplot as plt
-  In [3]: %matplotlib
 
-  In [4]: x = np.random.rand(1000)
-  In [5]: y = np.random.rand(1000)
-  In [6]: plt.scatter(x, y, alpha=0.3)
-  In [7]: plt.axis("scaled"); plt.axis([0, 1, 0, 1])
+  In [3]: x = np.random.rand(1000)
+  In [4]: y = np.random.rand(1000)
+  In [5]: plt.scatter(x, y, alpha=0.3)
+  In [6]: plt.axis("scaled"); plt.axis([0, 1, 0, 1])
 
-  In [8]: mask = (x*y > 0.5)
-  In [9]: plt.scatter(x[mask], y[mask], alpha=0.6,
+  In [7]: mask = (x * y > 0.5)
+  In [8]: plt.scatter(x[mask], y[mask], alpha=0.6,
                       edgecolors="orange", c="none",
                       s=200)
 #+END_SRC
