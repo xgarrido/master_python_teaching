@@ -789,6 +789,12 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
     Out[8]: 1
   #+END_SRC
 
+  #+BEGIN_REMARK
+  Il n'est pas possible d'utiliser les opérateurs =or=, =and= ou =not=. Ces opérateurs sont
+  respectivement remplacés par =|=, =&= et =~= (/bit logic/)
+  #+END_REMARK
+
+
 * Sélection par masque
 
 - Les opérations de comparaison sur des tableaux retournent un tableau de
