@@ -28,8 +28,7 @@
     @\prompt@ pip install scipy
   #+END_SRC
 
-- Convention d'importation : l'ensemble des modules =scipy= peuvent être importés
-  individuellement
+- Convention d'importation : les modules =scipy= sont importés individuellement
   #+BEGIN_SRC python
     In [1]: from scipy import linalg
   #+END_SRC
@@ -56,7 +55,7 @@
   In [4]: linalg.det(A)
   Out[4]: -0.045766161972959955
 
-  In [5]: linalg.inv(A)*linalg.det(A)
+  In [5]: linalg.inv(A) * linalg.det(A)
   Out[5]:
   array([[ 0.03601743, -0.06901768],
          [-0.86144407,  0.38005786]])
@@ -76,7 +75,7 @@
     In [5]: x
     Out[5]: array([ 0.61826973,  0.09161294, -0.35492909])
 
-    In [6]: np.dot(A, x) - b
+    In [6]: A @ x - b
     Out[6]: array([ 0.,  0.,  0.])
   #+END_SRC
 
@@ -100,7 +99,7 @@
            [-0.69082147,  0.2005586 ,  0.85599345]])
 
     In [5]: n = 1
-    In [6]: linalg.norm(np.dot(A, evecs[:,n]) - evals[n]*evecs[:,n])
+    In [6]: linalg.norm(A @ evecs[:, n] - evals[n] * evecs[:, n])
     Out[6]: 5.8191634490868685e-16
   #+END_SRC
 
@@ -123,7 +122,7 @@
 
   In [2]: x = np.linspace(0, 10, 100)
   In [3]: for n in range(4):
-     ...:     plt.plot(x, jn(n, x), label=r"$J_%d(x)$" % n)
+     ...:     plt.plot(x, jn(n, x), label=f"$J_{n}(x)$")
   In [4]: plt.legend()
   #+END_SRC
 
@@ -131,7 +130,7 @@
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [5]: for n in range(4):
-     ...:     plt.plot(x, yn(n, x), label=r"$Y_%d(x)$" % n)
+     ...:     plt.plot(x, yn(n, x), label=f"$Y_{n}(x)$")
   In [6]: plt.legend()
 #+END_SRC
 
@@ -166,7 +165,7 @@
      ...:     return np.sin(x)
 
   In [2]: x_meas = np.arange(0, 10)
-  In [3]: y_meas = f(x_meas) + 0.1*np.random.randn(x_meas.size)
+  In [3]: y_meas = f(x_meas) + 0.1 * np.random.randn(x_meas.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
@@ -213,7 +212,7 @@
     In [1]: from scipy.integrate import quad
 
     In [2]: val, abserr = quad(lambda x : np.exp(-x**2), -np.inf, +np.inf)
-    In [3]: print("I =", val, "+/-", abserr)
+    In [3]: print(f"I = {val} +/- {abserr}")
     I = 1.7724538509055159 +/- 1.4202636780944923e-08
   #+END_SRC
 * *=scipy.integrate=* : intégration de fonctions
@@ -223,7 +222,7 @@
     In [1]: from scipy.integrate import quad
 
     In [2]: def integrand(x, a, b):
-       ...:     return a*x**2+b
+       ...:     return a * x**2 + b
     In [3]: a = 2
     In [4]: b = 1
     In [5]: quad(integrand, 0, 1, args=(a, b))
@@ -241,12 +240,12 @@
   #+BEGIN_SRC python
     In [1]: def I(n):
        ...:     from scipy.integrate import nquad
-       ...:     return nquad(lambda t, x: np.exp(-x*t)/t**n, [[1, np.inf], [0, np.inf]])
+       ...:     return nquad(lambda t, x: np.exp(-x * t) / t**n, [[1, np.inf], [0, np.inf]])
 
-    In [2]: I(4)[0], I(4)[0]-1/4
+    In [2]: I(4)[0], I(4)[0] - 1 / 4
     Out[2]: (0.2500000000043577, 4.357680882804971e-12)
 
-    In [3]: I(100)[0], I(100)[0]-1/100
+    In [3]: I(100)[0], I(100)[0] - 1 / 100
     Out[3]: (0.010000000000118046, 1.1804619781674575e-13)
   #+END_SRC
 
@@ -321,14 +320,14 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: g, l, m = 9.82, 0.5, 0.1
+  In [1]: g, ell, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
      ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
      ...:
-     ...:     dy1 = 6.0/m/l**2*(2*y3 - 3*np.cos(y1-y2)*y4)/(16 - 9*np.cos(y1-y2)**2)
-     ...:     dy2 = 6.0/m/l**2*(8*y4 - 3*np.cos(y1-y2)*y3)/(16 - 9*np.cos(y1-y2)**2)
-     ...:     dy3 = -0.5*m*l**2*(+dy1*dy2*np.sin(y1-y2) + 3*(g/l)*np.sin(y1))
-     ...:     dy4 = -0.5*m*l**2*(-dy1*dy2*np.sin(y1-y2) + 1*(g/l)*np.sin(y2))
+     ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
+     ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
+     ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
+     ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
      ...:
      ...:     return dy1, dy2, dy3, dy4
 #+END_SRC
@@ -338,21 +337,17 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: g, l, m = 9.82, 0.5, 0.1
+  In [1]: g, ell, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
      ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
      ...:
-     ...:     dy1 = 6.0/m/l**2*(2*y3 - 3*np.cos(y1-y2)*y4)/(16 - 9*np.cos(y1-y2)**2)
-     ...:     dy2 = 6.0/m/l**2*(8*y4 - 3*np.cos(y1-y2)*y3)/(16 - 9*np.cos(y1-y2)**2)
-     ...:     dy3 = -0.5*m*l**2*(+dy1*dy2*np.sin(y1-y2) + 3*(g/l)*np.sin(y1))
-     ...:     dy4 = -0.5*m*l**2*(-dy1*dy2*np.sin(y1-y2) + 1*(g/l)*np.sin(y2))
+     ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
+     ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
+     ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
+     ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
      ...:
      ...:     return dy1, dy2, dy3, dy4
-#+END_SRC
 
-#+BEAMER: \pause\vskip-18pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
   In [3]: # Conditions initiales
   In [4]: y0 = [np.pi/4, np.pi/2, 0, 0]
 
@@ -374,20 +369,22 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [10]: theta1, theta2 = sol.y[0], sol.y[1]
-  In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
-  In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
-  In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
-  In [14]: ax[0].set(xlabel=r"$t$ [s]",
-                     ylabel=r"$\theta$ [rad]")
-  In [15]: ax[0].legend()
+      In [10]: theta1, theta2 = sol.y[0], sol.y[1]
+      In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
+      In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
+      In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
+      In [14]: ax[0].set(xlabel=r"$t$ [s]",
+                         ylabel=r"$\theta$ [rad]")
+      In [15]: ax[0].legend()
 
-  In [16]: x1, y1 = l*np.sin(theta1), -l*np.cos(theta1)
-  In [17]: x2, y2 = l*np.sin(theta2)+x1, -l*np.cos(theta2)+y1
-  In [18]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
-  In [19]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
-  In [20]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
-  In [21]: ax[1].legend()
+      In [16]: x1 = ell * np.sin(theta1)
+      In [17]: y1 = -ell * np.cos(theta1)
+      In [18]: x2 = x1 + ell * np.sin(theta2)
+      In [19]: y2 = y1 - ell * np.cos(theta2)
+      In [20]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
+      In [21]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
+      In [22]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
+      In [23]: ax[1].legend()
 #+END_SRC
 
 ** Figure
@@ -423,7 +420,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
       pendule.set_data(thisx, thisy)
       mvt1.set_data(x1[:i], y1[:i])
       mvt2.set_data(x2[:i], y2[:i])
-      text.set_text("temps = %.1f s" % (i*0.04))
+      text.set_text(f"temps = {i * 0.04:.1f} s")
       return pendule, mvt1, mvt2, text
 
   from matplotlib.animation import FuncAnimation
@@ -478,7 +475,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
      ...:     return dx, dp
   In [2]: y0 = [1.0, 0.0]
   In [3]: t = np.linspace(0, 10, 1000)
-  In [4]: w0 = 2*np.pi*1.0
+  In [4]: w0 = 2 * np.pi * 1.0
   In [5]: from scipy.integrate import solve_ivp
   In [6]: sol1 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(0.0, w0))
   In [7]: sol2 = solve_ivp(dy, [0, 10], y0, t_eval=t, args=(0.2, w0))
@@ -508,7 +505,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [1]: from scipy.fftpack import fft, fftfreq
 
   In [2]: F = fft(sol2.y[0])
-  In [3]: freq = fftfreq(t.size, t[1]-t[0])
+  In [3]: freq = fftfreq(t.size, t[1] - t[0])
   In [4]: plt.plot(freq, np.abs(F))
 #+END_SRC
 
@@ -575,13 +572,13 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   \end{center}
 #+END_SRC
 
-* *=scipy.optimize=* : recherche d'/extrema/ d'une fonction
+* *=scipy.optimize=* : recherche des racines d'une fonction
 
-- L'objectif de l'optimisation est de trouver les /minima/ (ou /maxima/) d'une
-  fonction
-
-- Domaine d'étude très actif en mathématiques/informatique notamment pour les
-  problèmes multi-variables
+#+BEGIN_SRC latex
+  \begin{align*}
+    f(x_0) = \tan(2\pi x_0) - \frac{1}{x_0} = 0
+  \end{align*}
+#+END_SRC
 
 ** Python
 :PROPERTIES:
@@ -591,7 +588,66 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def f(x):
-     ...:     return 4*x**3 + (x-2)**2 + x**4
+     ...:     return np.tan(2 * np.pi * x) - 1 / x
+  In [2]: x = np.linspace(0, 3, 1000)
+  In [3]: plt.plot(x, f(x))
+#+END_SRC
+
+#+BEAMER: \pause\vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [4]: y[np.abs(y) > 50] = np.nan
+  In [5]: plt.ylim(-5, +5)
+#+END_SRC
+
+#+BEAMER: \pause\vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [6]: from scipy.optimize import fsolve
+  In [7]: fsolve(f, x0=0.1)
+  Out[7]: array([ 0.21612385])
+#+END_SRC
+
+#+BEAMER: \pause\vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [8]: fsolve(f, x0=np.arange(0.1, 3, 0.5))
+  Out[8]:
+  array([ 0.21612385,  0.6574377 ,  1.116265  ,
+          1.58938086,  2.071577  ,  2.55928414])
+#+END_SRC
+
+** Figure
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \vspace{-0.5cm}
+    \includegraphics<1>[width=1.1\linewidth]{figures/scipy_root0.pdf}
+    %% \includegraphics<2>[width=1.1\linewidth]{figures/scipy_root1.pdf}
+    \includegraphics<2>[width=1.1\linewidth]{figures/scipy_root2.pdf}
+    \includegraphics<3>[width=1.1\linewidth]{figures/scipy_root3.pdf}
+    \includegraphics<4>[width=1.1\linewidth]{figures/scipy_root4.pdf}
+  \end{center}
+#+END_SRC
+* *=scipy.optimize=* : recherche d'/extrema/ d'une fonction
+
+- L'objectif de l'optimisation est de trouver les /minima/ (ou /maxima/) d'une fonction
+
+- Domaine d'étude très actif en mathématiques/informatique notamment pour les problèmes
+  multi-variables
+
+** Python
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [1]: def f(x):
+     ...:     return 4 * x**3 + (x - 2)**2 + x**4
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -629,67 +685,6 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<3>[width=1.1\linewidth]{figures/scipy_min2.pdf}
   \end{center}
 #+END_SRC
-* *=scipy.optimize=* : recherche des racines d'une fonction
-
-#+BEGIN_SRC latex
-  \begin{align*}
-    f(x_0) = tan(2\pi x_0) - \frac{1}{x_0} = 0
-  \end{align*}
-#+END_SRC
-
-** Python
-:PROPERTIES:
-:BEAMER_COL: 0.6
-:END:
-
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [1]: def f(x):
-     ...:     return np.tan(2*np.pi*x) - 1/x
-  In [2]: x = np.linspace(0, 3, 1000)
-  In [3]: plt.plot(x, f(x))
-#+END_SRC
-
-#+BEAMER: \pause\vskip-18pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [4]: y[abs(y) > 50] = np.nan
-  In [5]: plt.ylim(-5, +5)
-#+END_SRC
-
-#+BEAMER: \pause\vskip-18pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [6]: from scipy.optimize import fsolve
-  In [7]: fsolve(f, x0=0.1)
-  Out[7]: array([ 0.21612385])
-#+END_SRC
-
-#+BEAMER: \pause\vskip-18pt
-#+ATTR_LATEX: :options fontsize=\scriptsize
-#+BEGIN_SRC python
-  In [8]: fsolve(f, x0=np.arange(0.1, 3, 0.5))
-  Out[8]:
-  array([ 0.21612385,  0.6574377 ,  1.116265  ,
-          1.58938086,  2.071577  ,  2.55928414])
-#+END_SRC
-
-** Figure
-:PROPERTIES:
-:BEAMER_COL: 0.5
-:END:
-
-#+BEGIN_SRC latex
-  \begin{center}
-    \vspace{-0.5cm}
-    \includegraphics<1>[width=1.1\linewidth]{figures/scipy_root0.pdf}
-    %% \includegraphics<2>[width=1.1\linewidth]{figures/scipy_root1.pdf}
-    \includegraphics<2>[width=1.1\linewidth]{figures/scipy_root2.pdf}
-    \includegraphics<3>[width=1.1\linewidth]{figures/scipy_root3.pdf}
-    \includegraphics<4>[width=1.1\linewidth]{figures/scipy_root4.pdf}
-  \end{center}
-#+END_SRC
-
 * *=scipy.optimize=* : ajustement d'un modèle/fonction à des données
 
 - L'ajustement consiste *à minimiser* une quantité caractérisant le niveau
@@ -712,12 +707,12 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def model(x, a, b, c):
-     ...:     return a*np.exp(-b*x) + c
+     ...:     return a * np.exp(-b * x) + c
 
   In [2]: a, b, c = 2.5, 1.3, 0.5
   In [3]: xdata = np.linspace(0, 4, 25)
   In [4]: dy = 0.2
-  In [5]: ydata = model(xdata, a, b, c) + dy*np.random.randn(xdata.size)
+  In [5]: ydata = model(xdata, a, b, c) + dy * np.random.randn(xdata.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
