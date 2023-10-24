@@ -2098,7 +2098,7 @@ up. Practically, everything can be done within this section.
     \ifx\insertframesubtitle\@empty\else
     \vskip+3pt\color{generic1!75}\footnotesize\faHandPointRight[regular]\xspace\xspace\insertframesubtitle\par\fi}
   %% \setbeamertemplate{frametitle}{\vskip+10pt\hfill\insertframetitle\\ \flushright\small\insertframesubtitle}
-  \renewcommand{\insertprefixtitle}{{\color{generic1}\small\textbf{Cours Python -- Master 1 Physique Fondamentale\\}}}
+  \renewcommand{\insertprefixtitle}{{\color{generic1}\small\textbf{Cours Python – Master 1 Physique Fondamentale\\}}}
 #+END_SRC
 ****** =quote= environment
 #+BEGIN_SRC latex

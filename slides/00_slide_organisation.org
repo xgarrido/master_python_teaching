@@ -1,10 +1,10 @@
 #+TITLE:  Présentation & Organisation
-#+AUTHOR: Adrien La Posta & Xavier Garrido
+#+AUTHOR: Angélique Campaniello & Xavier Garrido
 #+DATE:   14/01/2017
 #+OPTIONS: toc:nil ^:{}
-#+STARTUP:     beamer
+#+STARTUP: beamer
 #+LATEX_CLASS: python-slide
-#+BEAMER_HEADER: \institute{IJC Lab, bâtiment 200, Orsay}
+# #+BEAMER_HEADER: \institute{IJC Lab, bâtiment 200, Orsay}
 
 * COMMENT Langage Python \faPython
 
@@ -102,10 +102,10 @@ enseignement, nous utiliserons _Python 3.7_
   
 * Déroulement cours/TD \faIcon{laptop-code}
 
-- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A6) à partir de 15h45
+- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A3 ou amphi A1) à partir de 15h45
 
 - TD ~ 1h30 
-  - Groupe 1 : salle 401 
+  - Groupe 1 : salle 401
   - Groupe 2 : salle 515
   - Groupe 3 : salle 305
   - Groupe 4 : salle 306
@@ -115,7 +115,7 @@ enseignement, nous utiliserons _Python 3.7_
 
 * Contacts \faIcon{address-book}
 
-- Adrien La Posta, [[mailto:noe.roy@universite-paris-saclay.fr][*adrien.la-posta@universite-paris-saclay.fr*]]
+- Angélique Campaniello [[mailto:angelique.campaniello@universite-paris-saclay.fr][*angelique.campaniello@universite-paris-saclay.fr*]]
 - Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
   
 * COMMENT Notes/transparents de cours \faIcon{archive}

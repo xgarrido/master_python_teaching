@@ -124,9 +124,8 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 - Interpréteur standard
   # @@beamer:\onslide<2->{$\to$ utilisation limitée}@@
   #+BEGIN_SRC python
-    @\prompt@ python3.7
-    Python 3.7.3 (default, Mar 27 2019, 22:11:17)
-    [GCC 7.3.0] :: Anaconda, Inc. on linux
+    @\prompt@ python
+    Python 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:23:14) [GCC 10.4.0] on linux
     Type "help", "copyright", "credits" or "license" for more information.
     >>> 2*2
     4
@@ -152,9 +151,9 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 - Utilisation de =ipython=
   #+BEGIN_SRC python
     @\prompt@ ipython
-    Python 3.7.3 (default, Mar 27 2019, 22:11:17)
+    Python 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:23:14) [GCC 10.4.0]
     Type 'copyright', 'credits' or 'license' for more information
-    IPython 7.11.1 -- An enhanced Interactive Python. Type '?' for help.
+    IPython 8.8.0 -- An enhanced Interactive Python. Type '?' for help.
 
     In [1]: 2*2
     Out[1]: 4
@@ -162,7 +161,7 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
 
 * Interpréteur =ipython=
 
-- Premier programme =python= : /"Hello world"/
+- Premier programme =python= : « /Hello world/ »
   #+BEGIN_SRC python
     In [1]: print("Hello world")
     Hello world
@@ -314,7 +313,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
 
 * Jupyter et ses /notebooks/
 
-- Les /notebooks/ Jupyter sont des "cahiers électroniques" qui, dans un même document, peuvent
+- Les /notebooks/ Jupyter sont des « cahiers électroniques » qui, dans un même document, peuvent
   rassembler du *texte, des images, des formules mathématiques et du code informatique
   exécutable*. Ils sont manipulables interactivement dans *un navigateur web*.
 
@@ -362,12 +361,12 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
 
   1) depuis votre ordinateur personnel[fn:382b9b24d416887]
      #+BEGIN_SRC shell-session
-       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@tp-ssh1.dep-informatique.u-psud.fr
+       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@ssh1.pgip.universite-paris-saclay.fr
      #+END_SRC
 
   2) une fois la connection =ssh= établie
      #+BEGIN_SRC shell-session
-       @\prompt@ jupyter lab --port 8891 --ip 127.0.0.1 --no-browser
+       @\prompt@ jupyter lab --port 8891 --no-browser
      #+END_SRC
      puis ouvrir le lien dans un navigateur web 
 
@@ -383,7 +382,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
   #+BEGIN_SRC latex
     \href{https://colab.research.google.com/github/xgarrido/binder-sandbox}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
   #+END_SRC
-  ou dans le "bac à sable" =mybinder=
+  ou dans le « bac à sable » =mybinder=
   #+BEGIN_SRC latex
     \href{https://mybinder.org/v2/gh/xgarrido/binder-sandbox/HEAD?urlpath=lab}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
   #+END_SRC
