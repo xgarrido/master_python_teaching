@@ -34,7 +34,7 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
   - *Langage interprété* : Pas besoin de compiler le code. L'interpréteur Python lit et exécute
     directement le code python.
 
-* Langage Python : /pros/ & /cons/
+* Langage Python : /pros/ \faThumbsUp\nbsp& /cons/ \faThumbsDown
 
 - Avantages:
   - Le principal avantage est la facilité de programmation, minimisant le temps nécessaire pour
