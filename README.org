@@ -2105,11 +2105,11 @@ up. Practically, everything can be done within this section.
   \newcommand*\quotesize{45}
   \newcommand*{\openquote}
      {\tikz[remember picture,overlay,xshift=-4ex,yshift=-1.0ex]
-     \node (OQ) {\fontsize{\quotesize}{\quotesize}\selectfont``};\kern0pt}
+     \node (OQ) {\fontsize{\quotesize}{\quotesize}\selectfont“};\kern0pt}
 
   \newcommand*{\closequote}
     {\tikz[remember picture,overlay,xshift=+2ex,yshift=-2.5ex]
-     \node (CQ) {\fontsize{\quotesize}{\quotesize}\hfill\selectfont''};}
+     \node (CQ) {\fontsize{\quotesize}{\quotesize}\hfill\selectfont”};}
 
     \let\origquote\quote
     \let\endorigquote\endquote

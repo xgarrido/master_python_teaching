@@ -300,7 +300,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
 
 3) [@3] Dans un environnement de développement intégré (/IDE/)
    - [[https://www.jetbrains.com/fr-fr/pycharm/][=pycharm=]], [[https://pyzo.org/][=pyzo=]], [[https://www.spyder-ide.org/][=spyder=]], ...
-   - [[https://atom.io/][=atom=]], [[https://www.sublimetext.com/][=sublime text=]], ...
+   - [[https://code.visualstudio.com][Visual Studio Code]], [[https://www.sublimetext.com/][=sublime text=]],... ([[https://atom.io/][=atom=]])
 
       # - @@beamer:\color{green}\faThumbsUp@@ :: @@beamer:\color{green}@@ interpréteur intégré,
       #   vérification de la syntaxe, complétion
@@ -319,16 +319,16 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
 
 #+BEAMER: \pause
 - Initialement développés pour les langages Julia, Python et R, les /notebooks/ Jupyter, supportent
-  près de 40 langages différents (dont le C++).
+  plus de 40 langages différents (dont le C++).
 
 #+BEAMER: \pause
-- Outil de plus en plus populaire notamment pour documenter et expliquer le fonctionnement d'un code
-  (tutoriels, cours, rédaction d'articles...)
+- Outil populaire notamment pour documenter et expliquer le fonctionnement d'un code (tutoriels,
+  cours, rédaction d'articles...)
 
 * Exemple d'un /notebook/
 
 - *La cellule* est l'élément de base d'un notebook Jupyter. Elle peut contenir du texte formaté au
-  format Markdown ou du code informatique qui pourra être exécuté.
+  format [[https://fr.wikipedia.org/wiki/Markdown][=Markdown=]] ou du code informatique qui pourra être exécuté.
 
 [[file:figures/jupyter_example.png]]
 
@@ -359,7 +359,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
 
 - Vous pouvez vous connecter sur les machines de l'université et initier une session Jupyter
 
-  1) depuis votre ordinateur personnel[fn:382b9b24d416887]
+  1) depuis votre ordinateur personnel
      #+BEGIN_SRC shell-session
        @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@ssh1.pgip.universite-paris-saclay.fr
      #+END_SRC
@@ -784,7 +784,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     Out[3]: 4.0
 
     In [4]: print("y est positif" if y > 0 else "y est négatif")
-    Out[4]: y est positif
+    y est positif
   #+END_SRC
 
 * Répétition conditionnelle
@@ -905,8 +905,5 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
   L'instruction =continue= est particulièrement utile afin d'éviter une trop grande
   imbrication d'instructions =if= successives.
   #+END_REMARK
-* Footnotes
-
-[fn:382b9b24d416887] si =tp-ssh1= ne semble pas accessible, vous pouvez essayer =tp-ssh2= ou =tp-ssh3=
 
 

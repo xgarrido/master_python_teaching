@@ -51,7 +51,7 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
 
 - Désavantages:
   - langage de programmation interprété et typé dynamiquement \to *exécution du code python plus
-    lente* par rapport aux langages de programmation compilés statiquement, tels que C et Fortran.
+    lente* par rapport aux langages de programmation compilés statiquement, tels que C ou Fortran.
 
 * COMMENT Langage Python : /pros & cons/
 
@@ -110,8 +110,8 @@ enseignement, nous utiliserons _Python 3.7_
   - Groupe 3 : salle 305
   - Groupe 4 : salle 306
     
-- Examen (2 heures) *sur machine* : session anonyme mais accès à l'ensemble des ressources du cours
-  (transparents, TD corrigés, annales)
+- *Mardi 16 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
+  ressources du cours (transparents, TD corrigés, annales)
 
 * Contacts \faIcon{address-book}
 
