@@ -249,8 +249,8 @@ intégrées au langage Python
   #+BEGIN_SRC python
     In [1]: canevas = "L'année {0:d} s'écrit {0:b} en binaire et {0:x} en héxadécimal"
 
-    In [2]: canevas.format(2017)
-    Out[2]: "L'année 2017 s'écrit 11111100001 en binaire et 7e1 en héxadécimal"
+    In [2]: canevas.format(2023)
+    Out[2]: "L'année 2023 s'écrit 11111100111 en binaire et 7e7 en héxadécimal"
   #+END_SRC
 * Les chaînes de caractères
 #+BEAMER: \framesubtitle{\emph{f-string}}
