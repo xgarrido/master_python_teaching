@@ -144,7 +144,7 @@
   #+END_SRC
 
 #+BEAMER: \pause
-- Parcours par "indice"
+- Parcours par « indice »
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
     In [13]: states["population"]
@@ -245,7 +245,6 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
   \href{https://mybinder.org/v2/gh/xgarrido/master_python_teaching/master?filepath=slides\%2F04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
  \end{textblock}
 #+end_export
-
 
 * pandas par l'exemple                                             :noexport:
 ** Analyse des prénoms parisiens depuis 2004

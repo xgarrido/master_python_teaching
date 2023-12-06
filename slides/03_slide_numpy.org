@@ -12,7 +12,7 @@
 
 #+BEAMER: \pause
 
-- =numpy= fournit en particulier des objets de type *vecteurs, matrices en généralisant la notion de
+- =numpy= fournit essentiellement des objets de type *vecteurs, matrices en généralisant la notion de
   tableaux à $n$ dimensions \to =ndarray=*
 
 #+BEAMER: \pause
@@ -106,23 +106,21 @@ Il existe plusieurs (très bonnes) raisons à cela:
 #+ATTR_BEAMER: :overlay +-
 - Les listes Python sont très générales (on parle également d'objet de haut
   niveau). *Elles peuvent contenir n'importe quel objet \to typage
-  dynamique*. Elles ne supportent pas les opérations mathématiques.
+  dynamique*
+
+- Du fait de cette hétérogénéité, les listes ne supportent pas les opérations mathématiques
 
 - Les tableaux ou /array/ de =numpy= sont *statiquement typées et homogènes[fn:ea2b86f523276c9]*
 
-  - Le type des éléments est déterminé lorsque le tableau est créé *\to plus de
-    typage dynamique*
-  - De même la taille du tableau est fixée à la création *\to stockage en
-    mémoire optimisé*
+  - Le type des éléments est déterminé lorsque le tableau est créé *\to plus de typage dynamique*
+  - De même la taille du tableau est fixée à la création *\to stockage en mémoire optimisé*
 
-- En raison du typage statique, les fonctions mathématiques telles que la
-  multiplication et l'addition de matrices peuvent être mises en œuvre /via/ un
+- En raison du typage statique, les opérations mathématiques peuvent être mises en œuvre /via/ un
   langage compilé (C et Fortran)
 
 #+BEGIN_COMMENT
-So far the numpy.ndarray looks awefully much like a Python list (or nested
-list). Why not simply use Python lists for computations instead of creating a
-new array type?
+So far the numpy.ndarray looks awefully much like a Python list (or nested list). Why not simply use
+Python lists for computations instead of creating a new array type?
 
 There are several reasons:
 
@@ -228,7 +226,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
            [ 1.,  1.,  1.],
            [ 1.,  1.,  1.]])
 
-    In [3]: np.full((3, 3), 666.666, dtype=int)
+    In [3]: np.full(shape=(3, 3), fill_value=666.666, dtype=int)
     Out[3]:
     array([[666, 666, 666],
            [666, 666, 666],
@@ -444,7 +442,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 * Opérations mathématiques
 
 - *Grâce à l'homogénéité des tableaux de =numpy=*, il est possible de réaliser des
-  opérations mathématiques \neq listes Python
+  opérations mathématiques 
   #+BEGIN_SRC python
     In [1]: v = [1, 2, 3, 4]
     In [2]: v + 5
@@ -606,13 +604,13 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
 - Somme colonne par colonne
   #+BEGIN_SRC python
-    In [4]: M.sum(axis=0)
+    In [4]: np.sum(M, axis=0)
     Out[4]: array([18,  7, 15, 15])
   #+END_SRC
 
 - Somme ligne par ligne
   #+BEGIN_SRC python
-    In [5]: M.sum(axis=1)
+    In [5]: np.sum(M, axis=1)
     Out[5]: array([19, 16, 20])
   #+END_SRC
 
