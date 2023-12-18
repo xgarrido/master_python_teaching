@@ -14,8 +14,8 @@
 
   - Algèbre linéaire (résolution d'équations linéaires, valeurs/vecteur propres)
   - Fonctions spéciales (fonction de Bessel, loi de distribution,...)
-  - Algorithmes d'interpolation, d'intégration et d'optimisation
-  - Résolution d'équations différentielles ordinaires
+  - Algorithmes d'interpolation, d'intégration et d'*optimisation*
+  - *Résolution d'équations différentielles ordinaires*
   - Traitement du signal et des images (transformée de Fourier, convolution,...)
 
 #+COMMMENT: https://www.nature.com/articles/s41592-019-0686-2
@@ -122,15 +122,15 @@
 
   In [2]: x = np.linspace(0, 10, 100)
   In [3]: for n in range(4):
-     ...:     plt.plot(x, jn(n, x), label=f"$J_{n}(x)$")
+  ...:     plt.plot(x, jn(n, x), label=f"$J_{n}(x)$")
   In [4]: plt.legend()
-  #+END_SRC
+#+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [5]: for n in range(4):
-     ...:     plt.plot(x, yn(n, x), label=f"$Y_{n}(x)$")
+  ...:     plt.plot(x, yn(n, x), label=f"$Y_{n}(x)$")
   In [6]: plt.legend()
 #+END_SRC
 
@@ -162,7 +162,7 @@
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def f(x):
-     ...:     return np.sin(x)
+  ...:     return np.sin(x)
 
   In [2]: x_meas = np.arange(0, 10)
   In [3]: y_meas = f(x_meas) + 0.1 * np.random.randn(x_meas.size)
@@ -222,7 +222,7 @@
     In [1]: from scipy.integrate import quad
 
     In [2]: def integrand(x, a, b):
-       ...:     return a * x**2 + b
+    ...:     return a * x**2 + b
     In [3]: a = 2
     In [4]: b = 1
     In [5]: quad(integrand, 0, 1, args=(a, b))
@@ -239,8 +239,8 @@
 
   #+BEGIN_SRC python
     In [1]: def I(n):
-       ...:     from scipy.integrate import nquad
-       ...:     return nquad(lambda t, x: np.exp(-x * t) / t**n, [[1, np.inf], [0, np.inf]])
+    ...:     from scipy.integrate import nquad
+    ...:     return nquad(lambda t, x: np.exp(-x * t) / t**n, [[1, np.inf], [0, np.inf]])
 
     In [2]: I(4)[0], I(4)[0] - 1 / 4
     Out[2]: (0.2500000000043577, 4.357680882804971e-12)
@@ -322,14 +322,14 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEGIN_SRC python
   In [1]: g, ell, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
-     ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
-     ...:
-     ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
-     ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
-     ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
-     ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
-     ...:
-     ...:     return dy1, dy2, dy3, dy4
+  ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
+  ...:
+  ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
+  ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
+  ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
+  ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
+  ...:
+  ...:     return dy1, dy2, dy3, dy4
 #+END_SRC
 
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
@@ -339,14 +339,14 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEGIN_SRC python
   In [1]: g, ell, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
-     ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
-     ...:
-     ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
-     ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
-     ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
-     ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
-     ...:
-     ...:     return dy1, dy2, dy3, dy4
+  ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
+  ...:
+  ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
+  ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
+  ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
+  ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
+  ...:
+  ...:     return dy1, dy2, dy3, dy4
 
   In [3]: # Conditions initiales
   In [4]: y0 = [np.pi/4, np.pi/2, 0, 0]
@@ -369,22 +369,22 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-      In [10]: theta1, theta2 = sol.y[0], sol.y[1]
-      In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
-      In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
-      In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
-      In [14]: ax[0].set(xlabel=r"$t$ [s]",
-                         ylabel=r"$\theta$ [rad]")
-      In [15]: ax[0].legend()
+  In [10]: theta1, theta2 = sol.y[0], sol.y[1]
+  In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
+  In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
+  In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
+  In [14]: ax[0].set(xlabel=r"$t$ [s]",
+                     ylabel=r"$\theta$ [rad]")
+  In [15]: ax[0].legend()
 
-      In [16]: x1 = ell * np.sin(theta1)
-      In [17]: y1 = -ell * np.cos(theta1)
-      In [18]: x2 = x1 + ell * np.sin(theta2)
-      In [19]: y2 = y1 - ell * np.cos(theta2)
-      In [20]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
-      In [21]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
-      In [22]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
-      In [23]: ax[1].legend()
+  In [16]: x1 = ell * np.sin(theta1)
+  In [17]: y1 = -ell * np.cos(theta1)
+  In [18]: x2 = x1 + ell * np.sin(theta2)
+  In [19]: y2 = y1 - ell * np.cos(theta2)
+  In [20]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
+  In [21]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
+  In [22]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
+  In [23]: ax[1].legend()
 #+END_SRC
 
 ** Figure
@@ -468,11 +468,11 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def dy(t, y, zeta, w0):
-     ...:     x, p = y[0], y[1]
-     ...:
-     ...:     dx = p
-     ...:     dp = -2 * zeta * w0 * p - w0**2 * x
-     ...:     return dx, dp
+  ...:     x, p = y[0], y[1]
+  ...:
+  ...:     dx = p
+  ...:     dp = -2 * zeta * w0 * p - w0**2 * x
+  ...:     return dx, dp
   In [2]: y0 = [1.0, 0.0]
   In [3]: t = np.linspace(0, 10, 1000)
   In [4]: w0 = 2 * np.pi * 1.0
@@ -588,7 +588,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def f(x):
-     ...:     return np.tan(2 * np.pi * x) - 1 / x
+  ...:     return np.tan(2 * np.pi * x) - 1 / x
   In [2]: x = np.linspace(0, 3, 1000)
   In [3]: plt.plot(x, f(x))
 #+END_SRC
@@ -647,7 +647,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def f(x):
-     ...:     return 4 * x**3 + (x - 2)**2 + x**4
+  ...:     return 4 * x**3 + (x - 2)**2 + x**4
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -656,9 +656,9 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   In [2]: from scipy.optimize import fmin
   In [3]: fmin(f, x0=-2)
   Optimization terminated successfully.
-       Current function value: -3.506641
-       Iterations: 15
-       Function evaluations: 30
+  Current function value: -3.506641
+  Iterations: 15
+  Function evaluations: 30
   Out[3]: array([-2.67294922])
 #+END_SRC
 
@@ -667,9 +667,9 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEGIN_SRC python
   In [4]: fmin(f, x0=0)
   Optimization terminated successfully.
-       Current function value: 2.804988
-       Iterations: 23
-       Function evaluations: 46
+  Current function value: 2.804988
+  Iterations: 23
+  Function evaluations: 46
   Out[4]: array([ 0.469625])
 #+END_SRC
 
@@ -707,7 +707,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [1]: def model(x, a, b, c):
-     ...:     return a * np.exp(-b * x) + c
+  ...:     return a * np.exp(-b * x) + c
 
   In [2]: a, b, c = 2.5, 1.3, 0.5
   In [3]: xdata = np.linspace(0, 4, 25)
@@ -745,6 +745,13 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   Out[12]: array([0.1296717 , 0.15961548, 0.06583479])
 #+END_SRC
 
+#+BEAMER: \pause\pause\pause\vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [13]: d = np.sqrt(np.diag(pcov))
+  In [14]: corr = (pcov / d).T / d
+#+END_SRC
+
 ** Figure
 :PROPERTIES:
 :BEAMER_COL: 0.5
@@ -758,23 +765,37 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<3>[width=1.1\linewidth]{figures/scipy_fit2.pdf}
     \only<4>{
       \begin{align*}
-      \left(
-      \begin{array}{cccc}
-        \sigma_{p_0}^2&\sigma_{p_0p_1}&\cdots&\sigma_{p_0p_n}\\
-        \sigma_{p_1p_0}&\sigma_{p_1}^2&\cdots&\sigma_{p_1p_n}\\
-        \vdots&\vdots&\ddots&\vdots\\
-        \sigma_{p_np_0}&\cdots&\cdots&\sigma_{p_n}^2
-      \end{array}
-      \right)\\
-      \text{avec }\sigma_{p_ip_j}=\langle p_i\rangle\langle p_j\rangle - \langle p_ip_j\rangle
+        \left(
+        \begin{array}{cccc}
+          \sigma_{p_0}^2&\sigma_{p_0p_1}&\cdots&\sigma_{p_0p_n}\\
+          \sigma_{p_1p_0}&\sigma_{p_1}^2&\cdots&\sigma_{p_1p_n}\\
+          \vdots&\vdots&\ddots&\vdots\\
+          \sigma_{p_np_0}&\cdots&\cdots&\sigma_{p_n}^2
+        \end{array}
+        \right)\\
+        \text{avec }\sigma_{p_ip_j}=\langle p_i\rangle\langle p_j\rangle - \langle p_ip_j\rangle
       \end{align*}
     }
     \includegraphics<5-6>[width=\linewidth]{figures/scipy_fit3.pdf}
     \includegraphics<7>[width=1.1\linewidth]{figures/scipy_fit4.pdf}
+    \only<8>{
+      \begin{align*}
+        R_{ij}&=\frac{C_{ij}}{\surd{C_{ii}C{jj}}}\\
+        &=
+        \left(
+        \begin{array}{cccc}
+          1&\frac{\sigma_{p_0p_1}}{\sigma_{p_0}\sigma_{p_1}}&\cdots&\frac{\sigma_{p_0p_n}}{\sigma_{p_0}\sigma_{p_n}}\\
+          \frac{\sigma_{p_1p_0}}{\sigma_{p_1}\sigma_{p_0}}&1&\cdots&\frac{\sigma_{p_1p_n}}{\sigma_{p_1}\sigma_{p_n}}\\
+          \vdots&\vdots&\ddots&\vdots\\
+          \frac{\sigma_{p_np_0}}{\sigma_{p_n}\sigma_{p_0}}&\cdots&\cdots&1
+        \end{array}
+        \right)
+      \end{align*}
+    }
+    \includegraphics<9>[width=\linewidth]{figures/scipy_fit3bis.pdf}
   \end{center}
 #+END_SRC
 * *=scipy.stats=* : distributions, fonctions & tests statistiques
-
 ** Python
 :PROPERTIES:
 :BEAMER_COL: 0.6
@@ -824,4 +845,94 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<2>[width=1.1\linewidth]{figures/scipy_norm1.pdf}
     \includegraphics<3->[width=1.1\linewidth]{figures/scipy_norm2.pdf}
   \end{center}
+#+END_SRC
+
+* COMMENT Annexes
+** *=scipy.optimize=* : ajustement d'un modèle/fonction à des données
+#+BEGIN_SRC python
+  from itertools import product
+
+  import matplotlib.pyplot as plt
+  import numpy as np
+  import seaborn as sns
+
+
+  def model(x, a, b, c):
+      return a * np.exp(-b * x) + c
+
+
+  a, b, c = 2.5, 1.3, 0.5
+  xdata = np.linspace(0, 4, 25)
+  dy = 0.2
+  ydata = model(xdata, a, b, c) + dy * np.random.randn(xdata.size)
+
+
+  fig, ax = plt.subplots()
+  ax.errorbar(xdata, ydata, yerr=dy, fmt="ok", label="données")
+  ax.set(xlabel="$x$", ylabel="$y$")
+  ax.legend()
+  fig.savefig("/tmp/scipy_fit0.pgf")
+
+  fig, ax = plt.subplots()
+  ax.errorbar(xdata, ydata, yerr=dy, fmt="ok", label="données")
+  ax.plot(xdata, model(xdata, a, b, c), label="$f(x) = %s\mathrm{exp}(-%sx)+%s$" % (a, b, c))
+  ax.set(xlabel="$x$", ylabel="$y$")
+  ax.legend()
+  fig.savefig("/tmp/scipy_fit1.pgf")
+
+
+  from scipy.optimize import curve_fit
+
+  popt, pcov = curve_fit(model, xdata, ydata, sigma=np.full_like(ydata, dy))
+  chi2 = np.sum((ydata - model(xdata, *popt)) ** 2 / dy**2)
+  chi2_reduced = chi2 / (xdata.size - 3)
+
+  fig, ax = plt.subplots()
+  ax.errorbar(xdata, ydata, yerr=dy, fmt="ok", label="données")
+  ax.plot(xdata, model(xdata, a, b, c), label="$f(x) = %s\mathrm{exp}(-%sx)+%s$" % (a, b, c))
+  ax.plot(
+      x := np.linspace(0, 4, 100),
+      model(x, *popt),
+      label=f"fit - $\chi^2$/ndf = {chi2:.2f}/{xdata.size - 3} = {chi2_reduced:.1f}",
+  )
+  ax.set(xlabel="$x$", ylabel="$y$")
+  ax.legend()
+  fig.savefig("/tmp/scipy_fit2.pgf")
+
+
+  def plot_matrix(
+          mat, cmap=sns.color_palette("vlag", as_cmap=True), vmin=None, vmax=None, with_colorbar=False
+  ):
+      fig, ax = plt.subplots()
+      ms = ax.matshow(mat, cmap=cmap, vmin=vmin, vmax=vmax)
+      ax.set(
+          xticks=(ticks := [0, 1, 2]),
+          xticklabels=(label := ["$a$", "$b$", "$c$"]),
+          yticks=ticks,
+          yticklabels=label,
+      )
+      for i, j in product(ticks, ticks):
+          ax.text(i, j, f"{mat[i, j]:.4f}", va="center", ha="center")
+      if with_colorbar:
+          cb = fig.colorbar(ms)
+          cb.set_label("$R_{ij}$")
+      return fig
+
+
+  cov = np.array(
+      [
+          [0.01681475, 0.00513406, -0.00182363],
+          [0.00513406, 0.0254771, 0.00788938],
+          [-0.00182363, 0.00788938, 0.00433422],
+      ]
+  )
+
+  # plot_matrix(pcov).savefig("/tmp/scipy_fit3.pgf")
+  plot_matrix(cov).savefig("/tmp/scipy_fit3.pgf", bbox_inches="tight")
+
+  d = np.sqrt(cov.diagonal())
+  corr = (cov.T / d).T / d
+  plot_matrix(corr, vmin=-1, vmax=1, with_colorbar=True).savefig(
+      "/tmp/scipy_fit3bis.pgf", bbox_inches="tight"
+  )
 #+END_SRC
