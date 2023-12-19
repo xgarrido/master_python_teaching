@@ -805,6 +805,50 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEGIN_SRC python
   In [1]: from scipy import stats
 
+  In [2]: for ndof in range(6):
+     ...:   ax.plot(x, stats.chi2(ndof).pdf(x), label=f"ndof = {ndof}")
+
+  In [3]: for ndof in (ndofs := [5, 10, 20, 30, 50, 80]):
+     ...:   ax.plot(x, stats.chi2(ndof).pdf(x), label=f"ndof = {ndof}")
+     ...:   ax.axvline(ndof, ls="--")
+
+#+END_SRC
+
+#+BEAMER: \pause\vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [4]: for ndof in (ndofs := [5, 10, 20, 30, 50, 80]):
+     ...:   ax.plot(x, stats.chi2(ndof).cdf(x), label=f"ndof = {ndof}")
+     ...:   ax.axvline(ndof, ls="--")
+     ...: ax.axhline(0.5, ls="--")
+
+  In [5]: stats.chi2(22).cdf(26.86)
+  Out[5]: 0.7834078480256046
+#+END_SRC
+
+** Figure
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \includegraphics<1> [width=0.9\linewidth]{figures/scipy_chi2_0.pdf}
+    \includegraphics<1->[width=0.9\linewidth]{figures/scipy_chi2_1.pdf}
+    \includegraphics<2->[width=0.9\linewidth]{figures/scipy_chi2_2.pdf}
+  \end{center}
+#+END_SRC
+
+* *=scipy.stats=* : distributions, fonctions & tests statistiques
+** Python
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [1]: from scipy import stats
+
   In [2]: normal = stats.norm()
   In [3]: ax[0].hist(normal.rvs(1000), bins=50)
 #+END_SRC
@@ -935,4 +979,39 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   plot_matrix(corr, vmin=-1, vmax=1, with_colorbar=True).savefig(
       "/tmp/scipy_fit3bis.pgf", bbox_inches="tight"
   )
+#+END_SRC
+** *=scipy.stats=* : distributions, fonctions & tests statistiques
+#+BEGIN_SRC python
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import chi2
+
+
+def plot_pdf(x, ndofs, show_ndof=True):
+    fig, ax = plt.subplots()
+    ax.set(xlabel="$\chi^2$", ylabel="densité de probabilité (pdf)")
+
+    for i, ndof in enumerate(ndofs):
+        ax.plot(x, chi2(ndof).pdf(x), label=f"ndof = {ndof}", color=f"C{i}")
+        if show_ndof:
+            ax.axvline(ndof, ls="--", color=f"C{i}")
+    ax.legend()
+    return fig
+
+
+plot_pdf(np.arange(0, 6, 0.1), [1, 2, 3, 4, 5], False).savefig("/tmp/scipy_chi2_0.pgf")
+plot_pdf(x := np.arange(0, 100, 0.1), ndofs := [5, 10, 20, 30, 50, 80]).savefig(
+    "/tmp/scipy_chi2_1.pgf"
+)
+
+fig, ax = plt.subplots()
+ax.set(xlabel="$\chi^2$", ylabel="fonction de répartition (cdf)")
+
+for i, ndof in enumerate(ndofs):
+    ax.plot(x, chi2(ndof).cdf(x), label=f"ndof = {ndof}", color=f"C{i}")
+    ax.axvline(ndof, ls="--", color=f"C{i}")
+ax.axhline(0.5, ls="--", color="gray")
+ax.legend()
+
+fig.savefig("/tmp/scipy_chi2_2.pgf")
 #+END_SRC
