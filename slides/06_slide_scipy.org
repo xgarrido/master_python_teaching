@@ -506,7 +506,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
   In [2]: F = fft(sol2.y[0])
   In [3]: freq = fftfreq(t.size, t[1] - t[0])
-  In [4]: plt.plot(freq, np.abs(F))
+  In [4]: idx = np.argsort(freq)
+  In [4]: plt.plot(freq[idx], np.abs(F[idx]))
 #+END_SRC
 
 #+BEAMER: \pause\vskip-18pt
@@ -688,7 +689,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 * *=scipy.optimize=* : ajustement d'un modèle/fonction à des données
 
 - L'ajustement consiste *à minimiser* une quantité caractérisant le niveau
-  d'accord entre données expérimentales et modèle "théorique"
+  d'accord entre données expérimentales et modèle « théorique »
 
 - Exemple de fonction à minimiser
   #+BEGIN_SRC latex
@@ -710,17 +711,17 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   ...:     return a * np.exp(-b * x) + c
 
   In [2]: a, b, c = 2.5, 1.3, 0.5
-  In [3]: xdata = np.linspace(0, 4, 25)
+  In [3]: xsim = np.linspace(0, 4, 25)
   In [4]: dy = 0.2
-  In [5]: ydata = model(xdata, a, b, c) + dy * np.random.randn(xdata.size)
+  In [5]: ysim = model(xsim, a, b, c) + dy * np.random.randn(xsim.size)
 #+END_SRC
 
 #+BEAMER: \pause\pause\vskip-18pt
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
   In [6]: from scipy.optimize import curve_fit
-  In [7]: popt, pcov = curve_fit(model, xdata, ydata,
-                                 sigma=np.full_like(ydata, dy))
+  In [7]: popt, pcov = curve_fit(model, xsim, ysim,
+                                 sigma=np.full_like(ysim, dy))
   In [8]: popt
   Out[8]: array([ 2.28680731,  1.21827861,  0.45424157])
 
@@ -781,13 +782,15 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \only<8>{
       \begin{align*}
         R_{ij}&=\frac{C_{ij}}{\surd{C_{ii}C{jj}}}\\
-        &=
+      \end{align*}
+      \tiny
+      \begin{align*}
         \left(
         \begin{array}{cccc}
-          1&\frac{\sigma_{p_0p_1}}{\sigma_{p_0}\sigma_{p_1}}&\cdots&\frac{\sigma_{p_0p_n}}{\sigma_{p_0}\sigma_{p_n}}\\
-          \frac{\sigma_{p_1p_0}}{\sigma_{p_1}\sigma_{p_0}}&1&\cdots&\frac{\sigma_{p_1p_n}}{\sigma_{p_1}\sigma_{p_n}}\\
+          1&\frac{\sigma_{p_0p_1}}{\surd\sigma_{p_0}\sigma_{p_1}}&\cdots&\frac{\sigma_{p_0p_n}}{\surd\sigma_{p_0}\sigma_{p_n}}\\
+          \frac{\sigma_{p_1p_0}}{\surd\sigma_{p_1}\sigma_{p_0}}&1&\cdots&\frac{\sigma_{p_1p_n}}{\surd\sigma_{p_1}\sigma_{p_n}}\\
           \vdots&\vdots&\ddots&\vdots\\
-          \frac{\sigma_{p_np_0}}{\sigma_{p_n}\sigma_{p_0}}&\cdots&\cdots&1
+          \frac{\sigma_{p_np_0}}{\surd\sigma_{p_n}\sigma_{p_0}}&\cdots&\cdots&1
         \end{array}
         \right)
       \end{align*}
