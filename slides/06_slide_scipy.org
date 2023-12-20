@@ -780,17 +780,17 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<5-6>[width=\linewidth]{figures/scipy_fit3.pdf}
     \includegraphics<7>[width=1.1\linewidth]{figures/scipy_fit4.pdf}
     \only<8>{
+      Matrice de corrélation
       \begin{align*}
         R_{ij}&=\frac{C_{ij}}{\surd{C_{ii}C{jj}}}\\
       \end{align*}
-      \tiny
       \begin{align*}
         \left(
         \begin{array}{cccc}
-          1&\frac{\sigma_{p_0p_1}}{\surd\sigma_{p_0}\sigma_{p_1}}&\cdots&\frac{\sigma_{p_0p_n}}{\surd\sigma_{p_0}\sigma_{p_n}}\\
-          \frac{\sigma_{p_1p_0}}{\surd\sigma_{p_1}\sigma_{p_0}}&1&\cdots&\frac{\sigma_{p_1p_n}}{\surd\sigma_{p_1}\sigma_{p_n}}\\
+          1&\frac{\sigma_{p_0p_1}}{\sigma_{p_0}\sigma_{p_1}}&\cdots&\frac{\sigma_{p_0p_n}}{\sigma_{p_0}\sigma_{p_n}}\\
+          \frac{\sigma_{p_1p_0}}{\sigma_{p_1}\sigma_{p_0}}&1&\cdots&\frac{\sigma_{p_1p_n}}{\sigma_{p_1}\sigma_{p_n}}\\
           \vdots&\vdots&\ddots&\vdots\\
-          \frac{\sigma_{p_np_0}}{\surd\sigma_{p_n}\sigma_{p_0}}&\cdots&\cdots&1
+          \frac{\sigma_{p_np_0}}{\sigma_{p_n}\sigma_{p_0}}&\cdots&\cdots&1
         \end{array}
         \right)
       \end{align*}
