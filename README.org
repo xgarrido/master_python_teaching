@@ -538,7 +538,8 @@ up. Practically, everything can be done within this section.
 #+END_SRC
 ****** Fonts
 #+BEGIN_SRC latex
-  \setmonofont[Scale=0.9]{Inconsolata}
+  \setmonofont[Scale=0.9]{Ubuntu Mono}
+  %% \setmonofont[Scale=0.9]{Inconsolata}
   \RequirePackage{mathpazo}
 
   \ifthenelse{\boolean{ls@oldstyle}}{
@@ -951,7 +952,8 @@ called within =postamble= part of [[Template settings]]
 
 ****** Font
 #+BEGIN_SRC latex
-  \setmonofont[Scale=0.9]{Inconsolata}
+  \setmonofont[Scale=0.9]{Ubuntu Mono}
+  %%\setmonofont[Scale=0.9]{Inconsolata}
   \setbeamerfont{page number in head/foot}{size=\tiny}
 #+END_SRC
 ****** Beamer options

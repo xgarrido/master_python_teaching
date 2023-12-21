@@ -320,16 +320,16 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: g, ell, m = 9.82, 0.5, 0.1
+  In [1]: g, ℓ, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
-  ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
+  ...:     θ1, θ2, p1, p2 = y[0], y[1], y[2], y[3]
   ...:
-  ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
-  ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
-  ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
-  ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
+  ...:     dθ1 = 6.0 / m / ℓ**2 * (2 * p1 - 3 * np.cos(θ1 - θ2) * p2) / (16 - 9 * np.cos(θ1 - θ2)**2)
+  ...:     dθ2 = 6.0 / m / ℓ**2 * (8 * p2 - 3 * np.cos(θ1 - θ2) * p1) / (16 - 9 * np.cos(θ1 - θ2)**2)
+  ...:     dp1 = -0.5 * m * ℓ**2 * (+dp1 * dy2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
+  ...:     dp2 = -0.5 * m * ℓ**2 * (-dp1 * dy2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
   ...:
-  ...:     return dy1, dy2, dy3, dy4
+  ...:     return dθ1, dθ2, dp1, dp2
 #+END_SRC
 
 * *=scipy.integrate=* : résolution d'équations différentielles ordinaires
@@ -337,16 +337,16 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [1]: g, ell, m = 9.82, 0.5, 0.1
+  In [1]: g, ℓ, m = 9.82, 0.5, 0.1
   In [2]: def dy(t, y):
-  ...:     y1, y2, y3, y4 = y[0], y[1], y[2], y[3]
+  ...:     θ1, θ2, p1, p2 = y[0], y[1], y[2], y[3]
   ...:
-  ...:     dy1 = 6.0 / m / ell**2 * (2 * y3 - 3 * np.cos(y1 - y2) * y4) / (16 - 9 * np.cos(y1 - y2)**2)
-  ...:     dy2 = 6.0 / m / ell**2 * (8 * y4 - 3 * np.cos(y1 - y2) * y3) / (16 - 9 * np.cos(y1 - y2)**2)
-  ...:     dy3 = -0.5 * m * ell**2 * (+dy1 * dy2 * np.sin(y1 - y2) + 3 * g / ell * np.sin(y1))
-  ...:     dy4 = -0.5 * m * ell**2 * (-dy1 * dy2 * np.sin(y1 - y2) + 1 * g / ell * np.sin(y2))
+  ...:     dθ1 = 6.0 / m / ℓ**2 * (2 * p1 - 3 * np.cos(θ1 - θ2) * p2) / (16 - 9 * np.cos(θ1 - θ2)**2)
+  ...:     dθ2 = 6.0 / m / ℓ**2 * (8 * p2 - 3 * np.cos(θ1 - θ2) * p1) / (16 - 9 * np.cos(θ1 - θ2)**2)
+  ...:     dp1 = -0.5 * m * ℓ**2 * (+dp1 * dy2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
+  ...:     dp2 = -0.5 * m * ℓ**2 * (-dp1 * dy2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
   ...:
-  ...:     return dy1, dy2, dy3, dy4
+  ...:     return dθ1, dθ2, dp1, dp2
 
   In [3]: # Conditions initiales
   In [4]: y0 = [np.pi/4, np.pi/2, 0, 0]
@@ -369,18 +369,18 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
 #+BEGIN_SRC python
-  In [10]: theta1, theta2 = sol.y[0], sol.y[1]
+  In [10]: θ1, θ2 = sol.y[0], sol.y[1]
   In [11]: fig, ax = plt.subplots(2, 1, figsize=(5,7))
-  In [12]: ax[0].plot(t, theta1, label=r"$\theta_1$")
-  In [13]: ax[0].plot(t, theta2, label=r"$\theta_2$")
+  In [12]: ax[0].plot(t, θ1, label=r"$\theta_1$")
+  In [13]: ax[0].plot(t, θ2, label=r"$\theta_2$")
   In [14]: ax[0].set(xlabel=r"$t$ [s]",
                      ylabel=r"$\theta$ [rad]")
   In [15]: ax[0].legend()
 
-  In [16]: x1 = ell * np.sin(theta1)
-  In [17]: y1 = -ell * np.cos(theta1)
-  In [18]: x2 = x1 + ell * np.sin(theta2)
-  In [19]: y2 = y1 - ell * np.cos(theta2)
+  In [16]: x1 = +ℓ * np.sin(θ1)
+  In [17]: y1 = -ℓ * np.cos(θ1)
+  In [18]: x2 = x1 + ℓ * np.sin(θ2)
+  In [19]: y2 = y1 - ℓ * np.cos(θ2)
   In [20]: ax[1].plot(x1, y1, label=r"$(x_1, y_1)$")
   In [21]: ax[1].plot(x2, y2, label=r"$(x_2, y_2)$")
   In [22]: ax[1].set(xlabel=r"$x$", ylabel=r"$y$")
