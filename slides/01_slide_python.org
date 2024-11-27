@@ -132,9 +132,9 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
     >>> exit()
   #+END_SRC
 
-#+BEAMER: \pause\pause
+#+BEAMER: \pause
 
-- Interpréteur intéractif =ipython=
+- *Interpréteur intéractif =ipython=*
   - *historique des commandes* \to touches \faArrowCircleUp\xspace et \faArrowCircleDown
   - *auto-complétion* \to touche =<TAB>=
   - édition en ligne du code
@@ -355,7 +355,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
   #+END_SRC
 
 - Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][=Anaconda=]]
-* Connection à un serveur =jupyter=
+* COMMENT Connection à un serveur =jupyter=
 
 - Vous pouvez vous connecter sur les machines de l'université et initier une session Jupyter
 

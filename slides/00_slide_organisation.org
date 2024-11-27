@@ -102,15 +102,14 @@ enseignement, nous utiliserons _Python 3.7_
   
 * Déroulement cours/TD \faIcon{laptop-code}
 
-- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A3 ou amphi A1) à partir de 15h45
+- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A4 ou amphi A5) à partir de 15h45
 
 - TD ~ 1h30 
-  - Groupe 1 : salle 401
-  - Groupe 2 : salle 515
+  - Groupe 1 : salle 305
+  - Groupe 2 : salle 306
   - Groupe 3 : salle 305
-  - Groupe 4 : salle 306
     
-- *Mardi 16 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
+- *Mardi 14 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
   ressources du cours (transparents, TD corrigés, annales)
 
 * Contacts \faIcon{address-book}

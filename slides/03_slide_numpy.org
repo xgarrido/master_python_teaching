@@ -36,7 +36,7 @@
 
 * Documentation =numpy=
 
-- Documentation de référence du module http://docs.scipy.org/
+- Documentation de référence du module https://numpy.org/doc
 
 - Aide interactive
   #+BEGIN_SRC python
@@ -48,16 +48,16 @@
          5 ...
   #+END_SRC
 
-  #+BEAMER: \pause
-  #+BEGIN_SRC python
-    In [2]: np.lookfor("create array")
-         1 Search results for 'create array'
-         2 ---------------------------------
-         3 numpy.array
-         4     Create an array.
-         5 numpy.memmap
-         6     Create a memory-map to an array stored in a *binary* file on disk.
-  #+END_SRC
+  # #+BEAMER: \pause
+  # #+BEGIN_SRC python
+  #   In [2]: np.lookfor("create array")
+  #        1 Search results for 'create array'
+  #        2 ---------------------------------
+  #        3 numpy.array
+  #        4     Create an array.
+  #        5 numpy.memmap
+  #        6     Create a memory-map to an array stored in a *binary* file on disk.
+  # #+END_SRC
 
 * Création de vecteurs, matrices
 
@@ -143,7 +143,7 @@ http://www.scipy-lectures.org/intro/numpy/array_object.html#numpy-arrays
 
 * Pourquoi =numpy= \faIcon{question-circle}
 
-- Démonstration
+- Démonstration[fn:1bc7c507a7609f02]
   #+BEGIN_SRC python
     In [1]: %timeit [i**2 for i in range(1000)]
     183 µs ± 3.19 µs per loop (mean ± std. dev. of 7 runs, 10000 loops each)
@@ -308,8 +308,8 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
            [9, 8, 2, 0],
            [0, 5, 5, 4]])
 
-    In [3]: x[0][0], x[0, 0], x[2, -1]
-    Out[3]: (8, 8, 4)
+    In [3]: x[0, 0], x[2, -1]
+    Out[3]: (8, 4)
   #+END_SRC
 
 * Parcours par indice
@@ -412,8 +412,8 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
     Out[3]:
     array([[3, 3],
            [9, 8]])
-
     In [4]: xx[0, 0] = 0
+
     In [5]: x
     Out[5]:
     array([[0, 3, 6, 4],
@@ -430,8 +430,8 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
     Out[3]:
     array([[0, 3],
            [9, 8]])
-
     In [4]: xx[0, 0] = 666
+
     In [5]: x
     Out[5]:
     array([[0, 3, 6, 4],
@@ -969,12 +969,13 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
 #+RESULTS:
 
-
 * Footnotes
 
 [fn:e0eb780c73d6562] les principales fonctions de =numpy= sont implémentées en C
 et en Fortran
 
 [fn:ea2b86f523276c9] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.01-Understanding-Data-Types.ipynb#Understanding-Data-Types-in-Python][discussion]]
+
+[fn:1bc7c507a7609f02] =%timeit= est une commande /magique/ de =ipython=
 
 [fn:1c1516c060af0c15] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.05-Computation-on-arrays-broadcasting.ipynb#Computation-on-Arrays:-Broadcasting][discussion]]
