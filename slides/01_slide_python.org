@@ -251,19 +251,19 @@ Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-p
     Out[4]: 0.5
   #+END_SRC
 
-#+BEGIN_REMARK
-On notera que le nombre complexe $i$ est noté =j= ou =J= en Python
-#+END_REMARK
+  #+BEGIN_REMARK
+  On notera que le nombre complexe $i$ est noté =j= ou =J= en Python
+  #+END_REMARK
 
-#+BEGIN_SRC python
-  In [1]: j = 5
- 
-  In [2]: 2 + 5*j
-  Out[2]: 27
- 
-  In [3]: 2 + 5j
-  Out[3]: (2+5j)
-#+END_SRC
+  #+BEGIN_SRC python
+    In [1]: j = 5
+   
+    In [2]: 2 + 5*j
+    Out[2]: 27
+   
+    In [3]: 2 + 5j
+    Out[3]: (2+5j)
+  #+END_SRC
 
 * Type fondamentaux
 

@@ -725,16 +725,15 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 #+BEGIN_SRC python
   In [1]: import numpy as np
   In [2]: import matplotlib.pyplot as plt
-  In [3]: %matplotlib
 
-  In [4]: x = np.linspace(0, 5, 500)
-  In [5]: y = np.linspace(0, 5, 500)[:, np.newaxis]
-  In [6]: z = np.sin(x)**10 + np.cos(x*y)*np.cos(x)
-  In [7]: x.shape, y.shape, z.shape
-  Out[7]: ((500,), (500, 1), (500, 500))
+  In [3]: x = np.linspace(0, 5, 500)
+  In [4]: y = np.linspace(0, 5, 500)[:, np.newaxis]
+  In [5]: z = np.sin(x)**10 + np.cos(x * y) * np.cos(x)
+  In [6]: x.shape, y.shape, z.shape
+  Out[6]: ((500,), (500, 1), (500, 500))
 
-  In [8]: plt.imshow(z, extent=[0, 5, 0, 5])
-  In [9]: plt.colorbar();
+  In [7]: plt.imshow(z, extent=[0, 5, 0, 5])
+  In [8]: plt.colorbar();
 #+END_SRC
 
 ** Color map

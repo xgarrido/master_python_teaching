@@ -41,25 +41,25 @@
   - recherche de valeurs/vecteurs propres
   - pivot de Gauss, décomposition en valeurs singulières, ...
 
-#+BEAMER: \pause
-
-#+BEGIN_SRC python
-  In [1]: from scipy import linalg
-
-  In [2]: A = np.random.rand(2, 2)
-  In [3]: A
-  Out[3]:
-  array([[ 0.38005786,  0.06901768],
-         [ 0.86144407,  0.03601743]])
-
-  In [4]: linalg.det(A)
-  Out[4]: -0.045766161972959955
-
-  In [5]: linalg.inv(A) * linalg.det(A)
-  Out[5]:
-  array([[ 0.03601743, -0.06901768],
-         [-0.86144407,  0.38005786]])
-#+END_SRC
+  #+BEAMER: \pause
+   
+  #+BEGIN_SRC python
+    In [1]: from scipy import linalg
+   
+    In [2]: A = np.random.rand(2, 2)
+    In [3]: A
+    Out[3]:
+    array([[ 0.38005786,  0.06901768],
+           [ 0.86144407,  0.03601743]])
+   
+    In [4]: linalg.det(A)
+    Out[4]: -0.045766161972959955
+   
+    In [5]: linalg.inv(A) * linalg.det(A)
+    Out[5]:
+    array([[ 0.03601743, -0.06901768],
+           [-0.86144407,  0.38005786]])
+  #+END_SRC
 
 * *=scipy.linalg=* : algèbre linéaire
 
@@ -309,10 +309,10 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 #+BEAMER: \scriptsize
 #+BEGIN_SRC latex
   \begin{align*}
-    \dot{y}_1&=\frac{6}{m\ell^2}\times\frac{2y_3-3\cos(y_1-y_2)y_4}{16-9\cos^2(y_1-y_2)}\\
-    \dot{y}_2&=\frac{6}{m\ell^2}\times\frac{8y_4-3\cos(y_1-y_2)y_3}{16-9\cos^2(y_1-y_2)}\\
-    \dot{y}_3&=-\frac{1}{2}m\ell^2\left[\dot{y}_1\dot{y}_2\sin(y_1-y_2)+3\frac{g}{\ell}\sin y_1\right]\\
-    \dot{y}_4&=-\frac{1}{2}m\ell^2\left[-\dot{y}_1\dot{y}_2\sin(y_1-y_2)+\frac{g}{\ell}\sin y_2\right]\\
+    \dot{y}_0&=\frac{6}{m\ell^2}\times\frac{2y_2-3\cos(y_0-y_1)y_3}{16-9\cos^2(y_0-y_1)}\\
+    \dot{y}_1&=\frac{6}{m\ell^2}\times\frac{8y_3-3\cos(y_0-y_1)y_2}{16-9\cos^2(y_0-y_1)}\\
+    \dot{y}_2&=-\frac{1}{2}m\ell^2\left[\dot{y}_0\dot{y}_1\sin(y_0-y_1)+3\frac{g}{\ell}\sin y_0\right]\\
+    \dot{y}_3&=-\frac{1}{2}m\ell^2\left[-\dot{y}_0\dot{y}_1\sin(y_0-y_1)+\frac{g}{\ell}\sin y_1\right]\\
   \end{align*}
 #+END_SRC
 
@@ -326,8 +326,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   ...:
   ...:     dθ1 = 6.0 / m / ℓ**2 * (2 * p1 - 3 * np.cos(θ1 - θ2) * p2) / (16 - 9 * np.cos(θ1 - θ2)**2)
   ...:     dθ2 = 6.0 / m / ℓ**2 * (8 * p2 - 3 * np.cos(θ1 - θ2) * p1) / (16 - 9 * np.cos(θ1 - θ2)**2)
-  ...:     dp1 = -0.5 * m * ℓ**2 * (+dp1 * dy2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
-  ...:     dp2 = -0.5 * m * ℓ**2 * (-dp1 * dy2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
+  ...:     dp1 = -0.5 * m * ℓ**2 * (+dθ1 * dθ2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
+  ...:     dp2 = -0.5 * m * ℓ**2 * (-dθ1 * dθ2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
   ...:
   ...:     return dθ1, dθ2, dp1, dp2
 #+END_SRC
@@ -343,8 +343,8 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
   ...:
   ...:     dθ1 = 6.0 / m / ℓ**2 * (2 * p1 - 3 * np.cos(θ1 - θ2) * p2) / (16 - 9 * np.cos(θ1 - θ2)**2)
   ...:     dθ2 = 6.0 / m / ℓ**2 * (8 * p2 - 3 * np.cos(θ1 - θ2) * p1) / (16 - 9 * np.cos(θ1 - θ2)**2)
-  ...:     dp1 = -0.5 * m * ℓ**2 * (+dp1 * dy2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
-  ...:     dp2 = -0.5 * m * ℓ**2 * (-dp1 * dy2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
+  ...:     dp1 = -0.5 * m * ℓ**2 * (+dθ1 * dθ2 * np.sin(θ1 - θ2) + 3 * g / ℓ * np.sin(θ1))
+  ...:     dp2 = -0.5 * m * ℓ**2 * (-dθ1 * dθ2 * np.sin(θ1 - θ2) + 1 * g / ℓ * np.sin(θ2))
   ...:
   ...:     return dθ1, dθ2, dp1, dp2
 
