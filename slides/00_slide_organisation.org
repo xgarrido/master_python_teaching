@@ -1,5 +1,5 @@
 #+TITLE:  Présentation & Organisation
-#+AUTHOR: Angélique Campaniello & Xavier Garrido
+#+AUTHOR: Jade Pasté & Xavier Garrido
 #+DATE:   14/01/2017
 #+OPTIONS: toc:nil ^:{}
 #+STARTUP: beamer
@@ -109,12 +109,12 @@ enseignement, nous utiliserons _Python 3.7_
   - Groupe 2 : salle 306
   - Groupe 3 : salle 305
     
-- *Mardi 14 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
+- *Mardi 13 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
   ressources du cours (transparents, TD corrigés, annales)
 
 * Contacts \faIcon{address-book}
 
-- Angélique Campaniello [[mailto:angelique.campaniello@universite-paris-saclay.fr][*angelique.campaniello@universite-paris-saclay.fr*]]
+- Jade Pasté [[mailto:angelique.campaniello@universite-paris-saclay.fr][*jade.paste@universite-paris-saclay.fr*]]
 - Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
   
 * COMMENT Notes/transparents de cours \faIcon{archive}
