@@ -5,118 +5,6 @@
 #+STARTUP:     beamer
 #+LATEX_CLASS: python-slide
 
-* COMMENT Environnements virtuels
-
-- Un environnement virtuel permet d'avoir des installations de Python décorrélées les unes des
-  autres et *isolées du système*
-  - permet de travailler avec différentes versions de Python (version 2.X, 3.X)
-  - permet de travailler avec différentes versions de modules (=matplotlib=,
-    =numpy=,...)
-  - *permet de nous affranchir des droits administrateurs*
-
-* COMMENT Environnements virtuels
-
-- Déclaration d'un environnement virtuel
-  #+BEGIN_SRC shell-session
-    @\prompt@ python3.7 -m venv ~/python.d/my_python_env
-
-    @\prompt@ ls ~/python.d/my_python_env
-    bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg  share
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Chargement de l'environnement virtuel
-  #+BEGIN_SRC shell-session
-    @\prompt@ source ~/python.d/my_python_env/bin/activate
-
-    @\prompt@ which python
-    ~/python.d/my_python_env/bin/python
-  #+END_SRC
-
-#+BEGIN_REMARK
-La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
-#+END_REMARK
-
-* COMMENT Gestionnaire de modules =pip=
-
-- =pip= est *un système de gestion de paquets* utilisé pour installer et gérer des librairies écrites en
-  Python
-  - gestion des versions de modules/librairies (=matplotlib=, =numpy=, =django=, ...)
-  - gestion & installation des dépendances
-
-#+BEAMER: \pause
-
-#+BEGIN_SRC latex
-  \begin{center}
-    \begin{tikzpicture}[
-        grow=down,
-        linet/.style={very thick,draw=gray!60,
-          shorten >=0pt, shorten <=0pt, ->},
-        punkt/.style={rectangle, rounded corners, shade, top color=white,
-          bottom color=gray!10, draw=gray!60, very
-          thick, text centered, text width=5em, text height=0.2cm}
-      ]
-      \ttfamily\color{gray}
-      \path (0,0) node(a) [punkt] {matplotlib}
-      (-2.5,+1.5) node(b) [punkt] {numpy}
-      (+0.0,+1.5) node(c) [punkt] {dateutil}
-      (+2.5,+1.5) node(d) [punkt] {...};
-      \draw[linet] (a) -- (b);
-      \draw[linet] (a) -- (c);
-      \draw[linet] (a) -- (d);
-    \end{tikzpicture}
-  \end{center}
-#+END_SRC
-
-#+BEAMER: \pause
-
-- Liste des libraries consultables sur le site [[https://pypi.python.org/pypi][/Python Package Index/]] (212 635 paquets)
-
-* COMMENT Gestionnaire de modules =pip=
-
-- Installation d'un module
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip install matplotlib
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Installation d'une version donnée d'un module
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip install matplotlib==1.5.0
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Suppression d'un module
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip uninstall matplotlib
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Mise à jour d'un module
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip install matplotlib --upgrade
-  #+END_SRC
-
-* COMMENT Gestionnaire de modules =pip=
-
-- Liste des modules installés
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip freeze
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Liste des modules pouvant être mis à jour
-  #+BEGIN_SRC shell-session
-    @\prompt@ pip list --outdated
-  #+END_SRC
-
-- Documentation de =pip= et de ses commandes [[https://pip.pypa.io][https://pip.pypa.io]]
-
 * Interpréteurs =python=
 
 - Contrairement à d'autres langages (C, fortran, ...), un programme =python= n'a pas à être compilé
@@ -189,90 +77,6 @@ La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
     In [3]: import cmath
     In [4]: help(cmath)
   #+END_SRC
-
-* COMMENT Interpréteur =ipython=
-
-- Historique des commandes
-  #+BEGIN_SRC python
-    In [1]: x = 10
-
-    In [2]: <UP>
-
-    In [2]: x = 10
-  #+END_SRC
-
-#+BEAMER: \pause
-
-- Auto-complétion
-  #+BEGIN_SRC python
-    In [1]: x = 10
-
-    In [2]: x.<TAB>
-    x.bit_length   x.denominator  x.imag         x.real
-    x.conjugate    x.from_bytes   x.numerator    x.to_bytes
-  #+END_SRC
-
-* COMMENT Interpréteur =ipython=
-
-Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
-
-- =%whos= : afficher un résumé des variables déclarées
-  #+BEGIN_SRC python
-    In [1]: x = 10
-
-    In [2]: %whos
-    Variable   Type    Data/Info
-    ----------------------------
-    x          int     10
-  #+END_SRC
-
-- =%timeit= : évalue le temps moyen d'exécution d'un code
-  #+BEGIN_SRC python
-    In [1]: %timeit x = 10
-    10000000 loops, best of 3: 13.7 ns per loop
-  #+END_SRC
-
-* COMMENT Interpréteur =ipython=
-
-Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
-
-- =%history= : affiche l'historique des commandes tapées depuis la session courante de =ipython=
-  #+BEGIN_SRC python
-    In [1]: x = 10
-
-    In [2]: %history
-    x = 10
-    %history
-  #+END_SRC
-
-  La commande =%history -g= vous retournera l'ensemble des commandes saisies depuis la toute première
-  session =ipython=.
-
-* COMMENT Interpréteur =ipython=
-
-=ipython= fournit enfin des alias vers les commandes unix standards
-
-#+BEGIN_SRC python
-  In [1]: alias
-  Total number of aliases: 16
-  Out[1]:
-  [('cat', 'cat'),
-   ('clear', 'clear'),
-   ('cp', 'cp'),
-   ('ldir', 'ls -F -o --color %l | grep /$'),
-   ('less', 'less'),
-   ('lf', 'ls -F -o --color %l | grep ^-'),
-   ('lk', 'ls -F -o --color %l | grep ^l'),
-   ('ll', 'ls -F -o --color'),
-   ('ls', 'ls -F --color'),
-   ('lx', 'ls -F -o --color %l | grep ^-..x'),
-   ('man', 'man'),
-   ('mkdir', 'mkdir'),
-   ('more', 'more'),
-   ('mv', 'mv'),
-   ('rm', 'rm'),
-   ('rmdir', 'rmdir')]
-#+END_SRC
 
 * Comment et où écrire un programme =python= ?
 
@@ -355,27 +159,12 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
   #+END_SRC
 
 - Sous Windows, Mac \to passer sous Linux ou utiliser [[https://docs.anaconda.com/anaconda/navigator/][=Anaconda=]]
-* COMMENT Connection à un serveur =jupyter=
-
-- Vous pouvez vous connecter sur les machines de l'université et initier une session Jupyter
-
-  1) depuis votre ordinateur personnel
-     #+BEGIN_SRC shell-session
-       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@ssh1.pgip.universite-paris-saclay.fr
-     #+END_SRC
-
-  2) une fois la connection =ssh= établie
-     #+BEGIN_SRC shell-session
-       @\prompt@ jupyter lab --port 8891 --no-browser
-     #+END_SRC
-     puis ouvrir le lien dans un navigateur web 
-
 * Connection à un serveur =jupyter=
 
 - Vous pouvez également utiliser la plateforme Jupyter de Paris-Saclay
 
   #+BEGIN_CENTER
-  https://jupyterhub.ijclab.in2p3.fr
+  https://mydocker.universite-paris-saclay.fr
   #+END_CENTER
 
 - Vous pouvez finalement utiliser Google Colaboratory
@@ -519,24 +308,6 @@ Toute valeur différente de 0 est considérée comme vraie
 http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb#Type-casting
 #+END_COMMENT
 
-* COMMENT Conversion explicite
-
-- Nombre entier \to nombre complexe
-  #+BEGIN_SRC python
-    In [1]: z = complex(i)
-    In [2]: z
-    Out[2]: (2+0j)
-  #+END_SRC
-
-#+BEAMER: \pause
-- Nombre complexe \to nombre flottant
-  #+BEGIN_SRC python
-    In [1]: z = 1.5 + 0.5j
-    In [2]: x = float(z.imag)
-    In [3]: x
-    Out[3]: 0.5
-  #+END_SRC
-
 * Opérations & comparaisons
 
 - Opérations arithmétiques =+=, =-=, =*=, =/=, =//= division entière, =**= puissance, =%= modulo
@@ -641,20 +412,6 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     Out[2]: (1.0, 10.0)
   #+END_SRC
 
-* COMMENT Application : échange de deux valeurs
-
-  #+BEGIN_SRC python
-    In [1]: x, y = 1.0, 2.0
-
-    In [2]: x, y
-    Out[2]: (1.0, 2.0)
-
-    In [3]: x, y = y, x
-
-    In [4]: x, y
-    Out[4]: (2.0, 1.0)
-  #+END_SRC
-
 * Recommandations & autres bonnes pratiques
 
 - Parmi les bonnes pratiques de programmation, le nom des variables doit être le
@@ -693,14 +450,6 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
     TypeError: 'int' object is not callable
   #+END_SRC
 
-* COMMENT Intermède /geek/
-
-#+ATTR_LATEX: :width 0.65\linewidth
-[[file:figures/ballmer_peak.png]]
-
-#+BEAMER:\scriptsize\hfill$^\dagger$
-[[http://xkcd.com/323/][xkcd comic]]
-
 * Structure conditionnelle
 ** =if= python
 :PROPERTIES:
@@ -728,48 +477,6 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 - la fin de chaque condition est matérialisée par *le caractère =:=*
 - *l'indentation (2 espaces ou une tabulation) délimite le bloc de condition*
 # - dans =ipython=, appuyer sur =Entrée= deux fois pour exécuter le bloc
-
-* COMMENT Structure conditionnelle
-
-** =if= python
-:PROPERTIES:
-:BEAMER_COL: 0.5
-:END:
-#+BEGIN_SRC python
-  In [1]: test1 = False
-     ...: test2 = False
-     ...:
-     ...: if test1:
-     ...:     print("test1 est True")
-     ...:
-     ...: elif test2:
-     ...:     print("test2 est True")
-     ...:
-     ...: else:
-     ...:     print("test1 & test2 sont False")
-#+END_SRC
-
-** =if= C/C++
-:PROPERTIES:
-:BEAMER_COL: 0.6
-:END:
-#+BEGIN_SRC C++
-  bool test1 = false;
-  bool test2 = false;
-
-  if (test1)
-    {
-      cout << "test1 est True" << endl;
-    }
-   else if (test2)
-     {
-       cout << "test2 est True" << endl;
-     }
-   else
-     {
-       cout << "test1 & test2 sont False" << endl;
-     }
-#+END_SRC
 
 * Structure conditionnelle
 
@@ -905,5 +612,298 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
   L'instruction =continue= est particulièrement utile afin d'éviter une trop grande
   imbrication d'instructions =if= successives.
   #+END_REMARK
+
+* COMMENT Old stuff
+** COMMENT Environnements virtuels
+
+- Un environnement virtuel permet d'avoir des installations de Python décorrélées les unes des
+  autres et *isolées du système*
+  - permet de travailler avec différentes versions de Python (version 2.X, 3.X)
+  - permet de travailler avec différentes versions de modules (=matplotlib=,
+    =numpy=,...)
+  - *permet de nous affranchir des droits administrateurs*
+
+** COMMENT Environnements virtuels
+
+- Déclaration d'un environnement virtuel
+  #+BEGIN_SRC shell-session
+    @\prompt@ python3.7 -m venv ~/python.d/my_python_env
+
+    @\prompt@ ls ~/python.d/my_python_env
+    bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg  share
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Chargement de l'environnement virtuel
+  #+BEGIN_SRC shell-session
+    @\prompt@ source ~/python.d/my_python_env/bin/activate
+
+    @\prompt@ which python
+    ~/python.d/my_python_env/bin/python
+  #+END_SRC
+
+#+BEGIN_REMARK
+La commande =source= doit être exécutée à chaque nouvelle session\nbsp!
+#+END_REMARK
+
+** COMMENT Gestionnaire de modules =pip=
+
+- =pip= est *un système de gestion de paquets* utilisé pour installer et gérer des librairies écrites en
+  Python
+  - gestion des versions de modules/librairies (=matplotlib=, =numpy=, =django=, ...)
+  - gestion & installation des dépendances
+
+#+BEAMER: \pause
+
+#+BEGIN_SRC latex
+  \begin{center}
+    \begin{tikzpicture}[
+        grow=down,
+        linet/.style={very thick,draw=gray!60,
+          shorten >=0pt, shorten <=0pt, ->},
+        punkt/.style={rectangle, rounded corners, shade, top color=white,
+          bottom color=gray!10, draw=gray!60, very
+          thick, text centered, text width=5em, text height=0.2cm}
+      ]
+      \ttfamily\color{gray}
+      \path (0,0) node(a) [punkt] {matplotlib}
+      (-2.5,+1.5) node(b) [punkt] {numpy}
+      (+0.0,+1.5) node(c) [punkt] {dateutil}
+      (+2.5,+1.5) node(d) [punkt] {...};
+      \draw[linet] (a) -- (b);
+      \draw[linet] (a) -- (c);
+      \draw[linet] (a) -- (d);
+    \end{tikzpicture}
+  \end{center}
+#+END_SRC
+
+#+BEAMER: \pause
+
+- Liste des libraries consultables sur le site [[https://pypi.python.org/pypi][/Python Package Index/]] (212 635 paquets)
+
+** COMMENT Gestionnaire de modules =pip=
+
+- Installation d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Installation d'une version donnée d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib==1.5.0
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Suppression d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip uninstall matplotlib
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Mise à jour d'un module
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip install matplotlib --upgrade
+  #+END_SRC
+
+** COMMENT Gestionnaire de modules =pip=
+
+- Liste des modules installés
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip freeze
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Liste des modules pouvant être mis à jour
+  #+BEGIN_SRC shell-session
+    @\prompt@ pip list --outdated
+  #+END_SRC
+
+- Documentation de =pip= et de ses commandes [[https://pip.pypa.io][https://pip.pypa.io]]
+
+** COMMENT Interpréteur =ipython=
+
+- Historique des commandes
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: <UP>
+
+    In [2]: x = 10
+  #+END_SRC
+
+#+BEAMER: \pause
+
+- Auto-complétion
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: x.<TAB>
+    x.bit_length   x.denominator  x.imag         x.real
+    x.conjugate    x.from_bytes   x.numerator    x.to_bytes
+  #+END_SRC
+
+** COMMENT Interpréteur =ipython=
+
+Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
+
+- =%whos= : afficher un résumé des variables déclarées
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: %whos
+    Variable   Type    Data/Info
+    ----------------------------
+    x          int     10
+  #+END_SRC
+
+- =%timeit= : évalue le temps moyen d'exécution d'un code
+  #+BEGIN_SRC python
+    In [1]: %timeit x = 10
+    10000000 loops, best of 3: 13.7 ns per loop
+  #+END_SRC
+
+** COMMENT Interpréteur =ipython=
+
+Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =%=
+
+- =%history= : affiche l'historique des commandes tapées depuis la session courante de =ipython=
+  #+BEGIN_SRC python
+    In [1]: x = 10
+
+    In [2]: %history
+    x = 10
+    %history
+  #+END_SRC
+
+  La commande =%history -g= vous retournera l'ensemble des commandes saisies depuis la toute première
+  session =ipython=.
+
+** COMMENT Interpréteur =ipython=
+
+=ipython= fournit enfin des alias vers les commandes unix standards
+
+#+BEGIN_SRC python
+  In [1]: alias
+  Total number of aliases: 16
+  Out[1]:
+  [('cat', 'cat'),
+   ('clear', 'clear'),
+   ('cp', 'cp'),
+   ('ldir', 'ls -F -o --color %l | grep /$'),
+   ('less', 'less'),
+   ('lf', 'ls -F -o --color %l | grep ^-'),
+   ('lk', 'ls -F -o --color %l | grep ^l'),
+   ('ll', 'ls -F -o --color'),
+   ('ls', 'ls -F --color'),
+   ('lx', 'ls -F -o --color %l | grep ^-..x'),
+   ('man', 'man'),
+   ('mkdir', 'mkdir'),
+   ('more', 'more'),
+   ('mv', 'mv'),
+   ('rm', 'rm'),
+   ('rmdir', 'rmdir')]
+#+END_SRC
+
+** COMMENT Connection à un serveur =jupyter=
+
+- Vous pouvez vous connecter sur les machines de l'université et initier une session Jupyter
+
+  1) depuis votre ordinateur personnel
+     #+BEGIN_SRC shell-session
+       @\prompt@ ssh -L 8891:localhost:8891 prenom.nom@ssh1.pgip.universite-paris-saclay.fr
+     #+END_SRC
+
+  2) une fois la connection =ssh= établie
+     #+BEGIN_SRC shell-session
+       @\prompt@ jupyter lab --port 8891 --no-browser
+     #+END_SRC
+     puis ouvrir le lien dans un navigateur web 
+
+** COMMENT Conversion explicite
+
+- Nombre entier \to nombre complexe
+  #+BEGIN_SRC python
+    In [1]: z = complex(i)
+    In [2]: z
+    Out[2]: (2+0j)
+  #+END_SRC
+
+#+BEAMER: \pause
+- Nombre complexe \to nombre flottant
+  #+BEGIN_SRC python
+    In [1]: z = 1.5 + 0.5j
+    In [2]: x = float(z.imag)
+    In [3]: x
+    Out[3]: 0.5
+  #+END_SRC
+
+** COMMENT Application : échange de deux valeurs
+
+  #+BEGIN_SRC python
+    In [1]: x, y = 1.0, 2.0
+
+    In [2]: x, y
+    Out[2]: (1.0, 2.0)
+
+    In [3]: x, y = y, x
+
+    In [4]: x, y
+    Out[4]: (2.0, 1.0)
+  #+END_SRC
+** COMMENT Intermède /geek/
+
+#+ATTR_LATEX: :width 0.65\linewidth
+[[file:figures/ballmer_peak.png]]
+
+#+BEAMER:\scriptsize\hfill$^\dagger$
+[[http://xkcd.com/323/][xkcd comic]]
+
+** COMMENT Structure conditionnelle
+
+*** =if= python
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+BEGIN_SRC python
+  In [1]: test1 = False
+     ...: test2 = False
+     ...:
+     ...: if test1:
+     ...:     print("test1 est True")
+     ...:
+     ...: elif test2:
+     ...:     print("test2 est True")
+     ...:
+     ...: else:
+     ...:     print("test1 & test2 sont False")
+#+END_SRC
+
+*** =if= C/C++
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+#+BEGIN_SRC C++
+  bool test1 = false;
+  bool test2 = false;
+
+  if (test1)
+    {
+      cout << "test1 est True" << endl;
+    }
+   else if (test2)
+     {
+       cout << "test2 est True" << endl;
+     }
+   else
+     {
+       cout << "test1 & test2 sont False" << endl;
+     }
+#+END_SRC
 
 
