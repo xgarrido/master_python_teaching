@@ -84,16 +84,20 @@ although it is not added by default as a security precaution.
 Code fragments are syntax highlighted using [[https://code.google.com/p/minted/][minted]] LaTeX package
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-latex-listings 'minted)
-  (setq org-latex-minted-options
-        '(;;("frame" "lines")
-          ("fontsize" "\\footnotesize")
-          ("mathescape" "")
-          ("escapeinside" "@@")
-          ("xrightmargin" "0.cm")
-          ("xleftmargin"  "0.cm")
-          ("bgcolor" "solarizedbg")
-          ))
+       (setq org-latex-listings 'minted)
+       (setq org-latex-minted-options
+             '(;;("frame" "lines")
+               ("fontsize" "\\footnotesize")
+               ("mathescape" "true")
+               ("escapeinside" "@@")
+               ("xrightmargin" "0.5em")
+               ("xleftmargin"  "0.5em")
+               ("bgcolor" "solarizedbg")
+               ("frame" "single")
+               ("framesep" "0mm")
+               ("framerule" "1mm")
+               ("rulecolor" "\\color{solarizedbg}")
+               ))
 #+END_SRC
 
 *** Default list of LaTeX packages
