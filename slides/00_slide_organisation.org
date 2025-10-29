@@ -114,7 +114,7 @@ enseignement, nous utiliserons _Python 3.7_
 
 * Contacts \faIcon{address-book}
 
-- Jade Pasté [[mailto:angelique.campaniello@universite-paris-saclay.fr][*jade.paste@universite-paris-saclay.fr*]]
+- Jade Pasté [[mailto:jade.paste@universite-paris-saclay.fr][*jade.paste@universite-paris-saclay.fr*]]
 - Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
   
 * COMMENT Notes/transparents de cours \faIcon{archive}
