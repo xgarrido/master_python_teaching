@@ -6,17 +6,6 @@
 #+LATEX_CLASS: python-slide
 # #+BEAMER_HEADER: \institute{IJC Lab, bâtiment 200, Orsay}
 
-* COMMENT Langage Python \faPython
-
-#+BEGIN_QUOTE
-Python est un langage de programmation, dont la première version est sortie en *1991*. Créé par *Guido
-van Rossum*, il a voyagé du Macintosh de son créateur, qui travaillait à cette époque au Centrum voor
-Wiskunde en Informatica aux Pays-Bas, jusqu'à se voir associer une organisation à but non lucratif
-particulièrement dévouée, la *[[https://www.python.org/][Python Software Foundation]]*, créée en 2001. Ce langage a été baptisé
-ainsi en hommage à la troupe de comiques les *« Monty Python »*.
-#+END_QUOTE
-
-#+COMMENT: Python v1.0.0 https://groups.google.com/forum/?hl=en#!topic/comp.lang.misc/_QUzdEGFwCo
 * Langage Python \faPython
 
 - *Un langage simple et clair*
@@ -53,18 +42,6 @@ ainsi en hommage à la troupe de comiques les *« Monty Python »*.
   - langage de programmation interprété et typé dynamiquement \to *exécution du code python plus
     lente* par rapport aux langages de programmation compilés statiquement, tels que C ou Fortran.
 
-* COMMENT Langage Python : /pros & cons/
-
-#+BEGIN_REMARK
-_Python 2 ou Python 3 ?_
-
-#+LATEX: \vskip+5pt
-
-En 2008, Python 3 a été officiellement lancé. Quelques (vieilles) librairies scientifiques ne
-fonctionnent pas encore sous Python 3 mais c'est de plus en plus l'exception. Au cours de cet
-enseignement, nous utiliserons _Python 3.7_
-#+END_REMARK
-
 * Programme du cours \faIcon{list-ol}
 
 - Bases de la programmation en Python (2 séances)
@@ -93,7 +70,7 @@ enseignement, nous utiliserons _Python 3.7_
   - _Outils statistiques & Générateurs aléatoires_
   - _Interpolation, intégration numérique, traitement du signal..._
 
-* Bibliographie \faIcon{bookmark}
+* Bibliographie \faIcon{book}
 
 - /Open Classrooms/ : [[https://openclassrooms.com/courses/apprenez-a-programmer-en-python][Apprenez à programmer en Python]]
 - [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
@@ -102,7 +79,7 @@ enseignement, nous utiliserons _Python 3.7_
   
 * Déroulement cours/TD \faIcon{laptop-code}
 
-- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A4 ou amphi A5) à partir de 15h45
+- Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A1 ou amphi A5) à partir de 15h45
 
 - TD ~ 1h30 
   - Groupe 1 : salle 305
@@ -115,14 +92,38 @@ enseignement, nous utiliserons _Python 3.7_
 * Contacts \faIcon{address-book}
 
 - Jade Pasté [[mailto:jade.paste@universite-paris-saclay.fr][*jade.paste@universite-paris-saclay.fr*]]
-- Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]] 
-  
-* COMMENT Notes/transparents de cours \faIcon{archive}
+- Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]]  
+
+* COMMENT Old stuff 
+** Langage Python \faPython
+
+#+BEGIN_QUOTE
+Python est un langage de programmation, dont la première version est sortie en *1991*. Créé par *Guido
+van Rossum*, il a voyagé du Macintosh de son créateur, qui travaillait à cette époque au Centrum voor
+Wiskunde en Informatica aux Pays-Bas, jusqu'à se voir associer une organisation à but non lucratif
+particulièrement dévouée, la *[[https://www.python.org/][Python Software Foundation]]*, créée en 2001. Ce langage a été baptisé
+ainsi en hommage à la troupe de comiques les *« Monty Python »*.
+#+END_QUOTE
+
+#+COMMENT: Python v1.0.0 https://groups.google.com/forum/?hl=en#!topic/comp.lang.misc/_QUzdEGFwCo
+** Langage Python : /pros & cons/
+
+#+BEGIN_REMARK
+_Python 2 ou Python 3 ?_
+
+#+LATEX: \vskip+5pt
+
+En 2008, Python 3 a été officiellement lancé. Quelques (vieilles) librairies scientifiques ne
+fonctionnent pas encore sous Python 3 mais c'est de plus en plus l'exception. Au cours de cet
+enseignement, nous utiliserons _Python 3.7_
+#+END_REMARK
+
+** Notes/transparents de cours \faIcon{archive}
 :PROPERTIES:
 :BEAMER_OPT: fragile
 :END:
 
-** Dokeos /tree/
+*** Dokeos /tree/
 :PROPERTIES:
 :BEAMER_COL: 0.4
 :END:
@@ -156,7 +157,7 @@ enseignement, nous utiliserons _Python 3.7_
   \end{tikzpicture}
 #+END_SRC
 
-** Ressources Dokeos
+*** Ressources Dokeos
 :PROPERTIES:
 :BEAMER_COL: 0.7
 :END:
