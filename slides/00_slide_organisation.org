@@ -46,8 +46,8 @@
 
 - Bases de la programmation en Python (2 séances)
   - environnement Python : interpréteurs, IDE
-  - type de données, /containers/, bloc conditionnel, boucles =for=
-  - fonctions, scripts & modules, initiation à la programmation orientée objet
+  - type de données, bloc conditionnel, boucles =for=, /containers/
+  - fonctions, scripts & modules
 
 #+BEAMER: \pause
 

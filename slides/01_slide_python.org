@@ -453,7 +453,7 @@ Contrairement au C/C++, les opérateurs =++= et =--= n'existent pas en Python.
 * Structure conditionnelle
 ** =if= python
 :PROPERTIES:
-:BEAMER_COL: 0.5
+:BEAMER_COL: 0.51
 :END:
 #+BEGIN_SRC python
   In [1]: is_python = True
