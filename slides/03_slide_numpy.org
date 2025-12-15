@@ -390,7 +390,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
   #+RESULTS:
 
 - La fonction =np.diag_indices= retourne les couples de valeurs d'indices correspondant à la diagonale
-  d'une matrice carrée
+  d'une matrice carrée tandis que la fonction =np.diag= extrait la diagonale
 
 * Sélection par indice
 
@@ -577,7 +577,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 - Toutefois, la formulation =np.sum()= propre à =numpy= présente l'avantage d'être
   nettement plus rapide (code compilé) en plus d'être plus générale
   #+BEGIN_SRC python
-    In [4]: big_array = np.random.rand(1000000)
+    In [4]: big_array = np.random.rand(1_000_000)
 
     In [5]: %timeit sum(big_array)
     10 loops, best of 3: 82.9 ms per loop
@@ -719,7 +719,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
 ** Python code
 :PROPERTIES:
-:BEAMER_COL: 0.55
+:BEAMER_COL: 0.56
 :END:
 
 #+BEGIN_SRC python

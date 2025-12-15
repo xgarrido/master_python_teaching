@@ -74,11 +74,11 @@
 
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
-    In [1]: population_dict = {"California": 38332521,
-                               "Texas": 26448193,
-                               "New York": 19651127,
-                               "Florida": 19552860,
-                               "Illinois": 12882135}
+    In [1]: population_dict = {"California": 38_332_521,
+                               "Texas": 26_448_193,
+                               "New York": 19_651_127,
+                               "Florida": 19_552_860,
+                               "Illinois": 12_882_135}
     In [2]: population = pd.Series(population_dict)
     In [3]: population
     Out[3]:
@@ -107,12 +107,11 @@
 
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
-    In [6]: area_dict = {"California": 423967, "Texas": 695662, "New York": 141297,
-                         "Florida": 170312, "Illinois": 149995}
+    In [6]: area_dict = {"California": 423_967, "Texas": 695_662, "New York": 141_297,
+                         "Florida": 170_312, "Illinois": 149_995}
     In [7]: area = pd.Series(area_dict)
 
-    In [8]: states = pd.DataFrame({"population": population,
-                                   "area": area})
+    In [8]: states = pd.DataFrame({"population": population, "area": area})
     In [9]: states
     Out[9]:
                 population    area
@@ -186,7 +185,7 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
 - Ajout de données
   #+ATTR_LATEX: :options fontsize=\scriptsize
   #+BEGIN_SRC python
-    In [17]: states["density"] = states["population"]/states["area"]
+    In [17]: states["density"] = states["population"] / states["area"]
     In [18]: states
     Out[18]:
                 population    area     density
@@ -209,10 +208,10 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
 * =pandas= par l'exemple
 
 - Il existe pléthore de ressources sur internet
-  - documentation officielle de [[https://pandas.pydata.org/pandas-docs/stable/pandas.pdf][=pandas=]] (3021 pages !)
+  - documentation officielle de [[https://pandas.pydata.org/pandas-docs/stable/pandas.pdf][=pandas=]] ($\gtrsim$ 3000 pages !)
   - /Python Data Science Handbook/ et son chapitre sur [[https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html][=pandas=]]
   - multitudes de tutoriels en ligne :
-    - [[https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html][tutoriels officiels =pandas=]] dont [[https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html][10 minutes to =pandas=]],
+    - [[https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html][tutoriels officiels =pandas=]] dont [[https://pandas.pydata.org/pandas-docs/stable/getting_started/10min.html]["10 minutes to ~pandas~"]],
     - [[https://openclassrooms.com/fr/courses/4452741-decouvrez-les-librairies-python-pour-la-data-science/5558996-passez-de-numpy-a-pandas][Open Class Rooms]]
     - ...
 
@@ -226,11 +225,11 @@ Contrairement aux tableaux =numpy=, l'accès se fait d'abord par colonne puis pa
     #+END_SRC
 
 #+BEGIN_SRC latex
-  \begin{textblock}{}(2.75,8.7)
+  \begin{textblock}{}(2.75,8.95)
     \href{https://colab.research.google.com/github/xgarrido/master_python_teaching/blob/master/slides/04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/colab-badge.png}}
    \end{textblock}
 
-  \begin{textblock}{}(2.75,9.35)
+  \begin{textblock}{}(2.75,9.55)
     \href{https://mybinder.org/v2/gh/xgarrido/master_python_teaching/master?filepath=slides\%2F04_slide_pandas.ipynb}{\includegraphics[height=0.8em]{./figures/launch-binder.png}}
    \end{textblock}
 #+END_SRC

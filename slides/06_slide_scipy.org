@@ -156,7 +156,7 @@
 * *=scipy.interpolate=* : interpolation numérique
 ** Python
 :PROPERTIES:
-:BEAMER_COL: 0.6
+:BEAMER_COL: 0.61
 :END:
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
@@ -211,7 +211,7 @@
   #+BEGIN_SRC python
     In [1]: from scipy.integrate import quad
 
-    In [2]: val, abserr = quad(lambda x : np.exp(-x**2), -np.inf, +np.inf)
+    In [2]: val, abserr = quad(lambda x: np.exp(-x**2), -np.inf, +np.inf)
     In [3]: print(f"I = {val} +/- {abserr}")
     I = 1.7724538509055159 +/- 1.4202636780944923e-08
   #+END_SRC
@@ -529,7 +529,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
     \includegraphics<3>[width=1.1\linewidth]{figures/scipy_fft2.pdf}
   \end{center}
 #+END_SRC
-* *=scipy.ndimage=* : traitement d'images
+* COMMENT *=scipy.ndimage=* : traitement d'images
 ** Python
 :PROPERTIES:
 :BEAMER_COL: 0.6
@@ -702,7 +702,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 * *=scipy.optimize=* : ajustement d'un modèle/fonction à des données
 ** Python
 :PROPERTIES:
-:BEAMER_COL: 0.6
+:BEAMER_COL: 0.62
 :END:
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
@@ -801,7 +801,7 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
 * *=scipy.stats=* : distributions, fonctions & tests statistiques
 ** Python
 :PROPERTIES:
-:BEAMER_COL: 0.6
+:BEAMER_COL: 0.62
 :END:
 
 #+ATTR_LATEX: :options fontsize=\scriptsize
@@ -824,9 +824,21 @@ On pose $y=[\theta_1,\theta_2,p_{\theta_1},p_{\theta_2}]$
      ...:   ax.plot(x, stats.chi2(ndof).cdf(x), label=f"ndof = {ndof}")
      ...:   ax.axvline(ndof, ls="--")
      ...: ax.axhline(0.5, ls="--")
+#+END_SRC
 
-  In [5]: stats.chi2(22).cdf(26.86)
-  Out[5]: 0.7834078480256046
+#+BEAMER: \pause
+- Application à notre exemple/simulation
+
+#+BEAMER: \vskip-18pt
+#+ATTR_LATEX: :options fontsize=\scriptsize
+#+BEGIN_SRC python
+  In [5]: chi2 = np.sum((ysim - model(xsim, *popt))**2/dy**2)
+  In [6]: ndof = xsim.size - 3
+
+  In [7]: chi2, ndof
+  Out[7]: 26.86, 22
+  In [8]: stats.chi2(ndof).cdf(chi2)
+  Out[8]: 0.7834078480256046
 #+END_SRC
 
 ** Figure
