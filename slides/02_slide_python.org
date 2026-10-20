@@ -9,7 +9,7 @@
 
 - En plus des types fondamentaux, Python propose nativement un ensemble d'objets
   à accès séquentiel dont :
-  - les chaînes de caractère
+  - les chaînes de caractères
   - les listes & /tuples/
   - les dictionnaires
 
@@ -258,7 +258,7 @@ intégrées au langage Python
   #+BEGIN_SRC python
     In [1]: nom, prenom, age = "Van Rossum", "Guido", 64
     In [2]: print(f"Nom: {nom}, prénom: {prenom}, age: {age}")
-    
+
     Out[2]: 'Nom: Van Rossum, prénom: Guido, age: 64'
   #+END_SRC
 
@@ -503,7 +503,7 @@ intégrées au langage Python
     In [4]: tel["simspson", "bart"] = 8424
 
     In [5]: tel
-    Out[5]: 
+    Out[5]:
     {('simpson', 'homer'): 5752,
      ('simpson', 'lisa'): 5578,
      ('simspson', 'bart'): 8424}
