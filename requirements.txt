@@ -1,0 +1,7 @@
+ipykernel
+nbconvert
+git+https://github.com/xgarrido/nbconvert-templates.git
+pandas
+plotly==6.0.1
+seaborn
+scipy
