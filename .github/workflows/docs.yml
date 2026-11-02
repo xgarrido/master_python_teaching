@@ -29,7 +29,7 @@ jobs:
       - name: Install deps via zshrc
         run: |
           which zsh
-          wget https://raw.githubusercontent.com/xgarrido/zsh-dotfiles/master/dotfiles/zshrc ~/.zshrc
+          wget https://raw.githubusercontent.com/xgarrido/zsh-dotfiles/master/dotfiles/zshrc -O ~/.zshrc
           zsh -i -c "echo"
 
   #     - name: Build html
