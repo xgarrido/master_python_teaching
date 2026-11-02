@@ -24,6 +24,7 @@ jobs:
 
       - name: Install deps via zshrc
         run: |
+          which zsh
           wget https://raw.githubusercontent.com/xgarrido/zsh-dotfiles/master/dotfiles/zshrc ~/.zshr
           zsh -i -c "echo"
 
