@@ -32,24 +32,24 @@ jobs:
           wget https://raw.githubusercontent.com/xgarrido/zsh-dotfiles/master/dotfiles/zshrc -O ~/.zshrc
           zsh -i -c "echo"
 
-  #     - name: Build html
-  #       run: |
-  #         cd slides; make html
+      - name: Build html
+        run: |
+          make -C slides html
 
-  #     - name: Upload pages artifact
-  #       if: github.ref == 'refs/heads/master'
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #         path: html
+      - name: Upload pages artifact
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: html
 
-  # deploy:
-  #   if: github.ref == 'refs/heads/master'
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+  deploy:
+    if: github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
