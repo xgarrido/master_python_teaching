@@ -88,15 +88,15 @@
 
 #+BEAMER: \pause
 
-2) [@2] Dans un éditeur de texte (=emacs=, =vim=, =notepad++=) puis 
+2) [@2] Dans un éditeur de texte (=emacs=, =vim=, =notepad++=) puis
    #+BEGIN_SRC python
      @\prompt@ python mon_code.py
    #+END_SRC
-    
+
    ou directement dans l'interpréteur =ipython= en faisant
    #+BEGIN_SRC python
      @\prompt@ ipython
- 
+
     In [1]: %run mon_code.py
    #+END_SRC
 
@@ -152,7 +152,7 @@
 
 * Installation de =jupyter lab=
 
-- Sous Linux, l'installation est relativement simple 
+- Sous Linux, l'installation est relativement simple
   #+BEGIN_SRC shell-session
     @\prompt@ pip install --user jupyterlab
     @\prompt@ jupyter lab
@@ -218,7 +218,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
 Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-python3/?page=page_4#L4-G
 #+END_COMMENT
 
-* Type fondamentaux
+* Types fondamentaux
 
 #+ATTR_BEAMER: :overlay +-
 - La fonction *=type=* permet d'accéder au type d'une variable
@@ -237,7 +237,7 @@ Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-p
     Out[2]: float
   #+END_SRC
 
-* Type fondamentaux
+* Types fondamentaux
 
 #+ATTR_BEAMER: :overlay +-
 - *Nombre complexe*
@@ -257,15 +257,15 @@ Affectation multiples /cf./ cours http://python.developpez.com/cours/apprendre-p
 
   #+BEGIN_SRC python
     In [1]: j = 5
-   
+
     In [2]: 2 + 5*j
     Out[2]: 27
-   
+
     In [3]: 2 + 5j
     Out[3]: (2+5j)
   #+END_SRC
 
-* Type fondamentaux
+* Types fondamentaux
 
 - *Booléen*
   #+BEGIN_SRC python
@@ -324,7 +324,7 @@ http://nbviewer.jupyter.org/github/jrjohansson/scientific-python-lectures/blob/m
     In [4]: 3.0 // 2.0
     Out[4]: 1.0
 
-    In [5]: 3.0 % 2.0
+    In [5]: 3.0 % 2
     Out[5]: 1.0
   #+END_SRC
 
@@ -823,7 +823,7 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
      #+BEGIN_SRC shell-session
        @\prompt@ jupyter lab --port 8891 --no-browser
      #+END_SRC
-     puis ouvrir le lien dans un navigateur web 
+     puis ouvrir le lien dans un navigateur web
 
 ** COMMENT Conversion explicite
 
@@ -905,5 +905,3 @@ Fonctions internes à =ipython= : ces fonctions sont préfixées du caractère =
        cout << "test1 & test2 sont False" << endl;
      }
 #+END_SRC
-
-

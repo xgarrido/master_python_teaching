@@ -100,7 +100,7 @@ intégrées au langage Python
 
 #+BEAMER:\pause
 - L'ensemble de ces méthodes sont accessibles /via/ l'aide en ligne de =ipython= /i.e./
-  =help(str)= ou en usant de la complétion soit =reponse.<TAB>=
+  =help(str)= ou en utilisant la complétion soit =reponse.<TAB>=
 
 * Les chaînes de caractères
 #+BEAMER: \framesubtitle{Parcours \& sélection de chaînes}
