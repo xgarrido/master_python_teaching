@@ -973,8 +973,8 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 [fn:e0eb780c73d6562] les principales fonctions de =numpy= sont implémentées en C
 et en Fortran
 
-[fn:ea2b86f523276c9] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.01-Understanding-Data-Types.ipynb#Understanding-Data-Types-in-Python][discussion]]
+[fn:ea2b86f523276c9] pour plus de détails, /cf./ [[https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html][discussion]]
 
 [fn:1bc7c507a7609f02] =%timeit= est une commande /magique/ de =ipython=
 
-[fn:1c1516c060af0c15] pour plus de détails, /cf./ [[http://nbviewer.jupyter.org/github/jakevdp/PythonDataScienceHandbook/blob/master/notebooks/02.05-Computation-on-arrays-broadcasting.ipynb#Computation-on-Arrays:-Broadcasting][discussion]]
+[fn:1c1516c060af0c15] pour plus de détails, /cf./ [[https://jakevdp.github.io/PythonDataScienceHandbook/02.05-computation-on-arrays-broadcasting.html][discussion]]

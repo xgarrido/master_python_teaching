@@ -11,6 +11,8 @@ BATCH=$(EMACS) --batch --no-init-file						\
 
 files_org = $(filter-out slide_book.org, $(wildcard *.org))
 files_pdf = $(files_org:.org=.pdf)
+files_ipynb = $(wildcard *.ipynb)
+files_html = $(files_ipynb:.ipynb=.html)
 
 all: $(files_pdf)
 
@@ -20,6 +22,15 @@ all: $(files_pdf)
 #> /dev/null 2>&1
 # @rm -f ../*.sty
 
+%.html: %.ipynb
+	@echo "NOTICE: Exporting $< to html..."
+	@zsh -i -c "nbconvert $<"
+
+html: $(files_html)
+	@echo "NOTICE: Generating html site..."
+	@mkdir -p html
+	@cp *.html html/.
+	@cd html; ln -sf 00_slide_organisation.html index.html
 
 tar: $(files_pdf)
 	@echo "NOTICE: Compressing..."
@@ -31,4 +42,4 @@ tar: $(files_pdf)
 	@tar caf ../python_$(shell date +%Y).tar.gz ../python_$(shell date +%Y)
 
 clean:
-	@rm -rf	latex.d *.tex *.pdf *.fdb* *.vrb *.toc *.aux *.fls *.snm *.nav *.log *.out *.xdv *.pyg *~ _minted*
+	@rm -rf	latex.d *.tex *.pdf *.fdb* *.vrb *.toc *.aux *.fls *.snm *.nav *.log *.out *.xdv *.pyg *~ _minted* *.html html/
