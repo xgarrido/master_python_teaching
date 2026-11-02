@@ -1848,7 +1848,6 @@ Set =subtitle= font to =\scriptsize=
 Then define the custom beamer template
 #+BEGIN_SRC latex
   \newcommand{\insertprefixtitle}{}
-  \renewcommand{\insertinstitute}{}
   \newcommand{\insertgitstatus}{}
   \defbeamertemplate*{title page}{custom}[1][colsep=-4bp,
     rounded=true,shadow=\beamer@themerounded@shadow]{
@@ -1864,16 +1863,19 @@ Then define the custom beamer template
         \vskip0.5em{%
           \usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor%
         }
+        \fi
         \ifx\insertinstitute\@empty%
         \else%
         \vskip-0.35em{%
           \usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute%
         }
+        \fi
         \ifx\insertgitstatus\@empty%
         \else%
         \begin{textblock}{5}(10.75,15.5)
           \usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertgitstatus%
         \end{textblock}
+        \fi
       \end{flushright}
     \end{textblock}
     \begin{textblock}{14}(1,1)
