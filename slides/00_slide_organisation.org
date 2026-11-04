@@ -44,14 +44,15 @@
 
 * Programme du cours \faIcon{list-ol}
 
-- Bases de la programmation en Python (2 séances)
+- Bases de la programmation en Python (1 séance)
   - environnement Python : interpréteurs, IDE, /notebooks/
-  - type de données, bloc conditionnel, boucles =for=, /containers/
-  - fonctions, scripts & modules
+  - type de données, bloc conditionnel, boucles =for=
+  - */containers/, fonctions*
+  - scripts & modules, librairie standard
 
 #+BEAMER: \pause
 
-- *=numpy= : programmation orientée tableau* (1 séance)
+- *=numpy= : programmation orientée tableau* (1.5 séances)
   - gestion & manipulation données numériques
   - fonctions universelles (/ufunc/)
 
@@ -61,14 +62,15 @@
 
 #+BEAMER: \pause
 
-- *=pandas= : gestion de structure de données* (1 séance)
-  
+- *=pandas= : gestion de structure de données* (1.5 séances)
+
 - *=scipy= : bibliothèques scientifiques* (2 séances)
-  - _Algèbre linéaire_
-  - _Transformée de Fourier_
-  - _Optimisation & ajustement de fonction_
-  - _Outils statistiques & Générateurs aléatoires_
-  - _Interpolation, intégration numérique, traitement du signal..._
+  - Algèbre linéaire
+  - Interpolation, intégration numérique, traitement du signal...
+  - *Résolution d'équations différentielles ordinaires*
+  - Transformées de Fourier
+  - *Optimisation & ajustement de fonction*
+  - Outils statistiques & Générateurs aléatoires
 
 * Bibliographie \faIcon{book}
 
@@ -76,23 +78,23 @@
 - [[https://github.com/jakevdp/PythonDataScienceHandbook][*Python Data Science Handbook*]]
 - [[http://www.scipy-lectures.org/index.html][*Scipy Lectures Notes*]]
 - [[https://github.com/jrjohansson/scientific-python-lectures][*Scientific Python Lectures*]]
-  
+
 * Déroulement cours/TD \faIcon{laptop-code}
 
 - Cours $\lesssim$ 1 heure, lundi ou mercredi (amphi. A1 ou amphi A5) à partir de 15h45
 
-- TD ~ 1h30 
+- TD ~ 1h30
   - Groupe 1 : salle 305
   - Groupe 2 : salle 306
   - Groupe 3 : salle 305
-    
-- *Mardi 13 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
+
+- *Mardi 12 Janvier de 15h à 17h* : Examen *sur machine*, session anonyme mais accès à l'ensemble des
   ressources du cours (transparents, TD corrigés, annales)
 
 * Contacts \faIcon{address-book}
 
 - Jade Pasté [[mailto:jade.paste@universite-paris-saclay.fr][*jade.paste@universite-paris-saclay.fr*]]
-- Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]]  
+- Xavier Garrido, [[mailto:xavier.garrido@universite-paris-saclay.fr][*xavier.garrido@universite-paris-saclay.fr*]]
 
 * COMMENT Old stuff 
 ** Langage Python \faPython
@@ -165,4 +167,3 @@ enseignement, nous utiliserons _Python 3.7_
 #+BEGIN_CBOX
 _Ressources disponibles sur dokeos [[http://formation.u-psud.fr][http://formation.u-psud.fr]]_
 #+END_CBOX
-
