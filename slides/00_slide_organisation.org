@@ -48,7 +48,7 @@
   - environnement Python : interpréteurs, IDE, /notebooks/
   - type de données, bloc conditionnel, boucles =for=
   - */containers/, fonctions*
-  - scripts & modules, librairie standard
+  - scripts & modules, exceptions, librairie standard
 
 #+BEAMER: \pause
 
