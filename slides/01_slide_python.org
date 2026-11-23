@@ -142,6 +142,13 @@
   #+BEGIN_SRC shell-session
     @\prompt@ jupyter lab
   #+END_SRC
+
+- Vous pouvez également utiliser la plateforme Jupyter de Paris-Saclay
+
+  #+BEGIN_CENTER
+  https://mydocker.universite-paris-saclay.fr
+  #+END_CENTER
+
 * Annexes
 :PROPERTIES:
 :BEAMER_OPT: plain

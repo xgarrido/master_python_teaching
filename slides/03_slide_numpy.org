@@ -442,7 +442,7 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 * Opérations mathématiques
 
 - *Grâce à l'homogénéité des tableaux de =numpy=*, il est possible de réaliser des
-  opérations mathématiques 
+  opérations mathématiques
   #+BEGIN_SRC python
     In [1]: v = [1, 2, 3, 4]
     In [2]: v + 5
@@ -703,13 +703,14 @@ Dans la pratique, les valeurs d'un tableau sont rarement saisies une par une
 
 #+BEGIN_SRC latex
   \begin{align*}
-    z = f(x,y) =& \sin^{10} x + \cos(x\cdot y)\cdot\cos x\\
+    z = f(x,y) =& \sin^{10} x + \cos(xy)\cdot\cos x\\
     =&\sin^{10}\begin{bmatrix}
     x_0&\cdots
     \end{bmatrix}+\cos\left(\begin{bmatrix}
-        x_0&\cdots
-      \end{bmatrix}\cdot\begin{bmatrix}
-    y_0\\\vdots\end{bmatrix}\right)\cdot\cos\begin{bmatrix}
+        x_0y_0&x_1y_0&\cdots\\
+        x_1y_0&x_1y_1&\cdots\\
+        \vdots&\vdots&\ddots
+      \end{bmatrix}\right)\cdot\cos\begin{bmatrix}
         x_0&\cdots
       \end{bmatrix}
   \end{align*}
